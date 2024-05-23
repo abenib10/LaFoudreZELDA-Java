@@ -10,13 +10,13 @@ public abstract class Acteur {
     private Environnement environnement;
     private String id;
 
-    private int pv;
+    private IntegerProperty pv;
     private int vitesse = 10;
 
     public Acteur(Environnement e,int x,int y,int v,int pv){
         this.x=new SimpleIntegerProperty(x);
         this.y=new SimpleIntegerProperty(y);
-        this.pv=pv;
+        this.pv=new SimpleIntegerProperty(pv);
         this.id= String.valueOf(1);
         this.environnement = e;
     }
@@ -57,6 +57,9 @@ public abstract class Acteur {
                 public  void setY(int n){
                     this.y.setValue(n);
                 }
+
+                public IntegerProperty pvProperty(){return this.pv;}
+                public int getPv(){return this.pv.getValue();}
 
   }
 
