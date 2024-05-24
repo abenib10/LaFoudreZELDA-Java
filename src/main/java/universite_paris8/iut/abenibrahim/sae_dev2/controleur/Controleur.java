@@ -41,7 +41,7 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
-        remplirSpriteMap();
+        remplirMap();
         creerSpriteJoueur();
         creerSpriteEnnemi();
         initAnimation();
@@ -89,37 +89,32 @@ public class Controleur implements Initializable {
     }
 
 
-    public void remplirSpriteMap() {
+    public void remplirMap(){
         for (int i = 0; i < this.environnement.getMap().getTab().length; i++) {
             for (int j = 0; j < this.environnement.getMap().getTab()[i].length; j++) {
-                if (this.environnement.getMap().getTab()[i][j] == 1) {
-                    Image herbe = new Image("file:///home/etudiants/info/abenibrahim/Documents/BUT Info S2/SAE_DEV2/src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe.jpeg");
-                    ImageView herbeMap = new ImageView(herbe);
-                    herbeMap.setFitHeight(50);
-                    herbeMap.setFitWidth(50);
-                    this.tilePaneMap.getChildren().add(herbeMap);
-                } else if (this.environnement.getMap().getTab()[i][j] == 0){
-                    Image arbre = new Image("file:///home/etudiants/info/abenibrahim/Documents/BUT Info S2/SAE_DEV2/src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/arbre.jpeg");
-                    ImageView arbreCollision = new ImageView(arbre);
-                    arbreCollision.setFitHeight(50);
-                    arbreCollision.setFitWidth(50);
-                    this.tilePaneMap.getChildren().add(arbreCollision);
-                }
-                else if (this.environnement.getMap().getTab()[i][j] == 2){
-                    Image mur = new Image("file:///home/etudiants/info/abenibrahim/Documents/BUT Info S2/SAE_DEV2/src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg");
-                    ImageView murCollision = new ImageView(mur);
-                    murCollision.setFitHeight(50);
-                    murCollision.setFitWidth(50);
-                    this.tilePaneMap.getChildren().add(murCollision);
+                switch (this.environnement.getMap().getTab()[i][j]) {
+                    case 0 -> {
+                        Image mur = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg");
+                        ImageView murCollision = new ImageView(mur);
+                        murCollision.setFitHeight(50);
+                        murCollision.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(murCollision);
+                    }
+                    case 1 -> {
+                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe2d.png");
+                        ImageView herbeMap = new ImageView(herbe);
+                        herbeMap.setFitHeight(50);
+                        herbeMap.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(herbeMap);
+                    }
                 }
             }
         }
-
     }
 
 
     public void creerSpriteJoueur(){
-        Image g = new Image("file:///home/etudiants/info/abenibrahim/Téléchargements/2347000-middle-removebg-preview.png");
+        Image g = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/2347000-middle-removebg-preview.png");
         ImageView gSprite = new ImageView(g);
         this.PaneMap.getChildren().add(gSprite);
         ControleurTouche deplacementFleche = new ControleurTouche(this.environnement);
