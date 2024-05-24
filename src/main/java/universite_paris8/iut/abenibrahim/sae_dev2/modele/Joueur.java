@@ -5,11 +5,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Joueur extends Acteur{
 
-    public Joueur(Environnement e,int x,int y,int v, int pv){
-        super(e,x,y,v,pv);
+    public Joueur(Environnement e,int x,int y,int v, int pv,Arme arme){
+        super(e,x,y,v,pv,arme);
     }
 
-
+    public void Attaquer(Acteur a){
+        if(a instanceof Ennemie){
+            a.setPv(getPv()-arme.getPointAttaque());
+        }
+    }
 
 
 
