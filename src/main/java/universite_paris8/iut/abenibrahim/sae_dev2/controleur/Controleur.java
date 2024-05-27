@@ -2,18 +2,27 @@ package universite_paris8.iut.abenibrahim.sae_dev2.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
+import java.awt.*;
+import java.awt.event.KeyListener;
+
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Map;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,12 +41,13 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
-        remplirSpriteMap();
+        remplirMap();
         creerSpriteJoueur();
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> updatePvJoueurImage());
+
     }
 
     private void initAnimation() {
@@ -63,7 +73,6 @@ public class Controleur implements Initializable {
                             environnement.getEnnemi().setX(newX);
                             environnement.getEnnemi().setY(newY);
                             environnement.getEnnemi().Attaquer();
-                            System.out.println("pv : " + environnement.getGuts().getPv());
                         }
                     }
                     temps++;
@@ -73,34 +82,40 @@ public class Controleur implements Initializable {
     }
 
 
-    public void remplirSpriteMap() {
+    public void remplirMap(){
         for (int i = 0; i < this.environnement.getMap().getTab().length; i++) {
             for (int j = 0; j < this.environnement.getMap().getTab()[i].length; j++) {
-                if (this.environnement.getMap().getTab()[i][j] == 1) {
-                    Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe.jpeg");
-                    ImageView herbeMap = new ImageView(herbe);
-                    herbeMap.setFitHeight(50);
-                    herbeMap.setFitWidth(50);
-                    this.tilePaneMap.getChildren().add(herbeMap);
-                }
-                else if (this.environnement.getMap().getTab()[i][j] == 2){
-                    Image mur = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg");
-                    ImageView murCollision = new ImageView(mur);
-                    murCollision.setFitHeight(50);
-                    murCollision.setFitWidth(50);
-                    this.tilePaneMap.getChildren().add(murCollision);
+                switch (this.environnement.getMap().getTab()[i][j]) {
+                    case 0 -> {
+                        Image mur = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg");
+                        ImageView murCollision = new ImageView(mur);
+                        murCollision.setFitHeight(50);
+                        murCollision.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(murCollision);
+                    }
+                    case 1 -> {
+                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe2d.png");
+                        ImageView herbeMap = new ImageView(herbe);
+                        herbeMap.setFitHeight(50);
+                        herbeMap.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(herbeMap);
+                    }
+                    case 2 -> {
+                        Image i1 = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/3.png");
+                        ImageView i1Map = new ImageView(i1);
+                        i1Map.setFitHeight(50);
+                        i1Map.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(i1Map);
+                    }
                 }
             }
         }
-
     }
 
 
     public void creerSpriteJoueur(){
         Image g = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/2347000-middle-removebg-preview.png");
         ImageView gSprite = new ImageView(g);
-        gSprite.setFitWidth(50);
-        gSprite.setFitHeight(50);
         this.PaneMap.getChildren().add(gSprite);
         ControleurTouche deplacementFleche = new ControleurTouche(this.environnement);
         PaneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
@@ -115,7 +130,6 @@ public class Controleur implements Initializable {
         a.translateXProperty().bind(environnement.getEnnemi().XProprety());
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
     }
-
     private void updatePvJoueurImage() {
         ImageView pvImageView = new ImageView();
         this.PaneMap.getChildren().add(pvImageView);
