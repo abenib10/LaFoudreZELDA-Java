@@ -63,8 +63,8 @@ public class Environnement {
     }
 
     public boolean verifierCollisions(int x, int y) {
-        for (int i = x; i <= x + 25; i += 5) {
-            for (int j = y; j <= y + 25; j += 5) {
+        for (int i = x; i <= x + 30; i += 5) {
+            for (int j = y; j <= y + 30; j += 5) {
                 if (map.getTab()[j / 50][i / 50] == 0) {
                     return false;
                 }

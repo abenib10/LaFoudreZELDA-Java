@@ -35,6 +35,8 @@ public class Controleur implements Initializable {
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
+    static private ImageView gSprite;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -113,13 +115,21 @@ public class Controleur implements Initializable {
         }
     }
 
+    static public void setGSprite(Image i){
+        Controleur.gSprite.setImage(i);
+
+    }
 
     public void creerSpriteJoueur(){
-        Image g = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/2347000-middle-removebg-preview.png");
-        ImageView gSprite = new ImageView(g);
-        this.PaneMap.getChildren().add(gSprite);
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement);
+        Image g = new Image(ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm());
+        gSprite = new ImageView(g);
+        gSprite.setFitHeight(50);
+        gSprite.setFitWidth(50);
+        PaneMap.getChildren().add(gSprite);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement,gSprite);
+        deplacementFleche.Actualiser(this);
         PaneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        gSprite = deplacementFleche.getImageView();
         gSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
         gSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());
     }

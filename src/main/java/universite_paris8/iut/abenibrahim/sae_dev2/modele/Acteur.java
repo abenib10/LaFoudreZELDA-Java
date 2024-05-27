@@ -36,8 +36,8 @@ public abstract class Acteur {
 
                     if ( this.environnement.dansTerrain(xTmp,yTmp) && this.environnement.verifierCollisions(xTmp,yTmp))
                     {
-                        setX(getX() + direction.getX() * vitesse);
-                        setY(getY() + direction.getY() * vitesse);
+                        setX(getX()  + direction.getX() * vitesse);
+                        setY(getY()  + direction.getY() * vitesse);
                     }
                 }
 

@@ -10,4 +10,6 @@ module universite_paris8.iut.abenibrahim.sae_dev2 {
     exports universite_paris8.iut.abenibrahim.sae_dev2.controleur;
     opens universite_paris8.iut.abenibrahim.sae_dev2.controleur to javafx.fxml;
     exports universite_paris8.iut.abenibrahim.sae_dev2;
+    exports universite_paris8.iut.abenibrahim.sae_dev2.vue;
+    opens universite_paris8.iut.abenibrahim.sae_dev2.vue to javafx.fxml;
 }
