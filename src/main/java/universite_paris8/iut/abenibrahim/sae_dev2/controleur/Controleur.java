@@ -107,6 +107,13 @@ public class Controleur implements Initializable {
                         herbeMap.setFitWidth(50);
                         this.tilePaneMap.getChildren().add(herbeMap);
                     }
+                    case 2 -> {
+                        Image i1 = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/3.png");
+                        ImageView i1Map = new ImageView(i1);
+                        i1Map.setFitHeight(50);
+                        i1Map.setFitWidth(50);
+                        this.tilePaneMap.getChildren().add(i1Map);
+                    }
                 }
             }
         }
