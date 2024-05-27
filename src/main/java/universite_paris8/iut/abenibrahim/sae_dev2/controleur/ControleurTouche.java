@@ -2,30 +2,53 @@ package universite_paris8.iut.abenibrahim.sae_dev2.controleur;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.AnimatedSprite;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-public class ControleurTouche implements EventHandler<KeyEvent> {
-    private String[] framesGauche = {"boy_left_1.png", "boy_left_2.png"};
-    private String[] framesDroite = {"boy_right_1.png", "boy_right_2.png"};
-    private String[] framesHaut = {"boy_up_1.png", "boy_up_2.png"};
-    private String[] framesBas = {"boy_down_1.png", "boy_down_2.png"};
-
+public class ControleurTouche  extends AnimatedSprite implements EventHandler<KeyEvent>{
+    static private final  String[] framesGauche = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_1.png").toExternalForm(),ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_2.png").toExternalForm()};
+    static private final String[] framesDroite = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_2.png").toExternalForm()};
+    static private final String[] framesHaut = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_2.png").toExternalForm()};
+    static private final String[] framesBas = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_down_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_down_2.png").toExternalForm()};
+    public Controleur ct;
     //chemin des images differentes frame
 
-    private void definirFrames(String[] frames) {
-        chargerImages(frames);
-        nombreFrames = frames.length;
-        frameActuel = 0;
+    public void mettreAJour() {
+        if (compteurDelaiFrame >= delaiFrame) {
+            frameActuel = (frameActuel + 1) % nombreFrames;
+            //+1 avoir la prohaine image
+            //% Quand on est a la fin dutableau revenir au debut
+            imageView.setImage(images[frameActuel]);
+            Controleur.setGSprite(images[frameActuel]);
+
+            compteurDelaiFrame = 0;
+        } else {
+            compteurDelaiFrame++;
+            System.out.println("AAAA");
+            //compte le nb de fois ou on appuie sur la flèche
+        }
     }
 
-    private Environnement e;
+    private void definirFrames(String[] frames) {
 
-    public ControleurTouche(Environnement e){
+        chargerImage(frames);
+        nombreFrames = frames.length;
+        mettreAJour();
+        //ct.setImageJoueur(imageView);
+        //rajoute imageview mais mtn on veux modifier l'image
+    }
+    private Environnement e;
+    public ControleurTouche(Environnement e, ImageView v){
+        super(e.getGuts().getX(),e.getGuts().getY(),framesDroite,0);
+        imageView = v;
+        frameActuel = 0;
        this.e=e;
     }
+
 
     @Override
     public void handle(KeyEvent event)
@@ -44,24 +67,29 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
         {
             direction = Direction.SUD;
             definirFrames(framesBas);
-
         }
         else if (k == KeyCode.LEFT)
         {
             direction = Direction.OUEST;
             definirFrames(framesGauche);
-
-        }
+            }
         else  if (k == KeyCode.RIGHT)
         {
+            System.out.println("Image Path: " + imageView.getImage().getUrl());
             direction = Direction.EST;
             definirFrames(framesDroite);
+            System.out.println("Image Path: " + imageView.getImage().getUrl());
 
         }
 
         if (direction != null)
             this.e.getGuts().seDeplace(direction);
     }
+
+    public void Actualiser(Controleur c){
+        this.ct = c;
+    }
+    //        this.ct = c.PaneMap.getChildren().add(imageView);
     /*
     public String[]getFramesGauche(){
         return this.framesGauche;

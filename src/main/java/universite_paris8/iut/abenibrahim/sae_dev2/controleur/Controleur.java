@@ -24,6 +24,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Map;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,10 +32,11 @@ public class Controleur implements Initializable {
     @FXML
     private Pane PaneMap;
     @FXML
-    private TilePane tilePaneMap;
-    private Environnement environnement;
-    private Timeline gameLoop;
-    private int temps;
+    protected TilePane tilePaneMap;
+    protected Environnement environnement;
+    protected Timeline gameLoop;
+    protected int temps;
+    static private ImageView gSprite;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -46,6 +48,10 @@ public class Controleur implements Initializable {
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
+    }
+    static public void setGSprite(Image i){
+        Controleur.gSprite.setImage(i);
+
     }
 
     private void initAnimation() {
@@ -119,13 +125,27 @@ public class Controleur implements Initializable {
 
 
     public void creerSpriteJoueur(){
-        Image g = new Image("file:///home/etudiants/info/abenibrahim/Téléchargements/2347000-middle-removebg-preview.png");
-        ImageView gSprite = new ImageView(g);
-        this.PaneMap.getChildren().add(gSprite);
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement);
+
+        Image g = new Image(ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm());
+
+        gSprite = new ImageView(g);
+        gSprite.setFitHeight(50);
+        gSprite.setFitWidth(50);
+
+       PaneMap.getChildren().add(gSprite);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement,gSprite);
+        deplacementFleche.Actualiser(this);
+        //System.out.println("Image 2: " + gSprite.getImage().getUrl());
         PaneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        gSprite = deplacementFleche.getImageView();
+        //System.out.println("Image 2: " + gSprite.getImage().getUrl());
         gSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
         gSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());
+
+
+
+
+
     }
 
     public void creerSpriteEnnemi(){
