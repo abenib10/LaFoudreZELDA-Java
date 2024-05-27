@@ -6,20 +6,26 @@ import javafx.collections.ObservableList;
 public class Environnement {
 
     private final int largeur = Constants.largeurMax;
+    private final int pv = Constants.pv;
+    private final int x=Constants.positionX;
+    private final int y =Constants.positionY;
+    private final int vitesse = Constants.vitesse;
 
     private Map map;
+    private Arme arme;
 
     private ObservableList<Acteur> acteurs;
 
     private Joueur guts;
-    private Joueur ennemi;
+    private Ennemi ennemi;
 
     public Environnement() {
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
-        this.guts = new Joueur(this,375, 375, 10, 10);
-        this.ennemi = new Joueur(this,375,375,10,10);
-
+        this.guts = new Joueur(this,x, y, vitesse, pv);
+        this.ennemi = new Ennemi(this,x,y,vitesse,pv);
+        acteurs.add(guts);
+        acteurs.add(ennemi);
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -30,7 +36,7 @@ public class Environnement {
         return map;
     }
 
-    public Joueur getEnnemi() {
+    public Ennemi getEnnemi() {
         return ennemi;
     }
 

@@ -46,6 +46,8 @@ public class Controleur implements Initializable {
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
+        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> updatePvJoueurImage());
+
     }
 
     private void initAnimation() {
@@ -63,24 +65,16 @@ public class Controleur implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-                    else if (temps%5==0){
+                    else if (temps%20==0){
                         System.out.println("un tour");
                         int newX = (int) (environnement.getEnnemi().getX()+ Math.random()*5);
                         int newY = (int) (environnement.getEnnemi().getY()+ Math.random()*5);
                         if (environnement.dansTerrain(newX,newY)){
                             environnement.getEnnemi().setX(newX);
                             environnement.getEnnemi().setY(newY);
-                        }
-                    }
-                    else if (temps%7==0){
-                        System.out.println("un tour");
-                        int newX = (int) (environnement.getEnnemi().getX()-1);
-                        int newY = (int) (environnement.getEnnemi().getY()-1);
-                        if (environnement.dansTerrain(newX,newY)){
-                            environnement.getEnnemi().setX(newX);
-                            environnement.getEnnemi().setY(newY);
-                        }
+                            environnement.getEnnemi().Attaquer();
 
+                        }
                     }
                     temps++;
                 })
@@ -136,5 +130,23 @@ public class Controleur implements Initializable {
         this.PaneMap.getChildren().add(a);
         a.translateXProperty().bind(environnement.getEnnemi().XProprety());
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
+    }
+
+    private void updatePvJoueurImage() {
+        ImageView pvImageView = new ImageView();
+        this.PaneMap.getChildren().add(pvImageView);
+        pvImageView.setFitHeight(50);
+        pvImageView.setFitWidth(150);
+        int pv = environnement.getGuts().getPv();
+        if (pv > 42) {
+            // Charger l'image "pleine vie"
+            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/pleinevie-removebg-preview.png"));
+        } else if (pv > 28) {
+            // Charger l'image "vie moyenne"
+            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/viemoyenne-removebg-preview.png"));
+        } else {
+            // Charger l'image "faible vie"
+            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/faiblevie-removebg-preview.png"));
+        }
     }
 }
