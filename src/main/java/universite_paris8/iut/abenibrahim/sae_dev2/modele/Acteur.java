@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Acteur {
     private IntegerProperty x,y;
-    protected Arme arme;
 
     Environnement environnement;
     private String id;
@@ -20,7 +19,6 @@ public abstract class Acteur {
         this.pv=new SimpleIntegerProperty(pv);
         this.id= String.valueOf(1);
         this.environnement = e;
-        this.arme = new Arme(10);
     }
 
     public String getId() {

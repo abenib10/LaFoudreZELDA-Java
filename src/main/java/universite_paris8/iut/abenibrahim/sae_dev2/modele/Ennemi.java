@@ -1,9 +1,11 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 public class Ennemi extends Acteur{
-
+    private Arme Epée;
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
+        this.Epée=new Arme(20);
+        this.environnement.ajouterArme(Epée);
     }
     public void Attaquer(){
        // Positions du joueur et de l'ennemi
@@ -26,7 +28,7 @@ public class Ennemi extends Acteur{
 // Vérifier si l'ennemi est à portée d'attaque
         if (distance <= distanceAttaque) {
             // Déclencher l'attaque de l'ennemi
-            environnement.getGuts().recoisDegat(this.arme.getPointAttaque());
+            environnement.getGuts().recoisDegat(this.Epée.getPointAttaque());
             // Autres actions liées à l'attaque (animation, son, etc.)
         }
     }

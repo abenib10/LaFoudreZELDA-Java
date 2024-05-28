@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Map;
@@ -45,6 +46,7 @@ public class Controleur implements Initializable {
         this.environnement=new Environnement();
         remplirMap();
         creerSpriteJoueur();
+        afficherArmes();
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
@@ -90,14 +92,14 @@ public class Controleur implements Initializable {
             for (int j = 0; j < this.environnement.getMap().getTab()[i].length; j++) {
                 switch (this.environnement.getMap().getTab()[i][j]) {
                     case 0 -> {
-                        Image mur = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg");
+                        Image mur = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/eau.png");
                         ImageView murCollision = new ImageView(mur);
                         murCollision.setFitHeight(50);
                         murCollision.setFitWidth(50);
                         this.tilePaneMap.getChildren().add(murCollision);
                     }
                     case 1 -> {
-                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe2d.png");
+                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe.png");
                         ImageView herbeMap = new ImageView(herbe);
                         herbeMap.setFitHeight(50);
                         herbeMap.setFitWidth(50);
@@ -157,6 +159,14 @@ public class Controleur implements Initializable {
         } else {
             // Charger l'image "faible vie"
             pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/faiblevie-removebg-preview.png"));
+        }
+    }
+    public void afficherArmes() {
+        for (Arme arme : this.environnement.getArmeMap()) {
+            ImageView imageView = arme.getImageView();
+            PaneMap.getChildren().add(imageView);
+            imageView.setTranslateX(arme.getX()); // Ajuster la position X
+            imageView.setTranslateY(arme.getY()); // Ajuster la position Y
         }
     }
 }

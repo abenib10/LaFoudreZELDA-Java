@@ -2,9 +2,12 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 
 public class Environnement {
-
+    private ArrayList<Arme> armeMap;
     private final int largeur = Constants.largeurMax;
     private final int pv = Constants.pv;
     private final int x=Constants.positionX;
@@ -12,7 +15,6 @@ public class Environnement {
     private final int vitesse = Constants.vitesse;
 
     private Map map;
-    private Arme arme;
 
     private ObservableList<Acteur> acteurs;
 
@@ -22,10 +24,18 @@ public class Environnement {
     public Environnement() {
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
+        this.armeMap = new ArrayList<>();
         this.guts = new Joueur(this,x, y, vitesse, pv);
         this.ennemi = new Ennemi(this,x,y,vitesse,pv);
         acteurs.add(guts);
         acteurs.add(ennemi);
+    }
+
+    public ArrayList<Arme> getArmeMap() {
+        return armeMap;
+    }
+    public void ajouterArme(Arme arme){
+        this.armeMap.add(arme);
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -73,6 +83,7 @@ public class Environnement {
 
         return true;
     }
+
 
 
 
