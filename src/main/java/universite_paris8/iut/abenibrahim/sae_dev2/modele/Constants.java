@@ -7,7 +7,7 @@ public class Constants {
 
     public static final int positionY=350;
 
-    public static final int pv=130;
+    public static final int pv=150;
 
     public static final int vitesse=10;
 }

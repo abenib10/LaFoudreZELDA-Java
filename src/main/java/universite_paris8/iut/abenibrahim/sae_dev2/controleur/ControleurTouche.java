@@ -27,32 +27,31 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
         this.e = e;
     }
 
-
     @Override
     public void handle(KeyEvent event) {
         KeyCode k = event.getCode();
         Direction direction = null;
-
-        if (k == KeyCode.UP) {
-            direction = Direction.NORD;
-            definirFrames(framesHaut);
-
+        switch (k){
+            case UP -> {
+                direction = Direction.NORD;
+                definirFrames(framesHaut);
+            }
+            case DOWN -> {
+                direction = Direction.SUD;
+                definirFrames(framesBas);
+            }
+            case LEFT -> {
+                direction = Direction.OUEST;
+                definirFrames(framesGauche);
+            }
+            case RIGHT -> {
+                direction = Direction.EST;
+                definirFrames(framesDroite);
+            }
         }
-        //
-        else if (k == KeyCode.DOWN) {
-            direction = Direction.SUD;
-            definirFrames(framesBas);
-        } else if (k == KeyCode.LEFT) {
-            direction = Direction.OUEST;
-            definirFrames(framesGauche);
-        } else if (k == KeyCode.RIGHT) {
-            direction = Direction.EST;
-            definirFrames(framesDroite);
-
-        }
-
         if (direction != null)
             this.e.getGuts().seDeplace(direction);
+
     }
 
     public void mettreAJour() {
