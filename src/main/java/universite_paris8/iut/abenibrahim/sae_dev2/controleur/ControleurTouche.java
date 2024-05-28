@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
@@ -19,12 +20,14 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
 
 
     private Environnement e;
+    private GridPane inventairePane;
 
-    public ControleurTouche(Environnement e, ImageView v) {
+    public ControleurTouche(Environnement e, ImageView v,GridPane inventairePane) {
         super(e.getGuts().getX(), e.getGuts().getY(), framesDroite, 0);
         imageView = v;
         frameActuel = 0;
         this.e = e;
+        this.inventairePane = inventairePane;
     }
 
 
@@ -32,6 +35,11 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
     public void handle(KeyEvent event) {
         KeyCode k = event.getCode();
         Direction direction = null;
+
+        if (event.getCode() == KeyCode.W) {
+            System.out.println("w");// Remplacez "I" par la touche désirée
+            inventairePane.setVisible(!inventairePane.isVisible());
+        }
 
         if (k == KeyCode.UP) {
             direction = Direction.NORD;

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -14,7 +15,9 @@ import java.awt.event.KeyListener;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -33,10 +36,16 @@ public class Controleur implements Initializable {
     private Pane PaneMap;
     @FXML
     private TilePane tilePaneMap;
+    @FXML
+    private GridPane inventairePane;
+
+    @FXML
+    private StackPane stackPaneParent;
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
     static private ImageView gSprite;
+
 
 
     @Override
@@ -44,6 +53,7 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
+        stackPaneParent.setAlignment(Pos.CENTER);
         remplirMap();
         creerSpriteJoueur();
         afficherArmes();
@@ -105,13 +115,13 @@ public class Controleur implements Initializable {
                         herbeMap.setFitWidth(50);
                         this.tilePaneMap.getChildren().add(herbeMap);
                     }
-                    case 2 -> {
+                   /* case 2 -> {
                         Image i1 = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/3.png");
                         ImageView i1Map = new ImageView(i1);
                         i1Map.setFitHeight(50);
                         i1Map.setFitWidth(50);
                         this.tilePaneMap.getChildren().add(i1Map);
-                    }
+                    }*/
                 }
             }
         }
@@ -128,13 +138,15 @@ public class Controleur implements Initializable {
         gSprite.setFitHeight(50);
         gSprite.setFitWidth(50);
         PaneMap.getChildren().add(gSprite);
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement,gSprite);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement,gSprite,inventairePane);
         deplacementFleche.Actualiser(this);
         PaneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
         gSprite = deplacementFleche.getImageView();
         gSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
         gSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());
     }
+
+
 
     public void creerSpriteEnnemi(){
         Circle a = new Circle(10);

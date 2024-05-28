@@ -13,4 +13,9 @@
 <?import javafx.scene.image.ImageView?>
 <Pane fx:id="PaneMap" focusTraversable="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur">
     <TilePane fx:id="tilePaneMap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750" prefWidth="750" />
+    <StackPane fx:id="stackPaneParent">
+        <GridPane fx:id="inventairePane" visible="false">
+            <Label text="Inventaire" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        </GridPane>
+    </StackPane>
 </Pane>
