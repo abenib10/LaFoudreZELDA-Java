@@ -7,10 +7,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.inventaireObjet;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import javafx.scene.control.ListView;
+
+
 public class ControleurTouche  extends AnimatedSprite implements EventHandler<KeyEvent> {
     static private final String[] framesGauche = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_2.png").toExternalForm()};
     static private final String[] framesDroite = {ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_2.png").toExternalForm()};
@@ -21,15 +26,16 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
 
 
     private Environnement e;
-    private FlowPane inventairePane;
+    private TilePane inventairePane;
 
-    public ControleurTouche(Environnement e, ImageView v,FlowPane inventairePane) {
+    public ControleurTouche(Environnement e, ImageView v, TilePane inventairePane) {
         super(e.getGuts().getX(), e.getGuts().getY(), framesDroite, 0);
         imageView = v;
         frameActuel = 0;
         this.e = e;
         this.inventairePane = inventairePane;
     }
+
 
 
     @Override
@@ -39,8 +45,14 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
 
         if (event.getCode() == KeyCode.W) {
             System.out.println("w");// Remplacez "I" par la touche désirée
-            inventairePane.setVisible(!inventairePane.isVisible());
             if (inventairePane.isVisible()) {
+                ct.masquerInventaire(); // Appel de la méthode afficherInventaire() du contrôleur
+            }
+        }
+        if (event.getCode() == KeyCode.I) {
+            System.out.println("i " + inventairePane.isVisible());// Remplacez "I" par la touche désirée
+            if (!inventairePane.isVisible()) {
+                System.out.println("cc");
                 ct.afficherInventaire(); // Appel de la méthode afficherInventaire() du contrôleur
             }
         }

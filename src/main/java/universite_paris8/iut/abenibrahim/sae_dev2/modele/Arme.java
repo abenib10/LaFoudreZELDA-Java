@@ -4,18 +4,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Arme {
-        protected int attaque;
-        private int x;
-        private int y;
+    protected int attaque;
+    private int x;
+    private int y;
 
-        public Arme(int a){
-            this.attaque=a;
-            this.x=350;
-            this.y=350;
-        }
-        public int getPointAttaque() {
-            return attaque;
-        }
+    public Arme(int a){
+        this.attaque=a;
+        this.x=350;
+        this.y=350;
+    }
+    public int getPointAttaque() {
+        return attaque;
+    }
 
     public void setAttaque(int attaque) {
         this.attaque = attaque;

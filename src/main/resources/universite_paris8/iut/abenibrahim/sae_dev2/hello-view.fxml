@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
 
 <?import javafx.scene.image.ImageView?>
 <Pane fx:id="PaneMap"  focusTraversable="true" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur">
     <TilePane fx:id="tilePaneMap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750" prefWidth="750" />
-    <StackPane fx:id="stackPaneParent" alignment="CENTER" prefWidth="800" prefHeight="600">
-        <VBox alignment="CENTER" prefWidth="800" prefHeight="600" >
-            <FlowPane fx:id="inventairePane" visible="false" alignment="CENTER">
-            </FlowPane>
-        </VBox>
-    </StackPane>
+            <TilePane fx:id="inventairePane"  visible="false">
+            </TilePane>
 </Pane>

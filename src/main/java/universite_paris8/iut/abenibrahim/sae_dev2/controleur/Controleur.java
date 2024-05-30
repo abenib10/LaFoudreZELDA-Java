@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
@@ -31,7 +34,7 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneMap;
     @FXML
-    private FlowPane inventairePane;
+    private TilePane inventairePane;
 
     @FXML
     private StackPane stackPaneParent;
@@ -47,18 +50,13 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
-        stackPaneParent.setAlignment(Pos.CENTER);
-        Background background = new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY));
-        inventairePane.setBackground(background);
-        inventairePane.setStyle("-fx-max-width: 300; -fx-max-height: 200;");
         remplirMap();
         creerSpriteJoueur();
+        ajouterArmeInitiale();
         afficherArmes();
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
-       // environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> updatePvJoueurImage());
-
     }
 
     private void initAnimation() {
@@ -112,13 +110,6 @@ public class Controleur implements Initializable {
                         herbeMap.setFitWidth(50);
                         this.tilePaneMap.getChildren().add(herbeMap);
                     }
-                   /* case 2 -> {
-                        Image i1 = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/3.png");
-                        ImageView i1Map = new ImageView(i1);
-                        i1Map.setFitHeight(50);
-                        i1Map.setFitWidth(50);
-                        this.tilePaneMap.getChildren().add(i1Map);
-                    }*/
                 }
             }
         }
@@ -135,9 +126,18 @@ public class Controleur implements Initializable {
         gSprite.setFitHeight(50);
         gSprite.setFitWidth(50);
         PaneMap.getChildren().add(gSprite);
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement,gSprite,inventairePane);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement, gSprite, inventairePane);
         deplacementFleche.Actualiser(this);
-        PaneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        Scene scene = PaneMap.getScene();
+        if (scene != null) {
+            ((Scene) scene).addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        } else {
+            PaneMap.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+                }
+            });
+        }
         gSprite = deplacementFleche.getImageView();
         gSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
         gSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());
@@ -153,23 +153,6 @@ public class Controleur implements Initializable {
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
     }
 
-    /*private void updatePvJoueurImage() {
-        ImageView pvImageView = new ImageView();
-        this.PaneMap.getChildren().add(pvImageView);
-        pvImageView.setFitHeight(50);
-        pvImageView.setFitWidth(150);
-        int pv = environnement.getGuts().getPv();
-        if (pv > 42) {
-            // Charger l'image "pleine vie"
-            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/pleinevie-removebg-preview.png"));
-        } else if (pv > 28) {
-            // Charger l'image "vie moyenne"
-            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/viemoyenne-removebg-preview.png"));
-        } else {
-            // Charger l'image "faible vie"
-            pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/faiblevie-removebg-preview.png"));
-        }
-    }*/
     public void afficherArmes() {
         for (Arme arme : this.environnement.getArmeMap()) {
             ImageView imageView = arme.getImageView();
@@ -178,14 +161,44 @@ public class Controleur implements Initializable {
             imageView.setTranslateY(arme.getY()); // Ajuster la position Y
         }
     }
-    void afficherInventaire() {
-        inventairePane.getChildren().clear();
-        for (inventaireObjet item : environnement.getInventaire()) {
+    void  afficherInventaire() {
+        inventairePane.setVisible(true); // Rend le ListView inventairePane visible
+        System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
+        // Boucle à travers la liste des armes dans l'inventaire du joueur
+        for (inventaireObjet item : environnement.getGuts().getListeArme()) {
+            System.out.println("image");
             ImageView imageView = new ImageView(item.getImage());
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            Border border = new Border(new BorderStroke(
+                    Color.BLACK, // Couleur de la bordure
+                    BorderStrokeStyle.SOLID, // Style de la bordure
+                    CornerRadii.EMPTY, // Coins arrondis (ici, aucun)
+                    new BorderWidths(2) // Largeur de la bordure (2 pixels)
+            ));
 
-            inventairePane.getChildren().add(imageView);
+// Appliquer la bordure à l'ImageView
+            imageView.setStyle("-fx-border: " + border.toString());
+            System.out.println(imageView.getImage().getUrl());// Crée une ImageView avec l'image de l'arme
+            imageView.setFitWidth(50); // Définit la largeur de l'ImageView à 50 pixels
+            imageView.setFitHeight(50); // Définit la hauteur de l'ImageView à 50 pixels
+           inventairePane.getChildren().add(imageView);
         }
+
+        PaneMap.setVisible(false); // Masque le Pane contenant la carte du jeu
+        tilePaneMap.setVisible(false); // Masque le TilePane contenant la carte du jeu
+        // Masquer/afficher d'autres éléments si nécessaire
     }
+
+    void masquerInventaire() {
+        inventairePane.setVisible(false); // Masque le ListView inventairePane
+        PaneMap.setVisible(true); // Affiche le Pane contenant la carte du jeu
+        tilePaneMap.setVisible(true); // Affiche le TilePane contenant la carte du jeu
+        // Afficher/masquer d'autres éléments si nécessaire
+    }
+    private void ajouterArmeInitiale() {
+        Image imageArme = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
+        Arme nouvelleArme = new Arme(10);
+        inventaireObjet objet = new inventaireObjet(imageArme,nouvelleArme);
+        environnement.getGuts().getListeArme().add(objet);
+    }
+
 }
