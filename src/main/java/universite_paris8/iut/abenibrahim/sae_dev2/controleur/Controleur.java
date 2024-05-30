@@ -5,28 +5,22 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
-import java.awt.*;
 import java.awt.event.KeyListener;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Map;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +31,7 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneMap;
     @FXML
-    private GridPane inventairePane;
+    private FlowPane inventairePane;
 
     @FXML
     private StackPane stackPaneParent;
@@ -54,13 +48,16 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
         stackPaneParent.setAlignment(Pos.CENTER);
+        Background background = new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY));
+        inventairePane.setBackground(background);
+        inventairePane.setStyle("-fx-max-width: 300; -fx-max-height: 200;");
         remplirMap();
         creerSpriteJoueur();
         afficherArmes();
         creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
-        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> updatePvJoueurImage());
+       // environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> updatePvJoueurImage());
 
     }
 
@@ -156,7 +153,7 @@ public class Controleur implements Initializable {
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
     }
 
-    private void updatePvJoueurImage() {
+    /*private void updatePvJoueurImage() {
         ImageView pvImageView = new ImageView();
         this.PaneMap.getChildren().add(pvImageView);
         pvImageView.setFitHeight(50);
@@ -172,13 +169,23 @@ public class Controleur implements Initializable {
             // Charger l'image "faible vie"
             pvImageView.setImage(new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/faiblevie-removebg-preview.png"));
         }
-    }
+    }*/
     public void afficherArmes() {
         for (Arme arme : this.environnement.getArmeMap()) {
             ImageView imageView = arme.getImageView();
             PaneMap.getChildren().add(imageView);
             imageView.setTranslateX(arme.getX()); // Ajuster la position X
             imageView.setTranslateY(arme.getY()); // Ajuster la position Y
+        }
+    }
+    void afficherInventaire() {
+        inventairePane.getChildren().clear();
+        for (inventaireObjet item : environnement.getInventaire()) {
+            ImageView imageView = new ImageView(item.getImage());
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+
+            inventairePane.getChildren().add(imageView);
         }
     }
 }

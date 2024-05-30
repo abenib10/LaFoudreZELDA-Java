@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
@@ -20,9 +21,9 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
 
 
     private Environnement e;
-    private GridPane inventairePane;
+    private FlowPane inventairePane;
 
-    public ControleurTouche(Environnement e, ImageView v,GridPane inventairePane) {
+    public ControleurTouche(Environnement e, ImageView v,FlowPane inventairePane) {
         super(e.getGuts().getX(), e.getGuts().getY(), framesDroite, 0);
         imageView = v;
         frameActuel = 0;
@@ -39,6 +40,9 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
         if (event.getCode() == KeyCode.W) {
             System.out.println("w");// Remplacez "I" par la touche désirée
             inventairePane.setVisible(!inventairePane.isVisible());
+            if (inventairePane.isVisible()) {
+                ct.afficherInventaire(); // Appel de la méthode afficherInventaire() du contrôleur
+            }
         }
 
         if (k == KeyCode.UP) {
