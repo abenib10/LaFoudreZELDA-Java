@@ -14,14 +14,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
-import java.awt.event.KeyListener;
+
+
+
 
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 
@@ -35,9 +35,10 @@ public class Controleur implements Initializable {
     private TilePane tilePaneMap;
     @FXML
     private TilePane inventairePane;
-
     @FXML
-    private StackPane stackPaneParent;
+    private HBox slot1;
+    @FXML
+    private Label titre;
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
@@ -53,8 +54,8 @@ public class Controleur implements Initializable {
         remplirMap();
         creerSpriteJoueur();
         ajouterArmeInitiale();
-        afficherArmes();
-        creerSpriteEnnemi();
+        //afficherArmes();
+        //creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
     }
@@ -145,13 +146,13 @@ public class Controleur implements Initializable {
 
 
 
-    public void creerSpriteEnnemi(){
+   /* public void creerSpriteEnnemi(){
         Circle a = new Circle(10);
         a.setFill(Color.BLUEVIOLET);
         this.PaneMap.getChildren().add(a);
         a.translateXProperty().bind(environnement.getEnnemi().XProprety());
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
-    }
+    }*/
 
     public void afficherArmes() {
         for (Arme arme : this.environnement.getArmeMap()) {
@@ -163,35 +164,34 @@ public class Controleur implements Initializable {
     }
     void  afficherInventaire() {
         inventairePane.setVisible(true); // Rend le ListView inventairePane visible
+        slot1.getChildren().clear();
         System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
         // Boucle à travers la liste des armes dans l'inventaire du joueur
         for (inventaireObjet item : environnement.getGuts().getListeArme()) {
             System.out.println("image");
             ImageView imageView = new ImageView(item.getImage());
-            Border border = new Border(new BorderStroke(
-                    Color.BLACK, // Couleur de la bordure
-                    BorderStrokeStyle.SOLID, // Style de la bordure
-                    CornerRadii.EMPTY, // Coins arrondis (ici, aucun)
-                    new BorderWidths(2) // Largeur de la bordure (2 pixels)
-            ));
-
-// Appliquer la bordure à l'ImageView
-            imageView.setStyle("-fx-border: " + border.toString());
             System.out.println(imageView.getImage().getUrl());// Crée une ImageView avec l'image de l'arme
             imageView.setFitWidth(50); // Définit la largeur de l'ImageView à 50 pixels
             imageView.setFitHeight(50); // Définit la hauteur de l'ImageView à 50 pixels
-           inventairePane.getChildren().add(imageView);
+            slot1.getChildren().add(imageView);
         }
 
-        PaneMap.setVisible(false); // Masque le Pane contenant la carte du jeu
-        tilePaneMap.setVisible(false); // Masque le TilePane contenant la carte du jeu
+        PaneMap.setVisible(true); // Masque le Pane contenant la carte du jeu
+        gSprite.setVisible(false);
+        tilePaneMap.setVisible(true);
+        slot1.setVisible(true);
+        titre.setVisible(true);
         // Masquer/afficher d'autres éléments si nécessaire
     }
 
     void masquerInventaire() {
-        inventairePane.setVisible(false); // Masque le ListView inventairePane
+        inventairePane.setVisible(false);
+        slot1.setVisible(false);
+        titre.setVisible(false);
         PaneMap.setVisible(true); // Affiche le Pane contenant la carte du jeu
-        tilePaneMap.setVisible(true); // Affiche le TilePane contenant la carte du jeu
+        tilePaneMap.setVisible(true);
+        gSprite.setVisible(true);
+        // Affiche le TilePane contenant la carte du jeu
         // Afficher/masquer d'autres éléments si nécessaire
     }
     private void ajouterArmeInitiale() {
