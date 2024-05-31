@@ -40,6 +40,7 @@ public class Environnement {
         return ennemi;
     }
 
+
     public void ajouter(Acteur a) {
         acteurs.add(a);
     }
@@ -65,12 +66,13 @@ public class Environnement {
     public boolean verifierCollisions(int x, int y) {
         for (int i = x; i <= x + 30; i += 5) {
             for (int j = y; j <= y + 30; j += 5) {
-                if (map.getTab()[j / 50][i / 50] == 0) {
-                    return false;
+                switch (map.getTab()[j / 50][i / 50]){
+                    case 0, 2 -> {
+                        return false;
+                    }
                 }
             }
         }
-
         return true;
     }
 
