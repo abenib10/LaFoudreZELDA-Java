@@ -8,11 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.inventaireObjet;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import javafx.scene.control.ListView;
 
 
@@ -56,6 +53,13 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
                 ct.afficherInventaire(); // Appel de la méthode afficherInventaire() du contrôleur
             }
         }
+
+            if(event.getCode() == KeyCode.A){
+                Arme ramassee = e.getGuts().ramasserarme();
+                if (ramassee != null && ct != null) {
+                    ct.supprimerArmeDeLaCarte(ramassee);
+                }
+            }
 
         if (k == KeyCode.UP) {
             direction = Direction.NORD;

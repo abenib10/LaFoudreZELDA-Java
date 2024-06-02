@@ -7,9 +7,11 @@ public class Arme {
     protected int attaque;
     private int x;
     private int y;
+    private Image image;
 
     public Arme(int a){
         this.attaque=a;
+        this.image = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
         this.x=350;
         this.y=350;
     }
@@ -29,12 +31,8 @@ public class Arme {
         return x;
     }
 
-    public ImageView getImageView() {
-        Image image = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
-        return imageView;
+    public Image getImage() {
+        return image;
     }
 
 }

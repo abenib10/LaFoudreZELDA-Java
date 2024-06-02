@@ -28,6 +28,31 @@ public class Joueur extends Acteur{
         setPv(newPv);
     }
 
+    public Arme ramasserarme(){
+        int postionJoueurX, positionJoueurY, positionArmeX, positionArmeY;
+
+        int distanceRamassage = 40;
+        postionJoueurX = getX();
+        positionJoueurY = getY();
+        for (Arme arme : environnement.getArmeMap()) {
+             positionArmeX = arme.getX();
+             positionArmeY = arme.getY();
+
+             int distanceX = Math.abs(postionJoueurX - positionArmeX);
+             int distanceY = Math.abs(positionJoueurY - positionArmeY);
+             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+             if (distance <= distanceRamassage) {
+                ajouterArme(new inventaireObjet(arme.getImage(), arme));
+                environnement.getArmeMap().remove(arme);
+                return arme;
+             }
+        }
+        return null;
+
+
+    }
+
 
 
 }

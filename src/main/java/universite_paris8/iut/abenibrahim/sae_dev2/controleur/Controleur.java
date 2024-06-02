@@ -26,6 +26,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -43,6 +46,8 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private int temps;
     static private ImageView gSprite;
+    private List<Arme> armes = new ArrayList<>();
+    private List<ImageView> armeImages = new ArrayList<>();
 
 
 
@@ -53,8 +58,7 @@ public class Controleur implements Initializable {
         this.environnement=new Environnement();
         remplirMap();
         creerSpriteJoueur();
-        ajouterArmeInitiale();
-        //afficherArmes();
+        afficherArmes();
         //creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
@@ -156,10 +160,13 @@ public class Controleur implements Initializable {
 
     public void afficherArmes() {
         for (Arme arme : this.environnement.getArmeMap()) {
-            ImageView imageView = arme.getImageView();
-            PaneMap.getChildren().add(imageView);
+            Image image = arme.getImage(); // Obtenir l'image de l'arme
+            ImageView imageView = new ImageView(image); // Créer l'ImageView avec l'image
+            PaneMap.getChildren().add(imageView); // Ajouter l'ImageView au PaneMap
             imageView.setTranslateX(arme.getX()); // Ajuster la position X
             imageView.setTranslateY(arme.getY()); // Ajuster la position Y
+            armes.add(arme); // Ajouter l'arme à la liste
+            armeImages.add(imageView); // Ajouter l'ImageView à la liste
         }
     }
     void  afficherInventaire() {
@@ -181,7 +188,6 @@ public class Controleur implements Initializable {
         tilePaneMap.setVisible(true);
         slot1.setVisible(true);
         titre.setVisible(true);
-        // Masquer/afficher d'autres éléments si nécessaire
     }
 
     void masquerInventaire() {
@@ -194,11 +200,13 @@ public class Controleur implements Initializable {
         // Affiche le TilePane contenant la carte du jeu
         // Afficher/masquer d'autres éléments si nécessaire
     }
-    private void ajouterArmeInitiale() {
-        Image imageArme = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
-        Arme nouvelleArme = new Arme(10);
-        inventaireObjet objet = new inventaireObjet(imageArme,nouvelleArme);
-        environnement.getGuts().getListeArme().add(objet);
+    public void supprimerArmeDeLaCarte(Arme arme) {
+        int index = armes.indexOf(arme);
+        if (index >= 0) {
+            ImageView imageView = armeImages.remove(index);
+            armes.remove(index);
+            PaneMap.getChildren().remove(imageView);
+        }
     }
 
 }
