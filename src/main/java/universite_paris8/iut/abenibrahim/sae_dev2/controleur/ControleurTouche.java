@@ -54,7 +54,7 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
             }
         }
 
-            if(event.getCode() == KeyCode.A){
+            if(event.getCode() == KeyCode.R){
                 Arme ramassee = e.getGuts().ramasserarme();
                 if (ramassee != null && ct != null) {
                     ct.supprimerArmeDeLaCarte(ramassee);

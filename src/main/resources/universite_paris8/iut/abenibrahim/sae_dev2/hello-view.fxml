@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -7,7 +8,8 @@
 <Pane fx:id="PaneMap" focusTraversable="true" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur">
     <TilePane fx:id="tilePaneMap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750" prefWidth="750" />
     <TilePane fx:id="inventairePane" hgap="10.0" layoutX="150" layoutY="250" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350" prefWidth="350" vgap="10.0" visible="false" />
-   <HBox fx:id="slot1" layoutX="200" layoutY="300" prefHeight="49.0" prefWidth="84.0" style="-fx-border-color: Black;" visible="false" />
+   <HBox fx:id="slot1" layoutX="200" layoutY="325"  prefHeight="49.0" prefWidth="84.0" style="-fx-border-color: Black;" visible="false" />
+    <HBox fx:id="slot2" layoutX="300" layoutY="325" prefHeight="49.0" prefWidth="84.0" style="-fx-border-color: Black;" visible="false" />
    <Label fx:id="titre" layoutX="275" layoutY="250" text="Inventaire" visible="false">
       <font>
          <Font name="Ani" size="38.0" />

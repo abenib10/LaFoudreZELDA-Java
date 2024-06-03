@@ -21,6 +21,9 @@ public class Environnement {
 
     private Joueur guts;
     private Ennemi ennemi;
+    private Epée epée;
+
+    private Hache hache;
 
     public Environnement() {
         this.map = new Map();
@@ -84,6 +87,16 @@ public class Environnement {
         return true;
     }
 
+    public void armeMap(){
+        this.epée = new Epée();
+        this.ajouterArme(this.epée);
+        this.hache = new Hache();
+        hache.setX(400);
+        hache.setY(400);
+        Image image = new javafx.scene.image.Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/hache.png");
+        hache.setImage(image);
+        this.ajouterArme(hache);
+    }
 
 
 

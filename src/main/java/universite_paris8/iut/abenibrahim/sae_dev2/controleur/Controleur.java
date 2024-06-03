@@ -26,10 +26,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controleur implements Initializable {
     @FXML
@@ -42,12 +39,21 @@ public class Controleur implements Initializable {
     private HBox slot1;
     @FXML
     private Label titre;
+
+    @FXML
+    private HBox slot2;
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
     static private ImageView gSprite;
+    private Arme selectedArme;
     private List<Arme> armes = new ArrayList<>();
     private List<ImageView> armeImages = new ArrayList<>();
+
+    private List<HBox> slots;
+    private ImageView selectedImageView;
+
+
 
 
 
@@ -56,6 +62,8 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
+        this.environnement.armeMap();
+        slots = Arrays.asList(slot1,slot2);
         remplirMap();
         creerSpriteJoueur();
         afficherArmes();
@@ -171,28 +179,61 @@ public class Controleur implements Initializable {
     }
     void  afficherInventaire() {
         inventairePane.setVisible(true); // Rend le ListView inventairePane visible
-        slot1.getChildren().clear();
+        clearSlots();
         System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
         // Boucle à travers la liste des armes dans l'inventaire du joueur
+        int indexSlot = 0;
         for (inventaireObjet item : environnement.getGuts().getListeArme()) {
             System.out.println("image");
             ImageView imageView = new ImageView(item.getImage());
             System.out.println(imageView.getImage().getUrl());// Crée une ImageView avec l'image de l'arme
             imageView.setFitWidth(50); // Définit la largeur de l'ImageView à 50 pixels
             imageView.setFitHeight(50); // Définit la hauteur de l'ImageView à 50 pixels
-            slot1.getChildren().add(imageView);
+
+            // Add click event handler
+            imageView.setOnMouseClicked(event -> handleArmeSelection(item.getArme(), imageView));
+
+            if(indexSlot <= slots.size()){
+                slots.get(indexSlot).getChildren().add(imageView);
+                slots.get(indexSlot).setVisible(true);
+                indexSlot++;
+            }
+
         }
 
         PaneMap.setVisible(true); // Masque le Pane contenant la carte du jeu
         gSprite.setVisible(false);
         tilePaneMap.setVisible(true);
         slot1.setVisible(true);
+        slot2.setVisible(true);
         titre.setVisible(true);
     }
 
+    private void handleArmeSelection(Arme arme, ImageView imageView) {
+        if (selectedImageView != null) {
+            // Optionally, deselect the previously selected weapon
+            // by resetting its visual state
+            selectedImageView.setStyle("");
+        }
+
+        selectedArme = arme;
+        selectedImageView = imageView;
+        // Indicate selection, e.g., by changing the border color
+        imageView.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+
+
+        System.out.println("Selected weapon ID: " + arme.getId());
+    }
+    private void clearSlots() {
+        for (HBox slot : slots) {
+            slot.getChildren().clear();
+            slot.setVisible(false);
+        }
+    }
     void masquerInventaire() {
         inventairePane.setVisible(false);
         slot1.setVisible(false);
+        slot2.setVisible(false);
         titre.setVisible(false);
         PaneMap.setVisible(true); // Affiche le Pane contenant la carte du jeu
         tilePaneMap.setVisible(true);

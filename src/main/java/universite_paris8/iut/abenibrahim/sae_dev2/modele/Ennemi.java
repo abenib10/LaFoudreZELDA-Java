@@ -4,8 +4,7 @@ public class Ennemi extends Acteur{
     private Arme Epée;
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
-        this.Epée=new Arme(20);
-        this.environnement.ajouterArme(Epée);
+        this.Epée=new Epée();
     }
     public void Attaquer(){
        // Positions du joueur et de l'ennemi
