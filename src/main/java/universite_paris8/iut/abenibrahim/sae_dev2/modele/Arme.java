@@ -6,16 +6,18 @@ import javafx.scene.image.ImageView;
 
 public class Arme {
     protected int attaque;
+    private String nom;
     private int x;
     private int y;
     private Image image;
     private static int id = 0;
 
-    public Arme(int a){
+    public Arme(int a,String nom){
         this.attaque=a;
         this.image = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
         this.x=350;
         this.y=350;
+        this.nom=nom;
     }
     public int getPointAttaque() {
         return attaque;
@@ -47,6 +49,10 @@ public class Arme {
 
     public Image getImage() {
         return image;
+    }
+
+    public String getNom(){
+        return this.nom;
     }
 
     public int getId() {

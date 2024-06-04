@@ -6,6 +6,12 @@ public class Ennemi extends Acteur{
         super(e, x, y, v, pv);
         this.Epée=new Epée();
     }
+
+    @Override
+    public int type() {
+        return 0;
+    }
+
     public void Attaquer(){
        // Positions du joueur et de l'ennemi
         int playerX, playerY, enemyX, enemyY;
@@ -32,5 +38,10 @@ public class Ennemi extends Acteur{
         }
     }
 
+    public void recoisDegat(int degat) {
+        int newPv = getPv() - degat;
+        setPv(newPv);
+        System.out.println("mes pv : " + getPv());
+    }
 
 }

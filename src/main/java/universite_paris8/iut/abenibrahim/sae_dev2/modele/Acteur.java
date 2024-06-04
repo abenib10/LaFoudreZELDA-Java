@@ -65,5 +65,14 @@ public abstract class Acteur {
         this.pv.set(pv);
     }
 
+                public boolean estVivant(){
+                    return this.getPv()> 0;
+                }
+
+    public abstract int type();
+
+    public abstract void Attaquer();
+
+    public abstract void recoisDegat(int degat);
 }
 

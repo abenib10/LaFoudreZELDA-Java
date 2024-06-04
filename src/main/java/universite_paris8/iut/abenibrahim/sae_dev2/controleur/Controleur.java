@@ -22,6 +22,8 @@ import javafx.scene.input.KeyEvent;
 
 import javafx.scene.layout.*;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 
@@ -67,7 +69,7 @@ public class Controleur implements Initializable {
         remplirMap();
         creerSpriteJoueur();
         afficherArmes();
-        //creerSpriteEnnemi();
+        creerSpriteEnnemi();
         initAnimation();
         gameLoop.play();
     }
@@ -87,18 +89,10 @@ public class Controleur implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-                    else if (temps%20==0){
-                        System.out.println("un tour");
-                        int newX = (int) (environnement.getEnnemi().getX()+ Math.random()*5);
-                        int newY = (int) (environnement.getEnnemi().getY()+ Math.random()*5);
-                        if (environnement.dansTerrain(newX,newY)){
-                            environnement.getEnnemi().setX(newX);
-                            environnement.getEnnemi().setY(newY);
-                            environnement.getEnnemi().Attaquer();
-
-                        }
+                    else {
+                       this.environnement.unTour();
+                        temps++;
                     }
-                    temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -158,13 +152,13 @@ public class Controleur implements Initializable {
 
 
 
-   /* public void creerSpriteEnnemi(){
+    public void creerSpriteEnnemi(){
         Circle a = new Circle(10);
         a.setFill(Color.BLUEVIOLET);
         this.PaneMap.getChildren().add(a);
         a.translateXProperty().bind(environnement.getEnnemi().XProprety());
         a.translateYProperty().bind(environnement.getEnnemi().YProprety());
-    }*/
+    }
 
     public void afficherArmes() {
         for (Arme arme : this.environnement.getArmeMap()) {
@@ -217,12 +211,11 @@ public class Controleur implements Initializable {
         }
 
         selectedArme = arme;
+        this.environnement.getGuts().equiperArme(selectedArme);
         selectedImageView = imageView;
         // Indicate selection, e.g., by changing the border color
         imageView.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-
-
-        System.out.println("Selected weapon ID: " + arme.getId());
+        System.out.println("Selected weapon nom " + arme.getNom());
     }
     private void clearSlots() {
         for (HBox slot : slots) {

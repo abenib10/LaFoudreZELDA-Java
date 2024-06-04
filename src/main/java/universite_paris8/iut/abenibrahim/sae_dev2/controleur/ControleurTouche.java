@@ -46,6 +46,9 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
                 ct.masquerInventaire(); // Appel de la méthode afficherInventaire() du contrôleur
             }
         }
+        if (event.getCode() == KeyCode.A) {
+            e.getGuts().Attaquer();
+        }
         if (event.getCode() == KeyCode.I) {
             System.out.println("i " + inventairePane.isVisible());// Remplacez "I" par la touche désirée
             if (!inventairePane.isVisible()) {

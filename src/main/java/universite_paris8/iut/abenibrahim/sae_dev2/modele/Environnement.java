@@ -98,6 +98,33 @@ public class Environnement {
         this.ajouterArme(hache);
     }
 
+    public void unTour(){
+       int newX, newY;
+
+       for(int i=0;i<=this.getActeurs().size() -1;i++){
+           Acteur a = this.getActeurs().get(i);
+           if(a instanceof Ennemi){
+                newX = a.getX()+5;
+                newY = a.getY()+5;
+                if(this.dansTerrain(newX,newY) && this.verifierCollisions(newX,newY)){
+                    a.setX(newX);
+                    a.setY(newY);
+                }
+
+           }
+       }
+        for(int i=acteurs.size()-1; i>=0;i--){
+            Acteur a = acteurs.get(i);
+            if (a instanceof Ennemi){
+                if(!a.estVivant()){
+                    System.out.println("mort de : " + a);
+                    acteurs.remove(i);
+                }
+            }
+        }
+
+    }
+
 
 
 
