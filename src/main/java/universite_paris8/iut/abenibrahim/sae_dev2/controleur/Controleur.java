@@ -76,6 +76,7 @@ public class Controleur implements Initializable {
                     }
                     else if (temps%30==0){
                         System.out.println("un tour");
+                            environnement.getEnnemi().suivreJoueur();
                             environnement.getEnnemi().attaquer();
                             System.out.println(this.environnement.getGuts().getPv());
                     }
