@@ -8,12 +8,10 @@
     <artifactId>SAE_DEV2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>SAE_DEV2</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.1</junit.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -41,6 +39,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>universite_Paris8.iut.abenibrahim</groupId>
+            <artifactId>SAE_DEV2</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

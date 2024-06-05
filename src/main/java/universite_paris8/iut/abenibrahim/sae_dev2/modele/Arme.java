@@ -1,12 +1,14 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Arme {
     protected int attaque;
-    private String nom;
+    private StringProperty nom;
     private int x;
     private int y;
     private Image image;
@@ -17,7 +19,7 @@ public class Arme {
         this.image = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/epée-removebg-preview.png");
         this.x=350;
         this.y=350;
-        this.nom=nom;
+        this.nom=new SimpleStringProperty(nom);
     }
     public int getPointAttaque() {
         return attaque;
@@ -52,6 +54,10 @@ public class Arme {
     }
 
     public String getNom(){
+        return this.nom.getValue();
+    }
+
+    public StringProperty nomProperty(){
         return this.nom;
     }
 

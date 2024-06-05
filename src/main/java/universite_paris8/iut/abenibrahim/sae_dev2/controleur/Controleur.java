@@ -2,33 +2,28 @@ package universite_paris8.iut.abenibrahim.sae_dev2.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.*;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
-
-
-
-
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-
-import javafx.scene.layout.*;
-
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.inventaireObjet;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
     @FXML
@@ -44,6 +39,13 @@ public class Controleur implements Initializable {
 
     @FXML
     private HBox slot2;
+
+    @FXML
+    private Label armeChoisie;
+    @FXML
+    private Label phrase;
+
+
     private Environnement environnement;
     private Timeline gameLoop;
     private int temps;
@@ -201,6 +203,8 @@ public class Controleur implements Initializable {
         slot1.setVisible(true);
         slot2.setVisible(true);
         titre.setVisible(true);
+        armeChoisie.setVisible(true);
+        phrase.setVisible(true);
     }
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
@@ -216,6 +220,7 @@ public class Controleur implements Initializable {
         // Indicate selection, e.g., by changing the border color
         imageView.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         System.out.println("Selected weapon nom " + arme.getNom());
+        this.armeChoisie.textProperty().bind(selectedArme.nomProperty());
     }
     private void clearSlots() {
         for (HBox slot : slots) {
@@ -231,6 +236,8 @@ public class Controleur implements Initializable {
         PaneMap.setVisible(true); // Affiche le Pane contenant la carte du jeu
         tilePaneMap.setVisible(true);
         gSprite.setVisible(true);
+        armeChoisie.setVisible(false);
+        phrase.setVisible(false);
         // Affiche le TilePane contenant la carte du jeu
         // Afficher/masquer d'autres éléments si nécessaire
     }
