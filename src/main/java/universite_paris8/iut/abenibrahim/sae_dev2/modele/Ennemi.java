@@ -1,17 +1,10 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
-
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Ennemi extends Acteur {
 
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
     }
-
-    private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-
 
     public void attaquer() {
         int distanceAttaque = 50;

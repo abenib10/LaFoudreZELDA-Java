@@ -65,10 +65,7 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.017),
-                // on définit ce qui se passe à chaque frame
-                // c'est un eventHandler d'ou le lambda
                 (ev ->{
                     if(temps==10000){
                         System.out.println("fini");
