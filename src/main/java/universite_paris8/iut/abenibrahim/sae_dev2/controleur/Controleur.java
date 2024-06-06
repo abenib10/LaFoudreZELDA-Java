@@ -111,7 +111,7 @@ public class Controleur implements Initializable {
                         this.tilePaneMap.getChildren().add(murCollision);
                     }
                     case 1 -> {
-                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/herbe.png");
+                        Image herbe = new Image("file:src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png");
                         ImageView herbeMap = new ImageView(herbe);
                         herbeMap.setFitHeight(50);
                         herbeMap.setFitWidth(50);
@@ -173,7 +173,17 @@ public class Controleur implements Initializable {
     }
     void  afficherInventaire() {
 
-        inventairePane.setVisible(true); // Rend le ListView inventairePane visible
+        inventairePane.setVisible(true);
+        inventairePane.setLayoutX(this.environnement.getGuts().getX());
+        inventairePane.setLayoutY(this.environnement.getGuts().getY());
+        slot1.setLayoutX(this.environnement.getGuts().getX() + 50);
+        slot1.setLayoutY(this.environnement.getGuts().getY() + 75);
+        slot2.setLayoutY(this.environnement.getGuts().getY() + 75);
+        slot2.setLayoutX(this.environnement.getGuts().getX() + 150);
+        titre.setLayoutX(this.environnement.getGuts().getX() + 125);
+        titre.setLayoutY(this.environnement.getGuts().getY());
+        phrase.setLayoutX(this.environnement.getGuts().getX() + 50);
+        phrase.setLayoutY(this.environnement.getGuts().getY() + 150);// Rend le ListView inventairePane visible
         clearSlots();
         System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
         // Boucle à travers la liste des armes dans l'inventaire du joueur
@@ -194,6 +204,9 @@ public class Controleur implements Initializable {
                 indexSlot++;
             }
 
+        }
+        for (ImageView imageView : armeImages) {
+            imageView.setVisible(false);
         }
 
         PaneMap.setVisible(true); // Masque le Pane contenant la carte du jeu
@@ -220,6 +233,8 @@ public class Controleur implements Initializable {
         imageView.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         System.out.println("Selected weapon nom " + arme.getNom());
         this.armeChoisie.textProperty().bind(selectedArme.nomProperty());
+        this.armeChoisie.setLayoutX(this.environnement.getGuts().getX()+ 200);
+        this.armeChoisie.setLayoutY(this.environnement.getGuts().getY()+ 150);
     }
     private void clearSlots() {
         for (HBox slot : slots) {
@@ -237,6 +252,9 @@ public class Controleur implements Initializable {
         gSprite.setVisible(true);
         armeChoisie.setVisible(false);
         phrase.setVisible(false);
+        for (ImageView imageView : armeImages) {
+            imageView.setVisible(true);
+        }
 
         // Affiche le TilePane contenant la carte du jeu
         // Afficher/masquer d'autres éléments si nécessaire
@@ -249,5 +267,17 @@ public class Controleur implements Initializable {
             PaneMap.getChildren().remove(imageView);
         }
     }
+
+    public void ajusterCameraSuiviJoueur() {
+        double joueurX = environnement.getGuts().getX();
+        double joueurY = environnement.getGuts().getY();
+
+        double offsetX = -joueurX + (PaneMap.getWidth() / 2); // Ajustement pour le centrage horizontal
+        double offsetY = -joueurY + (PaneMap.getHeight() / 2); // Ajustement pour le centrage vertical
+
+        PaneMap.setLayoutX(offsetX);
+        PaneMap.setLayoutY(offsetY);
+    }
+
 
 }

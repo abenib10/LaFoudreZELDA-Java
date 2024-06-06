@@ -10,7 +10,7 @@
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.abenibrahim.sae_dev2.controleur.controleurMenu">
     <ImageView>
-        <Image url="@779589.jpg"/> <!-- Remplacez 'background.jpg' par le chemin de votre image de fond -->
+        <Image url="@background.jpg"/> <!-- Remplacez 'background.jpg' par le chemin de votre image de fond -->
     </ImageView>
     <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);">
         <Text text="LA FOUDRE" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #ff0000; -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0, 0);"/>

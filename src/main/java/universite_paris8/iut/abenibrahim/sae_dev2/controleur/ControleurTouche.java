@@ -83,7 +83,11 @@ public class ControleurTouche  extends AnimatedSprite implements EventHandler<Ke
         }
 
         if (direction != null)
-            this.e.getGuts().seDeplace(direction);
+            if(!inventairePane.isVisible()){
+                this.e.getGuts().seDeplace(direction);
+                ct.ajusterCameraSuiviJoueur();
+            }
+
     }
 
     public void mettreAJour() {
