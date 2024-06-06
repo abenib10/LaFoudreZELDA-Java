@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 

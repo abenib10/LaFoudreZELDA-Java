@@ -50,8 +50,6 @@ public class Joueur extends Acteur{
              }
         }
         return null;
-
-
     }
 
     @Override

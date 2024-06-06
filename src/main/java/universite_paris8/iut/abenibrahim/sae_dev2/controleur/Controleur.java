@@ -20,10 +20,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.inventaireObjet;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controleur implements Initializable {
     @FXML
@@ -51,9 +48,10 @@ public class Controleur implements Initializable {
     private int temps;
     static private ImageView gSprite;
     private Arme selectedArme;
-    private List<Arme> armes = new ArrayList<>();
-    private List<ImageView> armeImages = new ArrayList<>();
 
+    private List<Arme> armes = new ArrayList<>();
+
+    private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
     private ImageView selectedImageView;
 
@@ -169,11 +167,12 @@ public class Controleur implements Initializable {
             PaneMap.getChildren().add(imageView); // Ajouter l'ImageView au PaneMap
             imageView.setTranslateX(arme.getX()); // Ajuster la position X
             imageView.setTranslateY(arme.getY()); // Ajuster la position Y
-            armes.add(arme); // Ajouter l'arme à la liste
-            armeImages.add(imageView); // Ajouter l'ImageView à la liste
+            armes.add(arme);
+            armeImages.add(imageView);
         }
     }
     void  afficherInventaire() {
+
         inventairePane.setVisible(true); // Rend le ListView inventairePane visible
         clearSlots();
         System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
@@ -238,6 +237,7 @@ public class Controleur implements Initializable {
         gSprite.setVisible(true);
         armeChoisie.setVisible(false);
         phrase.setVisible(false);
+
         // Affiche le TilePane contenant la carte du jeu
         // Afficher/masquer d'autres éléments si nécessaire
     }
