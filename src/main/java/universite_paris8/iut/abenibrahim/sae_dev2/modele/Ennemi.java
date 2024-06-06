@@ -1,11 +1,14 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 public class Ennemi extends Acteur {
+    private Arme epée;
 
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
+        this.epée = new Epée();
     }
 
+    @Override
     public void attaquer() {
         int distanceAttaque = 50;
         Joueur joueur = environnement.getGuts();
@@ -14,8 +17,14 @@ public class Ennemi extends Acteur {
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance <= distanceAttaque) {
-            joueur.recoisDegat(this.arme.getPointAttaque());
+            joueur.recoisDegat(this.epée.getPointAttaque());
         }
+    }
+
+    @Override
+    public void recoisDegat(int degat) {
+        int newPv = getPv() - degat;
+        setPv(newPv);
     }
 
     public void suivreJoueur() {

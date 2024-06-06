@@ -18,7 +18,7 @@ public class MapVue {
 
     public void remplirMap() {
        // Image murImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg").toString());
-        Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/herbe.png").toString());
+        Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
         Image eau = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/eau.png").toString());
 
         for (int i = 0; i < this.environnement.getMap().getTab().length; i++) {

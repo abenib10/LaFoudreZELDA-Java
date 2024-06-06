@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class Acteur {
     private IntegerProperty x,y;
-    protected Arme arme;
 
     Environnement environnement;
     private String id;
@@ -20,7 +19,6 @@ public abstract class Acteur {
         this.pv=new SimpleIntegerProperty(pv);
         this.id= String.valueOf(1);
         this.environnement = e;
-        this.arme = new Arme(10);
     }
 
     public String getId() {
@@ -28,44 +26,47 @@ public abstract class Acteur {
     }
 
 
-                public void seDeplace(Direction direction)
-                {
+    public void seDeplace(Direction direction) {
+        int xTmp = getX() + direction.getX() * vitesse;
+        int yTmp = getY() + direction.getY() * vitesse;
 
-                    int xTmp = getX() + direction.getX() * vitesse;
-                    int yTmp = getY() + direction.getY() * vitesse;
+        if ( this.environnement.dansTerrain(xTmp,yTmp) && this.environnement.verifierCollisions(xTmp,yTmp)) {
+            setX(getX()  + direction.getX() * vitesse);
+            setY(getY()  + direction.getY() * vitesse);
+        }
+    }
 
-                    if ( this.environnement.dansTerrain(xTmp,yTmp) && this.environnement.verifierCollisions(xTmp,yTmp))
-                    {
-                        setX(getX()  + direction.getX() * vitesse);
-                        setY(getY()  + direction.getY() * vitesse);
-                    }
-                }
-
-                public  int getX() {
+    public  int getX() {
                     return this.x.getValue();
                 }
-                public  IntegerProperty XProprety() {
+    public  IntegerProperty XProprety() {
                     return this.x;
                 }
-                public  int getY() {
+    public  int getY() {
                     return this.y.getValue();
                 }
-                public IntegerProperty YProprety() {
+    public IntegerProperty YProprety() {
                     return this.y;
                 }
-                public  void setX(int n){
+    public  void setX(int n){
                     this.x.setValue(n);
                 }
-                public  void setY(int n){
+    public  void setY(int n){
                     this.y.setValue(n);
                 }
+    public IntegerProperty pvProperty(){return this.pv;}
+    public int getPv(){return this.pv.getValue();}
 
-                public IntegerProperty pvProperty(){return this.pv;}
-                public int getPv(){return this.pv.getValue();}
-
-                public void setPv(int pv) {
+    public void setPv(int pv) {
         this.pv.set(pv);
     }
+
+    public boolean estVivant(){
+        return this.getPv()> 0;
+    }
+    public abstract void attaquer();
+
+    public abstract void recoisDegat(int degat);
 
 }
 
