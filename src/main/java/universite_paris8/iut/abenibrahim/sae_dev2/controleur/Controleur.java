@@ -27,6 +27,9 @@ public class Controleur implements Initializable {
     private TilePane tilePaneMap;
     private Environnement environnement;
     @FXML
+    private TilePane premierPlanMap;
+
+    @FXML
     private TilePane inventairePane;
     @FXML
     private HBox slot1;
@@ -58,12 +61,12 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        tilePaneMap.setPrefTileWidth(50);
-        tilePaneMap.setPrefTileHeight(50);
+        tilePaneMap.setPrefTileWidth(100);
+        tilePaneMap.setPrefTileHeight(100);
 
         this.environnement=new Environnement();
 
-        this.mapVue = new MapVue(this.environnement, tilePaneMap);
+        this.mapVue = new MapVue(this.environnement, tilePaneMap,premierPlanMap);
         this.mapVue.remplirMap();
 
         this.pvVue = new PvVue(this.environnement, this.paneMap);
@@ -79,6 +82,10 @@ public class Controleur implements Initializable {
 
         this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap);
         this.ennemiVue.creerSpriteEnnemi();
+
+        pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-950));
+        pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-500));
+
 
         initAnimation();
         gameLoop.play();

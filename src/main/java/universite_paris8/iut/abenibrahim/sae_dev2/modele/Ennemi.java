@@ -29,18 +29,18 @@ public class Ennemi extends Acteur {
 
     public void suivreJoueur() {
         Joueur joueur = environnement.getGuts();
-        int xDepart = this.getX() / 50;
-        int yDepart = this.getY() / 50;
-        int xCible = joueur.getX() / 50;
-        int yCible = joueur.getY() / 50;
+        int xDepart = this.getX() / 100;
+        int yDepart = this.getY() / 100;
+        int xCible = joueur.getX() / 100;
+        int yCible = joueur.getY() / 100;
 
         Noeud noeudCible = BFS.bfs(environnement.getMap().getTab(), xDepart, yDepart, xCible, yCible);
 
         if (noeudCible != null) {
             Noeud noeudCourant = noeudCible;
             while (noeudCourant.parent != null) {
-                int nouvelleX = noeudCourant.x * 50;
-                int nouvelleY = noeudCourant.y * 50;
+                int nouvelleX = noeudCourant.x * 100;
+                int nouvelleY = noeudCourant.y * 100;
 
                 if (environnement.verifierCollisions(nouvelleX, nouvelleY)) {
                     this.setX(nouvelleX);

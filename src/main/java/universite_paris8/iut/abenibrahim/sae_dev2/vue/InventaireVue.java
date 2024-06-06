@@ -91,6 +91,8 @@ public class InventaireVue{
         titre.setLayoutY(this.environnement.getGuts().getY());
         phrase.setLayoutX(this.environnement.getGuts().getX() + 50);
         phrase.setLayoutY(this.environnement.getGuts().getY() + 150);
+        this.armeChoisie.setLayoutX(this.environnement.getGuts().getX() + 200);
+        this.armeChoisie.setLayoutY(this.environnement.getGuts().getY() + 150);
         clearSlots();
         System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
         // Boucle à travers la liste des armes dans l'inventaire du joueur
@@ -143,7 +145,6 @@ public class InventaireVue{
         this.armeChoisie.textProperty().bind(selectedArme.nomProperty());
         this.armeChoisie.setLayoutX(this.environnement.getGuts().getX() + 200);
         this.armeChoisie.setLayoutY(this.environnement.getGuts().getY() + 150);
-
     }
     private void clearSlots() {
         for (HBox slot : slots) {
