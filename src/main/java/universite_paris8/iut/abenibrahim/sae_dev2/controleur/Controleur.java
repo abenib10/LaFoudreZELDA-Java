@@ -13,9 +13,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
-
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,13 +47,9 @@ public class Controleur implements Initializable {
     private EnnemiVue ennemiVue;
     private InventaireVue inventaireVue;
 
-    private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
-    private ImageView selectedImageView;
 
-    public Controleur() {
-    }
-
+    private ImageView ennemiSprite;
     @Override
     public void initialize(URL location, ResourceBundle resources){
         tilePaneMap.setPrefTileWidth(50);
@@ -69,6 +63,7 @@ public class Controleur implements Initializable {
         this.pvVue = new PvVue(this.environnement, this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
         initialiserGuts();
+        initialiserEnnemi();
 
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite);
@@ -77,7 +72,7 @@ public class Controleur implements Initializable {
 
         joueurVue.creerSpriteJoueur(this);
 
-        this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap);
+        this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
 
         initAnimation();
@@ -119,6 +114,14 @@ public class Controleur implements Initializable {
         gutsSprite.setFitHeight(50);
         gutsSprite.setFitWidth(50);
         paneMap.getChildren().add(gutsSprite);
+    }
+
+    public void initialiserEnnemi(){
+        Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/ennemi-droite1-removebg-preview.png").toExternalForm());
+        ennemiSprite = new ImageView(g);
+        ennemiSprite.setFitHeight(50);
+        ennemiSprite.setFitWidth(50);
+        paneMap.getChildren().add(ennemiSprite);
     }
 
     public void ajusterCameraSuiviJoueur() {

@@ -44,5 +44,6 @@ public class BFS {
 
         return x >= 0 && x < nbColonnes && y >= 0 && y < nbLignes && carte[y][x] != 2 && !visite[y][x];
     }
+
 }
 

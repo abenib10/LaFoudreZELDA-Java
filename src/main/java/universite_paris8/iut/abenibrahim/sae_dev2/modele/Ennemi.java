@@ -52,5 +52,4 @@ public class Ennemi extends Acteur {
             }
         }
     }
-
 }
