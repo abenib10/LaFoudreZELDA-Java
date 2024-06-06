@@ -4,17 +4,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.vue.EnnemiVue;
-import universite_paris8.iut.abenibrahim.sae_dev2.vue.JoueurVue;
-import universite_paris8.iut.abenibrahim.sae_dev2.vue.MapVue;
-import universite_paris8.iut.abenibrahim.sae_dev2.vue.PvVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
+
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -23,6 +26,20 @@ public class Controleur implements Initializable {
     @FXML
     private TilePane tilePaneMap;
     private Environnement environnement;
+    @FXML
+    private TilePane inventairePane;
+    @FXML
+    private HBox slot1;
+    @FXML
+    private Label titre;
+
+    @FXML
+    private HBox slot2;
+
+    @FXML
+    private Label armeChoisie;
+    @FXML
+    private Label phrase;
     private Timeline gameLoop;
     private int temps;
     static private ImageView gutsSprite;
@@ -30,7 +47,14 @@ public class Controleur implements Initializable {
     private PvVue pvVue;
     private JoueurVue joueurVue;
     private EnnemiVue ennemiVue;
+    private InventaireVue inventaireVue;
 
+    private List<ImageView> armeImages = new ArrayList<>();
+    private List<HBox> slots;
+    private ImageView selectedImageView;
+
+    public Controleur() {
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -44,9 +68,13 @@ public class Controleur implements Initializable {
 
         this.pvVue = new PvVue(this.environnement, this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
-
-        this.joueurVue = new JoueurVue(this.environnement, this.paneMap);
         initialiserGuts();
+
+        slots = Arrays.asList(slot1, slot2);
+        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite);
+        this.inventaireVue.armeMap();
+        this.joueurVue = new JoueurVue(this.environnement, this.paneMap, inventaireVue);
+
         joueurVue.creerSpriteJoueur(this);
 
         this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap);
@@ -54,6 +82,9 @@ public class Controleur implements Initializable {
 
         initAnimation();
         gameLoop.play();
+
+
+        this.inventaireVue.afficherArmes();
 
 
 
@@ -65,19 +96,18 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.017),
+                Duration.seconds(0.100),
                 (ev ->{
                     if(temps==10000){
                         System.out.println("fini");
                         gameLoop.stop();
                     }
-                    else if (temps%30==0){
-                        System.out.println("un tour");
-                            environnement.getEnnemi().suivreJoueur();
-                            environnement.getEnnemi().attaquer();
-                            System.out.println(this.environnement.getGuts().getPv());
+                    else {
+                        this.environnement.getEnnemi().suivreJoueur();
+                        System.out.println(environnement.getGuts().getPv());
+                        this.environnement.getEnnemi().attaquer();
+                        temps++;
                     }
-                    temps++;
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -89,6 +119,17 @@ public class Controleur implements Initializable {
         gutsSprite.setFitHeight(50);
         gutsSprite.setFitWidth(50);
         paneMap.getChildren().add(gutsSprite);
+    }
+
+    public void ajusterCameraSuiviJoueur() {
+        double joueurX = environnement.getGuts().getX();
+        double joueurY = environnement.getGuts().getY();
+
+        double offsetX = -joueurX + (paneMap.getWidth() / 2); // Ajustement pour le centrage horizontal
+        double offsetY = -joueurY + (paneMap.getHeight() / 2); // Ajustement pour le centrage vertical
+
+        paneMap.setLayoutX(offsetX);
+        paneMap.setLayoutY(offsetY);
     }
 
     static public void setGSprite(Image i){

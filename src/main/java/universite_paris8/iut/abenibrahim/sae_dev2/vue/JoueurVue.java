@@ -1,10 +1,12 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.vue;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.ControleurTouche;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
@@ -14,6 +16,7 @@ public class JoueurVue {
     private Environnement environnement;
     private ImageView gutsSprite;
     private Pane paneMap;
+    private InventaireVue inventaireVue;
 
     public static String[] framesGauche;
     public static String[] framesDroite;
@@ -21,9 +24,11 @@ public class JoueurVue {
     public static String[] framesBas;
 
 
-    public JoueurVue(Environnement environnement, Pane paneMap) {
+
+    public JoueurVue(Environnement environnement, Pane paneMap, InventaireVue inventaireVue) {
         this.environnement = environnement;
         this.paneMap = paneMap;
+        this.inventaireVue = inventaireVue;
         framesGauche = new String[]{ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_2.png").toExternalForm()};
         framesDroite = new String[]{ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_2.png").toExternalForm()};
         framesHaut = new String[]{ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_2.png").toExternalForm()};
@@ -32,9 +37,18 @@ public class JoueurVue {
 
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement, gutsSprite);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement, gutsSprite, inventaireVue);
         deplacementFleche.Actualiser(c);
-        paneMap.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        Scene scene = paneMap.getScene();
+        if (scene != null) {
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+        } else {
+            paneMap.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    newScene.addEventHandler(KeyEvent.KEY_PRESSED, deplacementFleche);
+                }
+            });
+        }
         gutsSprite = deplacementFleche.getAnimatedSprite().getImageView();
         gutsSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
         gutsSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());

@@ -2,9 +2,12 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 
 public class Environnement {
-
+    private ArrayList<Arme> armeMap;
     private final int largeur = Constants.largeurMax;
     private final int pv = Constants.pv;
     private final int x=Constants.positionX;
@@ -12,8 +15,6 @@ public class Environnement {
     private final int vitesse = Constants.vitesse;
 
     private Map map;
-    private Arme arme;
-
     private ObservableList<Acteur> acteurs;
 
     private Joueur guts;
@@ -24,8 +25,13 @@ public class Environnement {
         this.acteurs = FXCollections.observableArrayList();
         this.guts = new Joueur(this,x, y, vitesse, pv);
         this.ennemi = new Ennemi(this,x,y,vitesse,pv);
+        this.armeMap = new ArrayList<>();
         acteurs.add(guts);
         acteurs.add(ennemi);
+    }
+
+    public ArrayList<Arme> getArmeMap() {
+        return armeMap;
     }
 
     public ObservableList<Acteur> getActeurs() {
@@ -77,6 +83,32 @@ public class Environnement {
     }
 
 
+    public void unTour(){
+        int newX, newY;
+
+        for(int i=0;i<=this.getActeurs().size() -1;i++){
+            Acteur a = this.getActeurs().get(i);
+            if(a instanceof Ennemi){
+                newX = a.getX()+5;
+                newY = a.getY()+5;
+                if(this.dansTerrain(newX,newY) && this.verifierCollisions(newX,newY)){
+                    a.setX(newX);
+                    a.setY(newY);
+                }
+
+            }
+        }
+        for(int i=acteurs.size()-1; i>=0;i--){
+            Acteur a = acteurs.get(i);
+            if (a instanceof Ennemi){
+                if(!a.estVivant()){
+                    System.out.println("mort de : " + a);
+                    acteurs.remove(i);
+                }
+            }
+        }
+
+    }
 
 
 }
