@@ -84,7 +84,7 @@ public class Controleur implements Initializable {
         initialiserEnnemi();
 
         slots = Arrays.asList(slot1, slot2);
-        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite);
+        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
         this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
 

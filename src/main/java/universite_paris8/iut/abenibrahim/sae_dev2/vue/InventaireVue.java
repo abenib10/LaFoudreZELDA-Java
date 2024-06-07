@@ -47,7 +47,7 @@ public class InventaireVue{
     private Epée epée;
     private Hache hache;
 
-    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g, ImageView eSprite){
+    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g, ImageView eSprite,TilePane premierPlanMap){
         this.paneMap = paneMap;
         this.tilePaneMap = tilePaneMap;
         this.environnement = environnement;
