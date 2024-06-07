@@ -80,6 +80,7 @@ public class InventaireVue{
             armeImages.add(imageView);
         }
     }
+
     public void  afficherInventaire() {
 
         inventairePane.setVisible(true);

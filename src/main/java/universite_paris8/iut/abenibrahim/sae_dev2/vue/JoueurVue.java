@@ -10,10 +10,11 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.ControleurTouche;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
 
 public class JoueurVue {
 
-    private Environnement environnement;
+    private Joueur joueur;
     private ImageView gutsSprite;
     private Pane paneMap;
     private InventaireVue inventaireVue;
@@ -25,8 +26,8 @@ public class JoueurVue {
 
 
 
-    public JoueurVue(Environnement environnement, Pane paneMap, InventaireVue inventaireVue) {
-        this.environnement = environnement;
+    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue) {
+        this.joueur = joueur;
         this.paneMap = paneMap;
         this.inventaireVue = inventaireVue;
         framesGauche = new String[]{ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_2.png").toExternalForm()};
@@ -37,7 +38,7 @@ public class JoueurVue {
 
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
-        ControleurTouche deplacementFleche = new ControleurTouche(this.environnement, gutsSprite, inventaireVue);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue);
         deplacementFleche.Actualiser(c);
         Scene scene = paneMap.getScene();
         if (scene != null) {
@@ -50,7 +51,7 @@ public class JoueurVue {
             });
         }
         gutsSprite = deplacementFleche.getAnimatedSprite().getImageView();
-        gutsSprite.translateXProperty().bind(this.environnement.getGuts().XProprety());
-        gutsSprite.translateYProperty().bind(this.environnement.getGuts().YProprety());
+        gutsSprite.translateXProperty().bind(this.joueur.XProprety());
+        gutsSprite.translateYProperty().bind(this.joueur.YProprety());
     }
 }

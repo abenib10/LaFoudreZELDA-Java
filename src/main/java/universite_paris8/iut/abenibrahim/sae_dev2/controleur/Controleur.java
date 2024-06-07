@@ -60,8 +60,8 @@ public class Controleur implements Initializable {
         this.mapVue = new MapVue(this.environnement.getMap().getTab(), tilePaneMap);
         this.mapVue.remplirMap();
 
-        this.pvVue = new PvVue(this.environnement.getGuts().getPv(), this.paneMap);
-        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
+        this.pvVue = new PvVue(this.paneMap);
+        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage(this.environnement.getGuts().getPv()));
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-950));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-500));
 
@@ -71,11 +71,11 @@ public class Controleur implements Initializable {
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement, this.paneMap, inventaireVue);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
 
         joueurVue.creerSpriteJoueur(this);
 
-        this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap, ennemiSprite);
+        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
 
         initAnimation();
@@ -102,6 +102,7 @@ public class Controleur implements Initializable {
                     }
                     else {
                         this.environnement.getEnnemi().suivreJoueur();
+                        ennemiVue.mettreAJourFramesEnnemi(environnement.getEnnemi().getDirection());
                         System.out.println(environnement.getGuts().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;

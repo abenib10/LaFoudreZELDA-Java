@@ -6,26 +6,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.TilePane;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Acteur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.InventaireVue;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.JoueurVue;
 
 public class ControleurTouche implements EventHandler<KeyEvent> {
     private final AnimatedSprite animatedSprite;
     public Controleur ct;
-    private Environnement e;
     private InventaireVue inventaireVue;
+    private Joueur joueur;
 
-    public ControleurTouche(Environnement e, ImageView v, InventaireVue inventaireVue) {
-        this.animatedSprite = new AnimatedSprite(e.getGuts().getX(), e.getGuts().getY(), JoueurVue.framesDroite, 0);
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue) {
+        this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);
-        this.e = e;
         this.inventaireVue = inventaireVue;
+        this.joueur = joueur;
     }
 
     @Override
@@ -39,7 +36,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                 }
             }
             case A -> {
-                e.getGuts().attaquer();
+                this.joueur.attaquer();
             }
             case I -> {
                 if (!inventaireVue.inventairePane.isVisible()) {
@@ -47,7 +44,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                 }
             }
             case R -> {
-                Arme ramassee = e.getGuts().ramasserarme();
+                Arme ramassee = this.joueur.ramasserarme();
                 if (ramassee != null && ct != null) {
                     inventaireVue.supprimerArmeDeLaCarte(ramassee);
                 }
@@ -71,7 +68,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
         }
         if (direction != null)
             if (!inventaireVue.inventairePane.isVisible()){
-                this.e.getGuts().seDeplace(direction);
+                this.joueur.seDeplace(direction);
                 ct.ajusterCameraSuiviJoueur();
             }
     }

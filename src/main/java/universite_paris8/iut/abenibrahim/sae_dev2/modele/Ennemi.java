@@ -2,10 +2,12 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 public class Ennemi extends Acteur {
     private Arme epée;
+    private Direction direction;
 
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
         this.epée = new Epée();
+        this.direction = Direction.EST;
     }
 
     @Override
@@ -47,6 +49,15 @@ public class Ennemi extends Acteur {
                     int deltaY = (nouvelleY - this.getY()) / 3;
                     this.setX(this.getX() + deltaX);
                     this.setY(this.getY() + deltaY);
+                    if (deltaX > 0) {
+                        direction = Direction.EST;
+                    } else if (deltaX < 0) {
+                        direction = Direction.OUEST;
+                    } else if (deltaY > 0) {
+                        direction = Direction.SUD;
+                    } else {
+                        direction = Direction.NORD;
+                    }
                     break;
                 }
 
@@ -54,5 +65,9 @@ public class Ennemi extends Acteur {
                 noeudCourant = noeudCourant.parent;
             }
         }
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }

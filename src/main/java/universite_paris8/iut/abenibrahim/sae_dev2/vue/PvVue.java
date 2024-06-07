@@ -8,9 +8,9 @@ import javafx.scene.layout.StackPane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 
 public class PvVue {
-    private StackPane pvStackPane;
     private Pane paneMap;
-    private int pv;
+
+    private StackPane pvStackPane;
     private Image vie5Image;
     private Image vie4Image;
     private Image vie3Image;
@@ -18,11 +18,10 @@ public class PvVue {
     private Image vie1Image;
     private Image vie0Image;
     private ImageView pvImageView;
-    public PvVue(int pv, Pane paneMap) {
-        this.pv = pv;
+    public PvVue(Pane paneMap) {
         this.paneMap = paneMap;
         pvStackPane = new StackPane();
-        this.pvImageView = new ImageView();
+        pvImageView = new ImageView();
         pvStackPane.getChildren().add(pvImageView);
         pvStackPane.setLayoutX(10);
         pvStackPane.setLayoutY(10);
@@ -35,18 +34,18 @@ public class PvVue {
         vie0Image = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/vie0-removebg-preview.png").toString());
     }
 
-    public void updatePvJoueurImage() {
-        pvImageView.setFitHeight(50);
+    public void updatePvJoueurImage(int pv) {
         pvImageView.setFitWidth(150);
-        if (this.pv > 110) {
+        pvImageView.setFitHeight(100);
+        if (pv > 110) {
             pvImageView.setImage(vie5Image);
-        } else if (this.pv > 80) {
+        } else if (pv > 80) {
             pvImageView.setImage(vie4Image);
-        } else if (this.pv > 60) {
+        } else if (pv > 60) {
             pvImageView.setImage(vie3Image);
-        } else if (this.pv > 30) {
+        } else if (pv > 30) {
             pvImageView.setImage(vie2Image);
-        } else if (this.pv > 15) {
+        } else if (pv > 15) {
             pvImageView.setImage(vie1Image);
         } else {
             pvImageView.setImage(vie0Image);
