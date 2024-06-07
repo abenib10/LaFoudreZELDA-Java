@@ -62,6 +62,9 @@ public class Controleur implements Initializable {
 
         this.pvVue = new PvVue(this.environnement.getGuts().getPv(), this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
+        pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-950));
+        pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-500));
+
         initialiserGuts();
         initialiserEnnemi();
 
