@@ -1,5 +1,6 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.controleur;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -71,7 +72,7 @@ public class Controleur implements Initializable {
 
         this.environnement=new Environnement();
 
-        this.mapVue = new MapVue(this.environnement.getMap().getTab(), tilePaneMap);
+        this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(), tilePaneMap, premierPlanMap);
         this.mapVue.remplirMap();
 
         this.pvVue = new PvVue(this.paneMap);
@@ -120,7 +121,6 @@ public class Controleur implements Initializable {
                     }
                     else {
                         this.environnement.getEnnemi().suivreJoueur();
-                        ennemiVue.mettreAJourFramesEnnemi(environnement.getEnnemi().getDirection());
                         System.out.println(environnement.getGuts().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
@@ -129,6 +129,7 @@ public class Controleur implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
 
     public void initialiserGuts(){
         Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm());

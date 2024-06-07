@@ -3,7 +3,6 @@ package universite_paris8.iut.abenibrahim.sae_dev2.vue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 
 public class AnimatedSprite  {
     public Image[] images;
@@ -11,6 +10,7 @@ public class AnimatedSprite  {
     public int nombreFrames;
     public int delaiFrame;
     public int compteurDelaiFrame;
+    protected String[][][][] cheminsImage;
     protected ImageView imageView;
     protected double largeur;
     protected double hauteur;
@@ -65,5 +65,4 @@ public class AnimatedSprite  {
         nombreFrames = frames.length;
         mettreAJour();
     }
-
 }

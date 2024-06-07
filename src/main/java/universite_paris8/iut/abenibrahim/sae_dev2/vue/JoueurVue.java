@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.ControleurTouche;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
 
@@ -54,4 +55,16 @@ public class JoueurVue {
         gutsSprite.translateXProperty().bind(this.joueur.XProprety());
         gutsSprite.translateYProperty().bind(this.joueur.YProprety());
     }
+
+    public void mettreAJourFramesJoueur(Direction direction) {
+        AnimatedSprite animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), framesDroite, 0);
+        switch (direction) {
+            case OUEST -> animatedSprite.definirFrames(framesGauche);
+            case EST -> animatedSprite.definirFrames(framesDroite);
+            case NORD -> animatedSprite.definirFrames(framesHaut);
+            case SUD -> animatedSprite.definirFrames(framesBas);
+        }
+        gutsSprite.setImage(animatedSprite.getImageView().getImage());
+    }
+
 }

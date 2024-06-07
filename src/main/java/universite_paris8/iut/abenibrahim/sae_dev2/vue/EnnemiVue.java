@@ -36,14 +36,4 @@ public class EnnemiVue {
         ennemiSprite.translateXProperty().bind(this.ennemiXProperty);
         ennemiSprite.translateYProperty().bind(this.ennemiYProperty);
     }
-
-    public void mettreAJourFramesEnnemi(Direction direction) {
-        switch (direction) {
-            case OUEST -> animatedSprite.definirFrames(framesGauche);
-            case EST -> animatedSprite.definirFrames(framesDroite);
-            case NORD -> animatedSprite.definirFrames(framesHaut);
-            case SUD -> animatedSprite.definirFrames(framesBas);
-        }
-    }
-
 }

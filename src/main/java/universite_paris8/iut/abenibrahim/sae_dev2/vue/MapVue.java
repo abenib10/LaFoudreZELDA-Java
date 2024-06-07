@@ -18,12 +18,11 @@ public class MapVue {
     @FXML
     private TilePane murMap;
 
-    public MapVue(int[][] tab, int[][] tab2, TilePane tilePaneMap){
+    public MapVue(int[][] tab, int[][] tab2, TilePane tilePaneMap, TilePane premierPlanMap){
         this.tab = tab;
         this.tab2 = tab2;
         this.tilePaneMap = tilePaneMap;
         this.premierPlanMap = premierPlanMap;
-        this.murMap = murMap;
     }
 
     public void remplirMap() {
