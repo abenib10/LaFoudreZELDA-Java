@@ -43,10 +43,13 @@ public class Ennemi extends Acteur {
                 int nouvelleY = noeudCourant.y * 50;
 
                 if (environnement.verifierCollisions(nouvelleX, nouvelleY)) {
-                    this.setX(nouvelleX);
-                    this.setY(nouvelleY);
+                    int deltaX = (nouvelleX - this.getX()) / 3;
+                    int deltaY = (nouvelleY - this.getY()) / 3;
+                    this.setX(this.getX() + deltaX);
+                    this.setY(this.getY() + deltaY);
                     break;
                 }
+
 
                 noeudCourant = noeudCourant.parent;
             }

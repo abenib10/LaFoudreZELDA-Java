@@ -57,16 +57,16 @@ public class Controleur implements Initializable {
 
         this.environnement=new Environnement();
 
-        this.mapVue = new MapVue(this.environnement, tilePaneMap);
+        this.mapVue = new MapVue(this.environnement.getMap().getTab(), tilePaneMap);
         this.mapVue.remplirMap();
 
-        this.pvVue = new PvVue(this.environnement, this.paneMap);
+        this.pvVue = new PvVue(this.environnement.getGuts().getPv(), this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
         initialiserGuts();
         initialiserEnnemi();
 
         slots = Arrays.asList(slot1, slot2);
-        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite);
+        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite);
         this.inventaireVue.armeMap();
         this.joueurVue = new JoueurVue(this.environnement, this.paneMap, inventaireVue);
 
@@ -91,7 +91,7 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.100),
+                Duration.seconds(0.200),
                 (ev ->{
                     if(temps==10000){
                         System.out.println("fini");

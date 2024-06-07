@@ -40,12 +40,13 @@ public class InventaireVue{
     private ImageView selectedImageView;
 
     private ImageView gSprite;
+    private ImageView ennemiSprite;
 
 
     private Epée epée;
     private Hache hache;
 
-    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g){
+    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g, ImageView eSprite){
         this.paneMap = paneMap;
         this.tilePaneMap = tilePaneMap;
         this.environnement = environnement;
@@ -57,6 +58,7 @@ public class InventaireVue{
         this.phrase = phrase;
         this.slots = slots;
         this.gSprite = g;
+        this.ennemiSprite = eSprite;
         this.epée = new Epée();
         this.hache = new Hache();
 
@@ -125,6 +127,8 @@ public class InventaireVue{
         titre.setVisible(true);
         armeChoisie.setVisible(true);
         phrase.setVisible(true);
+        ennemiSprite.setVisible(false);
+
     }
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
@@ -161,6 +165,8 @@ public class InventaireVue{
         gSprite.setVisible(true);
         armeChoisie.setVisible(false);
         phrase.setVisible(false);
+        ennemiSprite.setVisible(true);
+
         for (ImageView imageView : armeImages){
             imageView.setVisible(true);
         }

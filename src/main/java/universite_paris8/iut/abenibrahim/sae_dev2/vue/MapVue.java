@@ -7,12 +7,13 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 
 public class MapVue {
-    private Environnement environnement;
+
+    private int[][] tab;
     @FXML
     private TilePane tilePaneMap;
 
-    public MapVue(Environnement e, TilePane tilePaneMap){
-        this.environnement = e;
+    public MapVue(int[][] tab, TilePane tilePaneMap){
+        this.tab = tab;
         this.tilePaneMap = tilePaneMap;
     }
 
@@ -21,12 +22,12 @@ public class MapVue {
         Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
         Image eau = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/eau.png").toString());
 
-        for (int i = 0; i < this.environnement.getMap().getTab().length; i++) {
-            for (int j = 0; j < this.environnement.getMap().getTab()[i].length; j++) {
+        for (int i = 0; i < this.tab.length; i++) {
+            for (int j = 0; j < this.tab[i].length; j++) {
                 ImageView imageView = new ImageView();
                 imageView.setFitHeight(50);
                 imageView.setFitWidth(50);
-                switch (this.environnement.getMap().getTab()[i][j]) {
+                switch (this.tab[i][j]) {
                  //   case 0 -> imageView.setImage(murImage);
                     case 1 -> imageView.setImage(herbeImage);
                     case 2 -> imageView.setImage(eau);

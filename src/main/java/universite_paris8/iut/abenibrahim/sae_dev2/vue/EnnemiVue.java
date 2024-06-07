@@ -1,12 +1,7 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.vue;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import universite_paris8.iut.abenibrahim.sae_dev2.controleur.getClass()rt universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 
 public class EnnemiVue {
@@ -30,10 +25,10 @@ public class EnnemiVue {
         this.animatedSprite.setFrameActuel(0);
         this.environnement = environnement;
         this.paneMap = paneMap;
-
     }
-    public void creerSpriteEnnemi(){
 
+
+    public void creerSpriteEnnemi(){
         ennemiSprite = this.animatedSprite.getImageView();
         ennemiSprite.translateXProperty().bind(environnement.getEnnemi().XProprety());
         ennemiSprite.translateYProperty().bind(environnement.getEnnemi().YProprety());
