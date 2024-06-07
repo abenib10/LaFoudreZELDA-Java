@@ -7,27 +7,27 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 
 public class MapVue {
-    private Environnement environnement;
+
+    private int[][] tab;
+    private int[][] tab2;
     @FXML
     private TilePane tilePaneMap;
-
     @FXML
     private TilePane premierPlanMap;
 
     @FXML
     private TilePane murMap;
 
-
-
-    public MapVue(Environnement e, TilePane tilePaneMap,TilePane premierPlanMap,TilePane murMap){
-        this.environnement = e;
+    public MapVue(int[][] tab, int[][] tab2, TilePane tilePaneMap){
+        this.tab = tab;
+        this.tab2 = tab2;
         this.tilePaneMap = tilePaneMap;
         this.premierPlanMap = premierPlanMap;
         this.murMap = murMap;
     }
 
     public void remplirMap() {
-       // Image murImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg").toString());
+        // Image murImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/obstacleMur.jpeg").toString());
         Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
         Image sol2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/solv2-removebg-preview.png").toString());
         Image Mur = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mu_r.png").toString());
@@ -35,24 +35,24 @@ public class MapVue {
         Image arbre = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/arbre-removebg-preview.png").toString());
         Image lum = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lum-removebg-preview.png").toString());
 
-        for (int i = 0; i < this.environnement.getMap().getTab().length; i++) {
-            for (int j = 0; j < this.environnement.getMap().getTab()[i].length; j++) {
+        for (int i = 0; i < this.tab.length; i++) {
+            for (int j = 0; j < this.tab[i].length; j++) {
                 ImageView imageView = new ImageView();
                 imageView.setFitHeight(50);
                 imageView.setFitWidth(50);
-                switch (this.environnement.getMap().getTab()[i][j]) {
+                switch (this.tab[i][j]) {
                     case 0 -> imageView.setImage(sol2);
                     case 1 -> imageView.setImage(herbeImage);
                 }
                 this.tilePaneMap.getChildren().add(imageView);
             }
         }
-        for (int i = 0; i < this.environnement.getMap().getTab2().length; i++) {
-            for (int j = 0; j < this.environnement.getMap().getTab2()[i].length; j++) {
+        for (int i = 0; i < this.tab2.length; i++) {
+            for (int j = 0; j < this.tab2[i].length; j++) {
                 ImageView imageView = new ImageView();
                 imageView.setFitHeight(50);
                 imageView.setFitWidth(50);
-                switch (this.environnement.getMap().getTab2()[i][j]) {
+                switch (this.tab2[i][j]) {
                     //   case 0 -> imageView.setImage(murImage);
                     case 1 -> imageView.setImage(Mur);
                     case 2 -> imageView.setImage(Mur2);
@@ -63,7 +63,6 @@ public class MapVue {
                 this.premierPlanMap.getChildren().add(imageView);
             }
         }
-
     }
 
 }

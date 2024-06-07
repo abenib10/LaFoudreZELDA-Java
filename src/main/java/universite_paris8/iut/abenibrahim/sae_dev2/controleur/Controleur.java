@@ -58,10 +58,8 @@ public class Controleur implements Initializable {
 
     private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
-    private ImageView selectedImageView;
+    private ImageView ennemiSprite;
 
-    public Controleur() {
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -70,34 +68,39 @@ public class Controleur implements Initializable {
 
         tilePaneMap.setPrefTileWidth(50);
         tilePaneMap.setPrefTileHeight(50);
+
         this.environnement=new Environnement();
 
-        this.mapVue = new MapVue(this.environnement, tilePaneMap,premierPlanMap,murMap);
+        this.mapVue = new MapVue(this.environnement.getMap().getTab(), tilePaneMap);
         this.mapVue.remplirMap();
 
-        this.pvVue = new PvVue(this.environnement, this.paneMap);
-        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage());
+        this.pvVue = new PvVue(this.paneMap);
+        environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage(this.environnement.getGuts().getPv()));
+
         initialiserGuts();
+        initialiserEnnemi();
 
         slots = Arrays.asList(slot1, slot2);
-        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite,premierPlanMap);
+        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement, this.paneMap, inventaireVue);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
 
         joueurVue.creerSpriteJoueur(this);
 
-        this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap);
+        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
 
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
-
 
         initAnimation();
         gameLoop.play();
 
 
         this.inventaireVue.afficherArmes();
+
+
+
 
 
 
@@ -109,7 +112,7 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.100),
+                Duration.seconds(0.200),
                 (ev ->{
                     if(temps==10000){
                         System.out.println("fini");
@@ -117,6 +120,7 @@ public class Controleur implements Initializable {
                     }
                     else {
                         this.environnement.getEnnemi().suivreJoueur();
+                        ennemiVue.mettreAJourFramesEnnemi(environnement.getEnnemi().getDirection());
                         System.out.println(environnement.getGuts().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
@@ -132,6 +136,14 @@ public class Controleur implements Initializable {
         gutsSprite.setFitHeight(50);
         gutsSprite.setFitWidth(50);
         paneMap.getChildren().add(gutsSprite);
+    }
+
+    public void initialiserEnnemi(){
+        Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/ennemi-droite1-removebg-preview.png").toExternalForm());
+        ennemiSprite = new ImageView(g);
+        ennemiSprite.setFitHeight(50);
+        ennemiSprite.setFitWidth(50);
+        paneMap.getChildren().add(ennemiSprite);
     }
 
     public void ajusterCameraSuiviJoueur() {

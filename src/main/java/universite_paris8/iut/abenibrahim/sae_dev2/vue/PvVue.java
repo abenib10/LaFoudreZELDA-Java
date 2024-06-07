@@ -11,7 +11,6 @@ public class PvVue {
     private Pane paneMap;
 
     private StackPane pvStackPane;
-    private Environnement environnement;
     private Image vie5Image;
     private Image vie4Image;
     private Image vie3Image;
@@ -19,8 +18,7 @@ public class PvVue {
     private Image vie1Image;
     private Image vie0Image;
     private ImageView pvImageView;
-    public PvVue(Environnement e, Pane paneMap) {
-        this.environnement = e;
+    public PvVue(Pane paneMap) {
         this.paneMap = paneMap;
         pvStackPane = new StackPane();
         pvImageView = new ImageView();
@@ -36,10 +34,9 @@ public class PvVue {
         vie0Image = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/vie0-removebg-preview.png").toString());
     }
 
-    public void updatePvJoueurImage() {
+    public void updatePvJoueurImage(int pv) {
         pvImageView.setFitWidth(150);
         pvImageView.setFitHeight(100);
-        int pv = this.environnement.getGuts().getPv();
         if (pv > 110) {
             pvImageView.setImage(vie5Image);
         } else if (pv > 80) {

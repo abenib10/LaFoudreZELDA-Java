@@ -22,10 +22,8 @@ public class InventaireVue{
     private HBox slot1;
     @FXML
     private Label titre;
-
     @FXML
     private TilePane premierPlanMap;
-
     @FXML
     private HBox slot2;
 
@@ -43,12 +41,13 @@ public class InventaireVue{
     private ImageView selectedImageView;
 
     private ImageView gSprite;
+    private ImageView ennemiSprite;
 
 
     private Epée epée;
     private Hache hache;
 
-    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g,TilePane premierPlanMap){
+    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g, ImageView eSprite){
         this.paneMap = paneMap;
         this.tilePaneMap = tilePaneMap;
         this.environnement = environnement;
@@ -60,6 +59,7 @@ public class InventaireVue{
         this.phrase = phrase;
         this.slots = slots;
         this.gSprite = g;
+        this.ennemiSprite = eSprite;
         this.epée = new Epée();
         this.hache = new Hache();
         this.premierPlanMap = premierPlanMap;
@@ -82,6 +82,7 @@ public class InventaireVue{
             armeImages.add(imageView);
         }
     }
+
     public void  afficherInventaire() {
 
         inventairePane.setVisible(true);
@@ -131,7 +132,10 @@ public class InventaireVue{
         titre.setVisible(true);
         armeChoisie.setVisible(true);
         phrase.setVisible(true);
+        ennemiSprite.setVisible(false);
         premierPlanMap.setVisible(false);
+
+
     }
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
@@ -150,6 +154,7 @@ public class InventaireVue{
         this.armeChoisie.textProperty().bind(selectedArme.nomProperty());
         this.armeChoisie.setLayoutX(this.environnement.getGuts().getX() + 200);
         this.armeChoisie.setLayoutY(this.environnement.getGuts().getY() + 150);
+
     }
     private void clearSlots() {
         for (HBox slot : slots) {
@@ -159,7 +164,6 @@ public class InventaireVue{
     }
     public void masquerInventaire() {
         inventairePane.setVisible(false);
-        premierPlanMap.setVisible(true);
         slot1.setVisible(false);
         slot2.setVisible(false);
         titre.setVisible(false);
@@ -168,6 +172,10 @@ public class InventaireVue{
         gSprite.setVisible(true);
         armeChoisie.setVisible(false);
         phrase.setVisible(false);
+        ennemiSprite.setVisible(true);
+        premierPlanMap.setVisible(true);
+
+
         for (ImageView imageView : armeImages){
             imageView.setVisible(true);
         }
