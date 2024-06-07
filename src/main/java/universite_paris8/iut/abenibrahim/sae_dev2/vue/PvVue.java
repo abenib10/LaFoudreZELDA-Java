@@ -36,11 +36,8 @@ public class PvVue {
     }
 
     public void updatePvJoueurImage() {
-        this.paneMap.getChildren().add(pvImageView);
         pvImageView.setFitHeight(50);
         pvImageView.setFitWidth(150);
-
-
         if (this.pv > 110) {
             pvImageView.setImage(vie5Image);
         } else if (this.pv > 80) {
