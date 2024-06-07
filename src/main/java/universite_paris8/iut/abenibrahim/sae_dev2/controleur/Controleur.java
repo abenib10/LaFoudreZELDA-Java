@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
@@ -60,6 +61,7 @@ public class Controleur implements Initializable {
     private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
     private ImageView ennemiSprite;
+    private AnimatedEnnemiSprite animationTimer;
 
 
     @Override
@@ -91,6 +93,10 @@ public class Controleur implements Initializable {
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
 
+        this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
+        this.animationTimer.start();
+
+
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
 
@@ -108,26 +114,37 @@ public class Controleur implements Initializable {
     }
 
     private void initAnimation() {
+        temps = 0;
         gameLoop = new Timeline();
-        temps=0;
-        gameLoop.setCycleCount(Timeline.INDEFINITE);
-
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.200),
-                (ev ->{
-                    if(temps==10000){
+                ev -> {
+                    if (temps == 10000) {
                         System.out.println("fini");
                         gameLoop.stop();
-                    }
-                    else {
+                    } else {
                         this.environnement.getEnnemi().suivreJoueur();
                         System.out.println(environnement.getGuts().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
+                        Direction direction = this.environnement.getEnnemi().getDirection();
+                        if (direction == Direction.OUEST) {
+                            System.out.println(direction);
+                            this.animationTimer.updateFrames(EnnemiVue.framesGauche);                        }
+                        else if (direction == Direction.EST) {
+                            System.out.println(direction);
+                            this.animationTimer.updateFrames(EnnemiVue.framesDroite);                        }
+                        else if (direction == Direction.NORD) {
+                            System.out.println(direction);
+                            this.animationTimer.updateFrames(EnnemiVue.framesHaut);                        }
+                        else if (direction == Direction.SUD) {
+                            System.out.println(direction);
+                            this.animationTimer.updateFrames(EnnemiVue.framesBas);                        }
                     }
-                })
+                }
         );
         gameLoop.getKeyFrames().add(kf);
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
     }
 
 
