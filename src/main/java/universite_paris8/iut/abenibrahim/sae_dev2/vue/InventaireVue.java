@@ -24,6 +24,9 @@ public class InventaireVue{
     private Label titre;
 
     @FXML
+    private TilePane premierPlanMap;
+
+    @FXML
     private HBox slot2;
 
     @FXML
@@ -45,7 +48,7 @@ public class InventaireVue{
     private Epée epée;
     private Hache hache;
 
-    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g){
+    public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g,TilePane premierPlanMap){
         this.paneMap = paneMap;
         this.tilePaneMap = tilePaneMap;
         this.environnement = environnement;
@@ -59,6 +62,7 @@ public class InventaireVue{
         this.gSprite = g;
         this.epée = new Epée();
         this.hache = new Hache();
+        this.premierPlanMap = premierPlanMap;
 
 
     }
@@ -127,6 +131,7 @@ public class InventaireVue{
         titre.setVisible(true);
         armeChoisie.setVisible(true);
         phrase.setVisible(true);
+        premierPlanMap.setVisible(false);
     }
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
@@ -154,6 +159,7 @@ public class InventaireVue{
     }
     public void masquerInventaire() {
         inventairePane.setVisible(false);
+        premierPlanMap.setVisible(true);
         slot1.setVisible(false);
         slot2.setVisible(false);
         titre.setVisible(false);

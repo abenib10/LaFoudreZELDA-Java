@@ -23,11 +23,15 @@ import java.util.ResourceBundle;
 public class Controleur implements Initializable {
     @FXML
     private Pane paneMap;
+    private static final double ZOOM_FACTOR = 1.2;
     @FXML
     private TilePane tilePaneMap;
     private Environnement environnement;
     @FXML
     private TilePane premierPlanMap;
+
+    @FXML
+    private TilePane murMap;
 
     @FXML
     private TilePane inventairePane;
@@ -61,12 +65,14 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        tilePaneMap.setPrefTileWidth(100);
-        tilePaneMap.setPrefTileHeight(100);
+        paneMap.setScaleX(ZOOM_FACTOR);
+        paneMap.setScaleY(ZOOM_FACTOR);
 
+        tilePaneMap.setPrefTileWidth(50);
+        tilePaneMap.setPrefTileHeight(50);
         this.environnement=new Environnement();
 
-        this.mapVue = new MapVue(this.environnement, tilePaneMap,premierPlanMap);
+        this.mapVue = new MapVue(this.environnement, tilePaneMap,premierPlanMap,murMap);
         this.mapVue.remplirMap();
 
         this.pvVue = new PvVue(this.environnement, this.paneMap);
@@ -74,7 +80,7 @@ public class Controleur implements Initializable {
         initialiserGuts();
 
         slots = Arrays.asList(slot1, slot2);
-        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite);
+        this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite,premierPlanMap);
         this.inventaireVue.armeMap();
         this.joueurVue = new JoueurVue(this.environnement, this.paneMap, inventaireVue);
 
@@ -83,8 +89,8 @@ public class Controleur implements Initializable {
         this.ennemiVue = new EnnemiVue(this.environnement, this.paneMap);
         this.ennemiVue.creerSpriteEnnemi();
 
-        pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-950));
-        pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-500));
+        pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
+        pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
 
 
         initAnimation();
@@ -132,8 +138,9 @@ public class Controleur implements Initializable {
         double joueurX = environnement.getGuts().getX();
         double joueurY = environnement.getGuts().getY();
 
-        double offsetX = -joueurX + (paneMap.getWidth() / 2); // Ajustement pour le centrage horizontal
-        double offsetY = -joueurY + (paneMap.getHeight() / 2); // Ajustement pour le centrage vertical
+        // Ajuster pour le zoom
+        double offsetX = -joueurX * ZOOM_FACTOR + (paneMap.getWidth() / 2) - (25 * ZOOM_FACTOR); // Ajustement pour le centrage horizontal
+        double offsetY = -joueurY * ZOOM_FACTOR + (paneMap.getHeight() / 2) - (25 * ZOOM_FACTOR); // Ajustement pour le centrage vertical
 
         paneMap.setLayoutX(offsetX);
         paneMap.setLayoutY(offsetY);
