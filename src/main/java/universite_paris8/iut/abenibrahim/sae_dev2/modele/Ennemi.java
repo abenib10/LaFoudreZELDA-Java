@@ -3,11 +3,23 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 public class Ennemi extends Acteur {
     private Arme epée;
     private Direction direction;
+    private static int DISTANCE_DETECTION = 100;
 
     public Ennemi(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
         this.epée = new Epée();
         this.direction = Direction.EST;
+    }
+
+    public boolean detecterJoueur(){
+            Joueur joueur = environnement.getGuts();
+            int distanceX = Math.abs(joueur.getX() - this.getX());
+            int distanceY = Math.abs(joueur.getY() - this.getY());
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            return distance <= DISTANCE_DETECTION;
+    }
+    public void setDistanceDetection(int distanceDetection){
+        DISTANCE_DETECTION = distanceDetection;
     }
 
     @Override

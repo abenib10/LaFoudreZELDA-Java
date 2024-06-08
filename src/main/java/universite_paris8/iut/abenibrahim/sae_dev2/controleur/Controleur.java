@@ -12,8 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.abenibrahim.sae_dev2.Main;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.io.*;
+
 
 public class Controleur implements Initializable {
     @FXML
@@ -49,6 +53,19 @@ public class Controleur implements Initializable {
     private Label armeChoisie;
     @FXML
     private Label phrase;
+
+    public void saveGame() {
+        try {
+            SaveData saveData = new SaveData(environnement);
+            FileOutputStream fos = new FileOutputStream("savegame.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(saveData);
+            oos.close();
+            System.out.println("Partie sauvegardée avec succès !");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private Timeline gameLoop;
     private int temps;
     static private ImageView gutsSprite;
@@ -73,6 +90,12 @@ public class Controleur implements Initializable {
         tilePaneMap.setPrefTileHeight(50);
 
         this.environnement=new Environnement();
+        Environnement env = Main.getEnvironnement();
+        if (env == null) {
+            this.environnement = new Environnement();
+        } else {
+            this.environnement = env;
+        }
 
         this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(), tilePaneMap, premierPlanMap);
         this.mapVue.remplirMap();
@@ -105,12 +128,6 @@ public class Controleur implements Initializable {
 
 
         this.inventaireVue.afficherArmes();
-
-
-
-
-
-
     }
 
     private void initAnimation() {
@@ -123,7 +140,7 @@ public class Controleur implements Initializable {
                         System.out.println("fini");
                         gameLoop.stop();
                     } else {
-                        this.environnement.getEnnemi().suivreJoueur();
+                        this.environnement.unTour();
                         System.out.println(environnement.getGuts().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;

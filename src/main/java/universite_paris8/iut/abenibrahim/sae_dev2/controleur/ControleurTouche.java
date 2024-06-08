@@ -35,6 +35,11 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                     inventaireVue.masquerInventaire();
                 }
             }
+            case S -> {
+                if (event.isControlDown()) {
+                    ct.saveGame();
+                }
+            }
             case A -> {
                 this.joueur.attaquer();
             }

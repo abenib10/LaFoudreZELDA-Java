@@ -24,7 +24,7 @@ public class Environnement {
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
         this.guts = new Joueur(this,x, y, vitesse, pv);
-        this.ennemi = new Ennemi(this,x,y,vitesse,pv);
+        this.ennemi = new Ennemi(this,10,10,vitesse,pv);
         this.armeMap = new ArrayList<>();
         acteurs.add(guts);
         acteurs.add(ennemi);
@@ -89,6 +89,10 @@ public class Environnement {
         for(int i=0;i<=this.getActeurs().size() -1;i++){
             Acteur a = this.getActeurs().get(i);
             if(a instanceof Ennemi){
+                if (ennemi.detecterJoueur()) {
+                    ennemi.setDistanceDetection(500);
+                    ennemi.suivreJoueur();
+                }
                 newX = a.getX()+5;
                 newY = a.getY()+5;
                 if(this.dansTerrain(newX,newY) && this.verifierCollisions(newX,newY)){

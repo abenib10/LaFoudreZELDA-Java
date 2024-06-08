@@ -2,9 +2,8 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 public class Map {
 
-    private final int[][] tab2;
+    private int[][] tab2;
     private int [][]tab;
-    private int [][] tab3;
 
     public Map() {
         this.tab = new int[][]
@@ -79,7 +78,12 @@ public class Map {
 
     public int[][] getTab2 (){return tab2;}
 
-    public int[][] getTab3() {
-        return tab3;
+
+    public void setTab(int[][] tab) {
+        this.tab = tab;
+    }
+
+    public void setTab2(int[][] tab2) {
+        this.tab2 = tab2;
     }
 }

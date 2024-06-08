@@ -16,6 +16,7 @@
     <MediaView fx:id="mediaView" fitWidth="1500" fitHeight="1500" />
     <VBox fx:id="vbox" alignment="CENTER" spacing="20.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);">
         <Text  text="LA FOUDRE" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #ff0000; -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 10, 0.5, 0, 0);"/>
-        <Button fx:id="playButton" text="Jouer" onAction="#handlePlayButtonAction" style="-fx-background-color: #800000; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0);"/>
+        <Button fx:id="playButton" text="Nouvelle Partie" onAction="#handlePlayButtonAction" style="-fx-background-color: #800000; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0);"/>
+        <Button fx:id="continuerButton" text="Continuer" onAction="#handlecontinuerButtonAction" style="-fx-background-color: #800000; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0);"/>
     </VBox>
 </StackPane>
