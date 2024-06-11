@@ -57,15 +57,4 @@ public class JoueurVue {
         gutsSprite.translateYProperty().bind(this.joueur.YProprety());
     }
 
-    public void mettreAJourFramesJoueur(Direction direction) {
-        AnimatedSprite animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), framesDroite, 0);
-        switch (direction) {
-            case OUEST -> animatedSprite.definirFrames(framesGauche);
-            case EST -> animatedSprite.definirFrames(framesDroite);
-            case NORD -> animatedSprite.definirFrames(framesHaut);
-            case SUD -> animatedSprite.definirFrames(framesBas);
-        }
-        gutsSprite.setImage(animatedSprite.getImageView().getImage());
-    }
-
 }

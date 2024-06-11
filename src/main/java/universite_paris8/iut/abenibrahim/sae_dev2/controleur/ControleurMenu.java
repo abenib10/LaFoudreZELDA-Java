@@ -19,6 +19,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Ennemi;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Joueur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.JoueurVue;
 
 import java.io.FileInputStream;
 import java.io.IOException;

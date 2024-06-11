@@ -71,5 +71,4 @@ public class Joueur extends Acteur{
         setPv(newPv);
     }
 
-
 }

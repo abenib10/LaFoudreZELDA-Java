@@ -18,7 +18,7 @@ public class EnnemiVue {
     private IntegerProperty ennemiXProperty;
     private IntegerProperty ennemiYProperty;
 
-    public EnnemiVue(int ennemiX, int ennemiY, IntegerProperty ennemiXProperty, IntegerProperty ennemiYProperty, Pane paneMap, ImageView v){
+    public EnnemiVue(IntegerProperty ennemiXProperty, IntegerProperty ennemiYProperty, Pane paneMap, ImageView v){
         framesGauche = new String[]{getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_1.png").toExternalForm(), getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_left_2.png").toExternalForm()};
         framesDroite = new String[]{getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm(), getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_2.png").toExternalForm()};
         framesHaut = new String[]{getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_1.png").toExternalForm(), getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_up_2.png").toExternalForm()};

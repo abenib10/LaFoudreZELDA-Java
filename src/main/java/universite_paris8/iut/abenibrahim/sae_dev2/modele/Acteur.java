@@ -64,6 +64,9 @@ public abstract class Acteur {
     public boolean estVivant(){
         return this.getPv()> 0;
     }
+    public boolean estMort() {
+        return getPv() <= 0;
+    }
     public abstract void attaquer();
 
     public abstract void recoisDegat(int degat);

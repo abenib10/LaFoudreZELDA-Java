@@ -53,6 +53,7 @@ public class Controleur implements Initializable {
     private Label armeChoisie;
     @FXML
     private Label phrase;
+    private GameOverVue gameOverVue;
 
     public void saveGame() {
         try {
@@ -113,7 +114,7 @@ public class Controleur implements Initializable {
 
         joueurVue.creerSpriteJoueur(this);
 
-        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
+        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
 
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
@@ -128,6 +129,12 @@ public class Controleur implements Initializable {
 
 
         this.inventaireVue.afficherArmes();
+
+        gameOverVue = new GameOverVue();
+        gameOverVue.setVisible(false);
+        paneMap.getChildren().add(gameOverVue);
+        gameOverVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
+        gameOverVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
     }
 
     private void initAnimation() {
@@ -157,6 +164,11 @@ public class Controleur implements Initializable {
                         else if (direction == Direction.SUD) {
                             System.out.println(direction);
                             this.animationTimer.updateFrames(EnnemiVue.framesBas);                        }
+                        if (environnement.getGuts().estMort()) {
+                            gameLoop.stop();
+                            paneMap.getChildren().remove(gutsSprite);
+                            gameOverVue.setVisible(true);
+                        }
                     }
                 }
         );
@@ -185,9 +197,8 @@ public class Controleur implements Initializable {
         double joueurX = environnement.getGuts().getX();
         double joueurY = environnement.getGuts().getY();
 
-        // Ajuster pour le zoom
-        double offsetX = -joueurX * ZOOM_FACTOR + (paneMap.getWidth() / 2) - (25 * ZOOM_FACTOR); // Ajustement pour le centrage horizontal
-        double offsetY = -joueurY * ZOOM_FACTOR + (paneMap.getHeight() / 2) - (25 * ZOOM_FACTOR); // Ajustement pour le centrage vertical
+        double offsetX = -joueurX * ZOOM_FACTOR + (paneMap.getWidth() / 2) - (25 * ZOOM_FACTOR);
+        double offsetY = -joueurY * ZOOM_FACTOR + (paneMap.getHeight() / 2) - (25 * ZOOM_FACTOR);
 
         paneMap.setLayoutX(offsetX);
         paneMap.setLayoutY(offsetY);

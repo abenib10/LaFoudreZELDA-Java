@@ -3,6 +3,7 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.JoueurVue;
 
 import java.util.ArrayList;
 
@@ -46,23 +47,9 @@ public class Environnement {
         return ennemi;
     }
 
-
-    public void ajouter(Acteur a) {
-        acteurs.add(a);
-    }
-
     public boolean dansTerrain(int x, int y)
     {
         return x >= 0 && x < largeur && y >= 0 && y <largeur;
-    }
-
-    public Acteur getActeur(String id) {
-        for (Acteur a : this.acteurs) {
-            if (a.getId().equals(id)) {
-                return a;
-            }
-        }
-        return null;
     }
 
     public Joueur getGuts() {
@@ -88,7 +75,7 @@ public class Environnement {
 
         for(int i=0;i<=this.getActeurs().size() -1;i++){
             Acteur a = this.getActeurs().get(i);
-            if(a instanceof Ennemi){
+                if(a instanceof Ennemi){
                 if (ennemi.detecterJoueur()) {
                     ennemi.setDistanceDetection(500);
                     ennemi.suivreJoueur();
@@ -99,7 +86,6 @@ public class Environnement {
                     a.setX(newX);
                     a.setY(newY);
                 }
-
             }
         }
         for(int i=acteurs.size()-1; i>=0;i--){
@@ -111,8 +97,5 @@ public class Environnement {
                 }
             }
         }
-
     }
-
-
 }
