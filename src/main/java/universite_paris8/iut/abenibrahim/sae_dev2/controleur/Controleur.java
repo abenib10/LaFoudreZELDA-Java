@@ -74,7 +74,7 @@ public class Controleur implements Initializable {
     private JoueurVue joueurVue;
     private EnnemiVue ennemiVue;
     private InventaireVue inventaireVue;
-
+    private PvVueEnnemi pvVueEnnemi;
     private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
     private ImageView ennemiSprite;
@@ -103,6 +103,8 @@ public class Controleur implements Initializable {
         this.pvVue = new PvVue(this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage(this.environnement.getGuts().getPv()));
 
+        this.pvVueEnnemi = new PvVueEnnemi(this.paneMap);
+        environnement.getEnnemi().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi.updatePvEnnemieImage(this.environnement.getEnnemi().getPv()));
         initialiserGuts();
         initialiserEnnemi();
 
@@ -122,6 +124,9 @@ public class Controleur implements Initializable {
 
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
+
+        pvVueEnnemi.getPvStackPane().layoutXProperty().bind(environnement.getEnnemi().XProprety().add(-10));
+        pvVueEnnemi.getPvStackPane().layoutYProperty().bind(environnement.getEnnemi().YProprety().add(-50));
 
         initAnimation();
         gameLoop.play();
