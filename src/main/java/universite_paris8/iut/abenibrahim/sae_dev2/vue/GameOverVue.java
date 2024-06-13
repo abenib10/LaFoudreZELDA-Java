@@ -12,25 +12,27 @@ import javafx.scene.layout.VBox;
 
 
 public class GameOverVue extends VBox {
-    private StackPane pvStackPane;
-    private ImageView imageView
+    private Pane paneMap;
+    private StackPane gameOverStackPane;
+    private ImageView imageView;
 
     public GameOverVue(Pane paneMap) {
-        pvStackPane = new StackPane();
-        pvStackPane.getChildren().add(imageView);
-        pvStackPane.setLayoutX(10);
-        pvStackPane.setLayoutY(10);
-        paneMap.getChildren().add(pvStackPane);
-        Image gameOverImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gameover.png").toExternalForm());
-        ImageView imageView = new ImageView(gameOverImage);
-        imageView.setPreserveRatio(true);
-
-        getChildren().addAll(imageView);
-        setAlignment(Pos.CENTER);
+        this.paneMap = paneMap;
+        gameOverStackPane = new StackPane();
+        imageView = new ImageView(new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gameover.png").toExternalForm()));
+        imageView.setFitWidth(1000);
+        imageView.setFitHeight(300);
+        gameOverStackPane.getChildren().add(imageView);
+        gameOverStackPane.setLayoutX(10);
+        gameOverStackPane.setLayoutY(10);
+        paneMap.getChildren().add(gameOverStackPane);
     }
 
-    public Node getPvStackPane() {
-        return this.pvStackPane;
+    public Node getGameOverStackPane() {
+        return this.gameOverStackPane;
     }
 
+    public ImageView getImageView() {
+        return imageView;
+    }
 }

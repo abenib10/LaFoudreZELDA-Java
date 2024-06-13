@@ -124,17 +124,17 @@ public class Controleur implements Initializable {
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
 
+
         initAnimation();
         gameLoop.play();
 
 
         this.inventaireVue.afficherArmes();
 
-        gameOverVue = new GameOverVue();
-        gameOverVue.setVisible(false);
-        paneMap.getChildren().add(gameOverVue);
-        gameOverVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
-        gameOverVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
+        gameOverVue = new GameOverVue(this.paneMap);
+        gameOverVue.getImageView().setVisible(false);
+        //gameOverVue.getGameOverStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-350));
+        //gameOverVue.getGameOverStackPane().layoutYProperty().bind(environnement.getGuts().YProprety());
     }
 
     private void initAnimation() {
@@ -148,27 +148,31 @@ public class Controleur implements Initializable {
                         gameLoop.stop();
                     } else {
                         this.environnement.unTour();
-                        System.out.println(environnement.getGuts().getPv());
+                        System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
+                        System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
                         Direction direction = this.environnement.getEnnemi().getDirection();
+
                         if (direction == Direction.OUEST) {
-                            System.out.println(direction);
                             this.animationTimer.updateFrames(EnnemiVue.framesGauche);                        }
                         else if (direction == Direction.EST) {
-                            System.out.println(direction);
                             this.animationTimer.updateFrames(EnnemiVue.framesDroite);                        }
                         else if (direction == Direction.NORD) {
-                            System.out.println(direction);
                             this.animationTimer.updateFrames(EnnemiVue.framesHaut);                        }
                         else if (direction == Direction.SUD) {
-                            System.out.println(direction);
                             this.animationTimer.updateFrames(EnnemiVue.framesBas);                        }
+
                         if (environnement.getGuts().estMort()) {
                             gameLoop.stop();
                             paneMap.getChildren().remove(gutsSprite);
-                            gameOverVue.setVisible(true);
+                            gameOverVue.getImageView().setVisible(true);
+                            }
+
+                        if (environnement.getEnnemi().estMort()){
+                            paneMap.getChildren().remove(ennemiSprite);
                         }
+
                     }
                 }
         );

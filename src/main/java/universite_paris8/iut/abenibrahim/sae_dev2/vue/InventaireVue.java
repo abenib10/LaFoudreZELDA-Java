@@ -140,15 +140,12 @@ public class InventaireVue{
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
         if (selectedImageView != null) {
-            // Optionally, deselect the previously selected weapon
-            // by resetting its visual state
             selectedImageView.setStyle("");
         }
 
         selectedArme = arme;
         this.environnement.getGuts().equiperArme(selectedArme);
         selectedImageView = imageView;
-        // Indicate selection, e.g., by changing the border color
         imageView.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         System.out.println("Selected weapon nom " + arme.getNom());
         this.armeChoisie.textProperty().bind(selectedArme.nomProperty());
@@ -167,7 +164,7 @@ public class InventaireVue{
         slot1.setVisible(false);
         slot2.setVisible(false);
         titre.setVisible(false);
-        paneMap.setVisible(true); // Affiche le Pane contenant la carte du jeu
+        paneMap.setVisible(true);
         tilePaneMap.setVisible(true);
         gSprite.setVisible(true);
         armeChoisie.setVisible(false);
@@ -179,8 +176,6 @@ public class InventaireVue{
         for (ImageView imageView : armeImages){
             imageView.setVisible(true);
         }
-        // Affiche le TilePane contenant la carte du jeu
-        // Afficher/masquer d'autres éléments si nécessaire
     }
     public void supprimerArmeDeLaCarte(Arme arme) {
         int index = armes.indexOf(arme);

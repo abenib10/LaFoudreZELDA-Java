@@ -30,7 +30,6 @@ public class EnnemiVue {
         this.ennemiYProperty = ennemiYProperty;
     }
 
-
     public void creerSpriteEnnemi(){
         ennemiSprite = this.animatedEnnemiSprite.getImageView();
         ennemiSprite.translateXProperty().bind(this.ennemiXProperty);
