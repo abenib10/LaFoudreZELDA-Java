@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Environnement {
     private ArrayList<Arme> armeMap;
+    private ArrayList<Soin> soinMap;
     private final int largeur = Constants.largeurMax;
     private final int pv = Constants.pv;
     private final int x=Constants.positionX;
@@ -26,27 +27,25 @@ public class Environnement {
         this.guts = new Joueur(this,x, y, vitesse, pv);
         this.ennemi = new Ennemi(this,10,10,vitesse,pv);
         this.armeMap = new ArrayList<>();
+        this.soinMap = new ArrayList<>();
         acteurs.add(guts);
         acteurs.add(ennemi);
     }
-
     public ArrayList<Arme> getArmeMap() {
         return armeMap;
     }
-
+    public ArrayList<Soin> getSoinMap() {
+        return soinMap;
+    }
     public ObservableList<Acteur> getActeurs() {
         return acteurs;
     }
-
     public Map getMap() {
         return map;
     }
-
     public Ennemi getEnnemi() {
         return ennemi;
     }
-
-
     public void ajouter(Acteur a) {
         acteurs.add(a);
     }
@@ -64,11 +63,9 @@ public class Environnement {
         }
         return null;
     }
-
     public Joueur getGuts() {
         return guts;
     }
-
     public boolean verifierCollisions(int x, int y) {
         for (int i = x; i <= x + 30; i += 5) {
             for (int j = y; j <= y + 30; j += 5) {
@@ -81,8 +78,6 @@ public class Environnement {
         }
         return true;
     }
-
-
     public void unTour(){
         int newX, newY;
 
@@ -113,6 +108,4 @@ public class Environnement {
         }
 
     }
-
-
 }

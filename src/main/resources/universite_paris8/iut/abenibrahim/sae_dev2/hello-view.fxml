@@ -28,4 +28,9 @@
             <Font name="Ani" size="15.0" />
         </font>
     </Label>
+    <Label fx:id="nbSoin" layoutX="350" layoutY="400"  visible="true">
+        <font>
+            <Font name="Ani" size="15.0" />
+        </font>
+    </Label>
 </Pane>

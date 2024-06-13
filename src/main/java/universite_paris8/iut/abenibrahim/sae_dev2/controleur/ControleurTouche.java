@@ -10,18 +10,20 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.AnimatedSprite;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.InventaireVue;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.JoueurVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.soinvue;
 
 public class ControleurTouche implements EventHandler<KeyEvent> {
     private final AnimatedSprite animatedSprite;
     public Controleur ct;
     private InventaireVue inventaireVue;
     private Joueur joueur;
-
-    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue) {
+    private soinvue soinVue;
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue,soinvue soinVue) {
         this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);
         this.inventaireVue = inventaireVue;
+        this.soinVue = soinVue;
         this.joueur = joueur;
     }
 
@@ -40,6 +42,11 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                     ct.saveGame();
                 }
             }
+            case C -> {
+                if(this.joueur.peutSeSoigner()){
+                    this.joueur.seSoigner();
+                }
+            }
             case A -> {
                 this.joueur.attaquer();
             }
@@ -50,8 +57,12 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
             }
             case R -> {
                 Arme ramassee = this.joueur.ramasserarme();
+                Soin soin = this.joueur.ramasserSoin();
                 if (ramassee != null && ct != null) {
                     inventaireVue.supprimerArmeDeLaCarte(ramassee);
+                }
+                if (soin != null && ct != null) {
+                    soinVue.supprimerSoinDeLaCarte(soin);
                 }
             }
             case UP -> {

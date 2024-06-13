@@ -19,6 +19,7 @@ public class JoueurVue {
     private ImageView gutsSprite;
     private Pane paneMap;
     private InventaireVue inventaireVue;
+    private soinvue soinVue;
 
     public static String[] framesGauche;
     public static String[] framesDroite;
@@ -27,10 +28,11 @@ public class JoueurVue {
 
 
 
-    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue) {
+    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue,soinvue soinVue) {
         this.joueur = joueur;
         this.paneMap = paneMap;
         this.inventaireVue = inventaireVue;
+        this.soinVue = soinVue;
         framesGauche = new String[]{ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche1.png").toExternalForm() , ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche2.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche3.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche4.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche5.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche6.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche7.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gauche8.png").toExternalForm()};
         framesDroite = new String[]{ ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right2.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right3.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right4.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right5.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right6.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right7.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/right8.png").toExternalForm()};
         framesHaut = new String[]{ ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up1.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up2.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up3.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up4.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up5.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up6.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up7.png").toExternalForm(), ControleurTouche.class.getResource("/universite_paris8/iut/abenibrahim/sae_dev2/up8.png").toExternalForm()};
@@ -40,7 +42,7 @@ public class JoueurVue {
 
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
-        ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue,soinVue);
         deplacementFleche.Actualiser(c);
         Scene scene = paneMap.getScene();
         if (scene != null) {
