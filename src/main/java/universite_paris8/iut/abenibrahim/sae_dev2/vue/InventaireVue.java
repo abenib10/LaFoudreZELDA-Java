@@ -35,7 +35,6 @@ public class InventaireVue{
     private Arme selectedArme;
 
     private List<Arme> armes = new ArrayList<>();
-
     private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
     private ImageView selectedImageView;
@@ -63,8 +62,6 @@ public class InventaireVue{
         this.epée = new Epée();
         this.hache = new Hache();
         this.premierPlanMap = premierPlanMap;
-
-
     }
 
     public void ajouterArme(Arme arme){
@@ -82,6 +79,8 @@ public class InventaireVue{
             armeImages.add(imageView);
         }
     }
+
+
 
     public void  afficherInventaire() {
 

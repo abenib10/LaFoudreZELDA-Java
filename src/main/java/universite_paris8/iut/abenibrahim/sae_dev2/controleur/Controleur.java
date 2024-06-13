@@ -53,6 +53,9 @@ public class Controleur implements Initializable {
     private Label armeChoisie;
     @FXML
     private Label phrase;
+    @FXML
+    private Label nbSoin;
+
 
     public void saveGame() {
         try {
@@ -79,6 +82,7 @@ public class Controleur implements Initializable {
     private List<HBox> slots;
     private ImageView ennemiSprite;
     private AnimatedEnnemiSprite animationTimer;
+    private soinvue soinvue;
 
 
     @Override
@@ -107,11 +111,17 @@ public class Controleur implements Initializable {
         environnement.getEnnemi().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi.updatePvEnnemieImage(this.environnement.getEnnemi().getPv()));
         initialiserGuts();
         initialiserEnnemi();
+        this.soinvue = new soinvue(this.paneMap,this.nbSoin,this.environnement);
+        this.soinvue.afficherSoinMap();
+        soinvue.getsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
+        soinvue.getsoinStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-100));
+        soinvue.getnbsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
+        soinvue.getnbsoinStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-95));
 
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue,this.soinvue);
 
         joueurVue.creerSpriteJoueur(this);
 
@@ -128,11 +138,14 @@ public class Controleur implements Initializable {
         pvVueEnnemi.getPvStackPane().layoutXProperty().bind(environnement.getEnnemi().XProprety().add(-10));
         pvVueEnnemi.getPvStackPane().layoutYProperty().bind(environnement.getEnnemi().YProprety().add(-50));
 
+
+
         initAnimation();
         gameLoop.play();
 
 
         this.inventaireVue.afficherArmes();
+        this.soinvue.ajouterSoinMap();
     }
 
     private void initAnimation() {
