@@ -11,18 +11,19 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.Main;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.io.*;
 
 
@@ -138,12 +139,13 @@ public class Controleur implements Initializable {
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
         this.dialogueVue = new dialogueVue(dialogueBox,environnement,dialogueBox2);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue);
+
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
         joueurVue.creerSpriteJoueur(this);
 
-        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
+        this.ennemiVue = new EnnemiVue(environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
         this.ennemiVue.initialiserEnnemi(ennemiSprite, paneMap);
 

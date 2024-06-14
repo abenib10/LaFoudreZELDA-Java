@@ -100,17 +100,21 @@ public class Joueur extends Acteur {
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
     }
+
     public void recoisDegat(int degat) {
         int newPv = getPv() - degat;
         setPv(newPv);
     }
+
     public void seSoigner(){
         this.setPv(this.getPv() + 25);
         this.nbSoin.set(this.nbSoin.getValue()-1);
     }
+
     public IntegerProperty nbSoinProperty() {
         return nbSoin;
     }
+
     public boolean peutSeSoigner(){
         return this.nbSoin.get() > 0;
     }
