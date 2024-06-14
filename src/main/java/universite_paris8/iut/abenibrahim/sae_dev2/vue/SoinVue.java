@@ -13,7 +13,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class soinvue {
+public class SoinVue {
     private Pane paneMap;
 
     private StackPane soinStackPane;
@@ -27,7 +27,7 @@ public class soinvue {
     private Label nbSoin;
     private Soin soin;
 
-    public soinvue(Pane paneMap,Label nbSoin,Environnement environnement) {
+    public SoinVue(Pane paneMap, Label nbSoin, Environnement environnement) {
         this.paneMap = paneMap;
         this.environnement = environnement;
         this.nbSoin = nbSoin;

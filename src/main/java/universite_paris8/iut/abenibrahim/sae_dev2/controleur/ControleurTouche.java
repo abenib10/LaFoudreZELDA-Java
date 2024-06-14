@@ -12,13 +12,13 @@ import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 
 public class ControleurTouche implements EventHandler<KeyEvent> {
     private final AnimatedSprite animatedSprite;
-    private dialogueVue dialogueVue;
+    private DialogueVue dialogueVue;
     public Controleur ct;
     private InventaireVue inventaireVue;
     private Joueur joueur;
-    private soinvue soinVue;
+    private SoinVue soinVue;
     private MapVue mapVue;
-    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue,MapVue mapVue) {
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue) {
         this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);

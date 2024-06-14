@@ -7,7 +7,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Pnj;
 
 import java.util.List;
 
-public class dialogueVue {
+public class DialogueVue {
     @FXML
     public Label dialogueBox;
     @FXML
@@ -15,7 +15,7 @@ public class dialogueVue {
 
     private Environnement environnement;
 
-    public dialogueVue(Label dialogueBox, Environnement environnement,Label dialogueBox2){
+    public DialogueVue(Label dialogueBox, Environnement environnement, Label dialogueBox2){
         this.dialogueBox = dialogueBox;
         this.environnement = environnement;
         this.dialogueBox2 = dialogueBox2;

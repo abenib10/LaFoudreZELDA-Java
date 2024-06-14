@@ -4,19 +4,27 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 public class Joueur extends Acteur {
+
     private ObservableList<InventaireObjets> listeArme;
     private Arme armeEquipee;
     private IntegerProperty nbSoin;
+    private ObservableList<Projectile> projectiles;
+    private Direction lastDirection;
+
     public Joueur(Environnement e, int x, int y, int v, int pv){
         super(e,x,y,v,pv);
         this.listeArme= FXCollections.observableArrayList();
+        this.projectiles = FXCollections.observableArrayList();
         this.armeEquipee = null;
         this.nbSoin= new SimpleIntegerProperty(20);
+        this.lastDirection = Direction.EST;
     }
 
     @Override
@@ -121,5 +129,30 @@ public class Joueur extends Acteur {
             return distance <= distanceMinParler;
         }
         return false;
+    }
+
+    public void lancerProjectile() {
+        if (armeEquipee != null) {
+            System.out.println("aaaaa");
+            int projectileX = getX();
+            int projectileY = getY();
+            int vitesseProjectile = 10; // Ajustez selon vos besoins
+            int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
+
+            Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
+            projectiles.add(projectile);
+            System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+        }
+    }
+
+
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    @Override
+    public void seDeplace(Direction direction) {
+        super.seDeplace(direction);
+        this.lastDirection = direction;
     }
 }

@@ -6,7 +6,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.Controleur;
 import universite_paris8.iut.abenibrahim.sae_dev2.controleur.ControleurTouche;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
 
 public class JoueurVue {
@@ -15,8 +14,8 @@ public class JoueurVue {
     private ImageView gutsSprite;
     private Pane paneMap;
     private InventaireVue inventaireVue;
-    private soinvue soinVue;
-    private dialogueVue dialogueVue;
+    private SoinVue soinVue;
+    private DialogueVue dialogueVue;
     private MapVue mapVue;
 
     public static String[] framesGauche;
@@ -26,7 +25,7 @@ public class JoueurVue {
 
 
 
-    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue,MapVue mapVue) {
+    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue) {
         this.joueur = joueur;
         this.mapVue=mapVue;
         this.paneMap = paneMap;
