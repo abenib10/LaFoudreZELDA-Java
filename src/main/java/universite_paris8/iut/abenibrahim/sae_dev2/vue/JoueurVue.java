@@ -38,7 +38,11 @@ public class JoueurVue {
 
     }
 
-
+    public void initialiserGuts(ImageView imageView, Pane pane){
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        pane.getChildren().add(imageView);
+    }
 
 
     public void creerSpriteJoueur(Controleur c) {

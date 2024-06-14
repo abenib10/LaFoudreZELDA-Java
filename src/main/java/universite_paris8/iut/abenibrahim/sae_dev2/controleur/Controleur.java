@@ -9,11 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.Main;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
@@ -49,6 +49,7 @@ public class Controleur implements Initializable {
     @FXML
     private Label phrase;
     private GameOverVue gameOverVue;
+    private List<Circle> projectilesSprites = new ArrayList<>();
 
     public void saveGame() {
         try {
@@ -99,18 +100,23 @@ public class Controleur implements Initializable {
         this.pvVue = new PvVue(this.paneMap);
         environnement.getGuts().pvProperty().addListener((obs, oldValue, newValue) -> pvVue.updatePvJoueurImage(this.environnement.getGuts().getPv()));
 
-        initialiserGuts();
-        initialiserEnnemi();
+        Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm());
+        gutsSprite = new ImageView(g);
+
+        Image e = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/ennemi-droite1-removebg-preview.png").toExternalForm());
+        ennemiSprite = new ImageView(e);
 
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
 
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue);
         joueurVue.creerSpriteJoueur(this);
+        this.joueurVue.initialiserGuts(gutsSprite, paneMap);
 
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
+        this.ennemiVue.initialiserEnnemi(ennemiSprite, paneMap);
 
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
         this.animationTimer.start();
@@ -128,7 +134,7 @@ public class Controleur implements Initializable {
         gameOverVue = new GameOverVue(this.paneMap);
         gameOverVue.getImageView().setVisible(false);
 
-
+        this.projectilesSprites = new ArrayList<>();
     }
 
     private void initAnimation() {
@@ -142,6 +148,7 @@ public class Controleur implements Initializable {
                         gameLoop.stop();
                     } else {
                         this.environnement.unTour();
+                        updateProjectiles();
                         System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
                         System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
                         this.environnement.getEnnemi().attaquer();
@@ -166,23 +173,6 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
     }
 
-
-    public void initialiserGuts(){
-        Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/boy_right_1.png").toExternalForm());
-        gutsSprite = new ImageView(g);
-        gutsSprite.setFitHeight(50);
-        gutsSprite.setFitWidth(50);
-        paneMap.getChildren().add(gutsSprite);
-    }
-
-    public void initialiserEnnemi(){
-        Image g = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/ennemi-droite1-removebg-preview.png").toExternalForm());
-        ennemiSprite = new ImageView(g);
-        ennemiSprite.setFitHeight(50);
-        ennemiSprite.setFitWidth(50);
-        paneMap.getChildren().add(ennemiSprite);
-    }
-
     public void ajusterCameraSuiviJoueur() {
         double joueurX = environnement.getGuts().getX();
         double joueurY = environnement.getGuts().getY();
@@ -200,5 +190,60 @@ public class Controleur implements Initializable {
 
     public ImageView getGutsSprite() {
         return gutsSprite;
+    }
+
+    private boolean checkCollision(Projectile projectile, Acteur ennemi) {
+        int projectileX = projectile.getX();
+        int projectileY = projectile.getY();
+        int ennemiX = ennemi.getX();
+        int ennemiY = ennemi.getY();
+        int collisionDistance = 10; // Ajustez cette valeur si nécessaire
+
+        int distanceX = Math.abs(projectileX - ennemiX);
+        int distanceY = Math.abs(projectileY - ennemiY);
+
+        return (distanceX < collisionDistance && distanceY < collisionDistance);
+    }
+
+    private void updateProjectiles() {
+        List<Projectile> projectiles = environnement.getGuts().getProjectiles();
+
+        // Supprimez les cercles de projectiles dépassés
+        for (int i = projectilesSprites.size() - 1; i >= projectiles.size(); i--) {
+            paneMap.getChildren().remove(projectilesSprites.get(i));
+            projectilesSprites.remove(i);
+        }
+
+        // Déplacez les projectiles et vérifiez les collisions
+        Iterator<Projectile> iterator = projectiles.iterator();
+        while (iterator.hasNext()) {
+            Projectile projectile = iterator.next();
+            projectile.deplacer();
+            if (checkCollision(projectile, environnement.getEnnemi())) {
+                environnement.getEnnemi().recoisDegat(projectile.getDegat());
+                iterator.remove(); // Supprimez le projectile de la liste
+                int index = projectiles.indexOf(projectile);
+                if (index != -1 && index < projectilesSprites.size()) {
+                    paneMap.getChildren().remove(projectilesSprites.get(index));
+                    projectilesSprites.remove(index);
+                }
+            }
+        }
+
+        // Mettez à jour les positions des cercles de projectiles
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile projectile = projectiles.get(i);
+            Circle projectileCircle;
+            if (i < projectilesSprites.size()) {
+                projectileCircle = projectilesSprites.get(i);
+            } else {
+                projectileCircle = new Circle(5, Color.RED); // Taille et couleur du projectile
+                projectilesSprites.add(projectileCircle);
+                paneMap.getChildren().add(projectileCircle);
+            }
+            projectileCircle.setCenterX(projectile.getX());
+            projectileCircle.setCenterY(projectile.getY());
+        }
+
     }
 }

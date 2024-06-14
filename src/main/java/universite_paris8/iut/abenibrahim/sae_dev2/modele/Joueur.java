@@ -6,10 +6,15 @@ import javafx.collections.ObservableList;
 public class Joueur extends Acteur{
     private ObservableList<InventaireObjets> listeArme;
     private Arme armeEquipee;
+    private ObservableList<Projectile> projectiles;
+    private Direction lastDirection;
+
     public Joueur(Environnement e,int x,int y,int v, int pv){
         super(e,x,y,v,pv);
         this.listeArme= FXCollections.observableArrayList();
         this.armeEquipee = null;
+        this.projectiles = FXCollections.observableArrayList();
+        this.lastDirection = Direction.EST;
     }
 
     @Override
@@ -71,4 +76,28 @@ public class Joueur extends Acteur{
         setPv(newPv);
     }
 
+    public void lancerProjectile() {
+        if (armeEquipee != null) {
+            System.out.println("aaaaa");
+            int projectileX = getX();
+            int projectileY = getY();
+            int vitesseProjectile = 10; // Ajustez selon vos besoins
+            int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
+
+            Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
+            projectiles.add(projectile);
+            System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+        }
+    }
+
+
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    @Override
+    public void seDeplace(Direction direction) {
+        super.seDeplace(direction);
+        this.lastDirection = direction;
+    }
 }

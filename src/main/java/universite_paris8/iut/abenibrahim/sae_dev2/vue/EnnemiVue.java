@@ -37,6 +37,13 @@ public class EnnemiVue {
         this.animatedEnnemiSprite.start();
     }
 
+    public void initialiserEnnemi(ImageView imageView, Pane pane){
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        pane.getChildren().add(imageView);
+    }
+
+
     public void animerEnnemi(AnimatedEnnemiSprite animationTimer, Direction direction){
         if (direction == Direction.OUEST) {
             animationTimer.updateFrames(framesGauche);                        }
