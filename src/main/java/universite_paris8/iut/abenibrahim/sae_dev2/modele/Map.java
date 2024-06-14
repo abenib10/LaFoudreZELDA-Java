@@ -104,6 +104,19 @@ public class Map {
                 };
     }
 
+    public boolean verifierCollisions(int x, int y) {
+        for (int i = x; i <= x + 30; i += 5) {
+            for (int j = y; j <= y + 30; j += 5) {
+                switch (tab2[j / 50][i / 50]){
+                    case  1,2 -> {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public int[][] getTab() {
         return tab;
     }

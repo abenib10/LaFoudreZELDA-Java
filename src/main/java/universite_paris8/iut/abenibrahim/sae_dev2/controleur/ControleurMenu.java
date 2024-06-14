@@ -83,7 +83,7 @@ public class ControleurMenu {
         videoMediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer2.play();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/hello-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lafoudre.fxml"));
                 Parent root = loader.load();
                 Scene newScene = new Scene(root);
                 Stage stage = (Stage) playButton.getScene().getWindow();
@@ -103,7 +103,7 @@ public class ControleurMenu {
         }
         loadGame();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/hello-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lafoudre.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) continuerButton.getScene().getWindow();
@@ -149,7 +149,7 @@ public class ControleurMenu {
             videoMediaPlayer.stop();
             mediaPlayer2.play();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/hello-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lafoudre.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) playButton.getScene().getWindow();

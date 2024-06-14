@@ -40,6 +40,13 @@ public class JoueurVue {
 
     }
 
+    public void initialiserGuts(ImageView imageView, Pane pane){
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        pane.getChildren().add(imageView);
+    }
+
+
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
         ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue,soinVue,dialogueVue,mapVue);
@@ -57,17 +64,6 @@ public class JoueurVue {
         gutsSprite = deplacementFleche.getAnimatedSprite().getImageView();
         gutsSprite.translateXProperty().bind(this.joueur.XProprety());
         gutsSprite.translateYProperty().bind(this.joueur.YProprety());
-    }
-
-    public void mettreAJourFramesJoueur(Direction direction) {
-        AnimatedSprite animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), framesDroite, 0);
-        switch (direction) {
-            case OUEST -> animatedSprite.definirFrames(framesGauche);
-            case EST -> animatedSprite.definirFrames(framesDroite);
-            case NORD -> animatedSprite.definirFrames(framesHaut);
-            case SUD -> animatedSprite.definirFrames(framesBas);
-        }
-        gutsSprite.setImage(animatedSprite.getImageView().getImage());
     }
 
 }

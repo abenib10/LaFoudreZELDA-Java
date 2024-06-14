@@ -52,6 +52,9 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
             case A -> {
                 this.joueur.attaquer();
             }
+            case SPACE -> {
+                this.joueur.lancerProjectile();
+            }
             case I -> {
                 if (!inventaireVue.inventairePane.isVisible()) {
                     inventaireVue.afficherInventaire();
