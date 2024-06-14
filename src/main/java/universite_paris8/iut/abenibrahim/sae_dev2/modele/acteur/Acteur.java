@@ -1,8 +1,10 @@
-package universite_paris8.iut.abenibrahim.sae_dev2.modele;
+package universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 
 public abstract class Acteur {
     private IntegerProperty x,y;

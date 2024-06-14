@@ -15,6 +15,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.Main;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
@@ -83,6 +86,11 @@ public class Controleur implements Initializable {
     private ImageView ennemiSprite;
     private AnimatedEnnemiSprite animationTimer;
     private soinvue soinvue;
+    private dialogueVue dialogueVue;
+    @FXML
+    private Label dialogueBox;
+    @FXML
+    private Label dialogueBox2;
 
 
     @Override
@@ -115,14 +123,15 @@ public class Controleur implements Initializable {
         this.soinvue.afficherSoinMap();
         soinvue.getsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         soinvue.getsoinStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-100));
-        soinvue.getnbsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
+        soinvue.getnbsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-325));
         soinvue.getnbsoinStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-95));
 
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue,this.soinvue);
+        this.dialogueVue = new dialogueVue(dialogueBox,environnement,dialogueBox2);
 
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue,this.soinvue,this.dialogueVue);
         joueurVue.creerSpriteJoueur(this);
 
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);

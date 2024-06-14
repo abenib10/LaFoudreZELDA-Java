@@ -8,7 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
-
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Hache;
 import java.util.ArrayList;
 import java.util.List;
 

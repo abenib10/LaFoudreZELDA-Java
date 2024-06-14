@@ -30,7 +30,17 @@
     </Label>
     <Label fx:id="nbSoin" layoutX="350" layoutY="400"  visible="true">
         <font>
-            <Font name="Ani" size="15.0" />
+            <Font name="Ani" size="30.0" />
+        </font>
+    </Label>
+    <Label fx:id="dialogueBox" layoutX="200" layoutY="200" prefHeight="100" prefWidth="300" visible="false" style="-fx-background-color: white; -fx-border-color: black;">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+    <Label fx:id="dialogueBox2" layoutX="200" layoutY="200" prefHeight="100" prefWidth="300" visible="false" style="-fx-background-color: white; -fx-border-color: black;">
+        <font>
+            <Font size="14.0" />
         </font>
     </Label>
 </Pane>
