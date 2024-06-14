@@ -17,6 +17,7 @@ public class JoueurVue {
     private InventaireVue inventaireVue;
     private soinvue soinVue;
     private dialogueVue dialogueVue;
+    private MapVue mapVue;
 
     public static String[] framesGauche;
     public static String[] framesDroite;
@@ -25,8 +26,9 @@ public class JoueurVue {
 
 
 
-    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue) {
+    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue,MapVue mapVue) {
         this.joueur = joueur;
+        this.mapVue=mapVue;
         this.paneMap = paneMap;
         this.inventaireVue = inventaireVue;
         this.soinVue = soinVue;
@@ -40,7 +42,7 @@ public class JoueurVue {
 
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
-        ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue,soinVue,dialogueVue);
+        ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue,soinVue,dialogueVue,mapVue);
         deplacementFleche.Actualiser(c);
         Scene scene = paneMap.getScene();
         if (scene != null) {

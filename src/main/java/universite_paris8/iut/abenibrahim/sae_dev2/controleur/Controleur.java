@@ -35,6 +35,8 @@ public class Controleur implements Initializable {
     private static final double ZOOM_FACTOR = 1.2;
     @FXML
     private TilePane tilePaneMap;
+    @FXML
+    private TilePane tilePaneMap2;
     private Environnement environnement;
     @FXML
     private TilePane premierPlanMap;
@@ -109,7 +111,7 @@ public class Controleur implements Initializable {
             this.environnement = env;
         }
 
-        this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(), tilePaneMap, premierPlanMap);
+        this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(),environnement.getMap().getTab3(), tilePaneMap, premierPlanMap,tilePaneMap2);
         this.mapVue.remplirMap();
 
         this.pvVue = new PvVue(this.paneMap);
@@ -131,7 +133,7 @@ public class Controleur implements Initializable {
         this.inventaireVue.armeMap();
         this.dialogueVue = new dialogueVue(dialogueBox,environnement,dialogueBox2);
 
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue,this.soinvue,this.dialogueVue);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue,this.soinvue,this.dialogueVue,mapVue);
         joueurVue.creerSpriteJoueur(this);
 
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().getX(), environnement.getEnnemi().getY(), environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
