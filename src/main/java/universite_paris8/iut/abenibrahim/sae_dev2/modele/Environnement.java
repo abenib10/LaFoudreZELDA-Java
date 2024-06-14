@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Environnement {
     private ArrayList<Arme> armeMap;
     private final int largeur = Constants.largeurMax;
+    private final int longueur = Constants.longueurMax;
+
     private final int pv = Constants.pv;
     private final int x=Constants.positionX;
     private final int y =Constants.positionY;
@@ -49,26 +51,12 @@ public class Environnement {
 
     public boolean dansTerrain(int x, int y)
     {
-        return x >= 0 && x < largeur && y >= 0 && y <largeur;
+        return x >= 0 && x < longueur && y >= 0 && y <largeur;
     }
 
     public Joueur getGuts() {
         return guts;
     }
-
-    public boolean verifierCollisions(int x, int y) {
-        for (int i = x; i <= x + 30; i += 5) {
-            for (int j = y; j <= y + 30; j += 5) {
-                switch (map.getTab()[j / 100][i / 100]){
-                    case  2 -> {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
 
     public void unTour(){
         int newX, newY;
@@ -82,7 +70,7 @@ public class Environnement {
                 }
                 newX = a.getX()+5;
                 newY = a.getY()+5;
-                if(this.dansTerrain(newX,newY) && this.verifierCollisions(newX,newY)){
+                if(this.dansTerrain(newX,newY) && this.map.verifierCollisions(newX,newY)){
                     a.setX(newX);
                     a.setY(newY);
                 }

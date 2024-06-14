@@ -38,6 +38,9 @@ public class JoueurVue {
 
     }
 
+
+
+
     public void creerSpriteJoueur(Controleur c) {
         gutsSprite = c.getGutsSprite();
         ControleurTouche deplacementFleche = new ControleurTouche(this.joueur, gutsSprite, inventaireVue);

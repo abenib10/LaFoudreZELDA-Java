@@ -20,7 +20,7 @@ public class GameOverVue extends VBox {
         this.paneMap = paneMap;
         gameOverStackPane = new StackPane();
         imageView = new ImageView(new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/gameover.png").toExternalForm()));
-        imageView.setFitWidth(1000);
+        imageView.setFitWidth(800);
         imageView.setFitHeight(300);
         gameOverStackPane.getChildren().add(imageView);
         gameOverStackPane.setLayoutX(10);
@@ -34,5 +34,10 @@ public class GameOverVue extends VBox {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public void updatePosition(double joueurX, double joueurY) {
+        gameOverStackPane.setLayoutX(joueurX - (gameOverStackPane.getWidth() / 2));
+        gameOverStackPane.setLayoutY(joueurY - (gameOverStackPane.getHeight() / 2));
     }
 }

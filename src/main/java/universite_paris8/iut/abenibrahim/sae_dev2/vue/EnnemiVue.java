@@ -36,4 +36,16 @@ public class EnnemiVue {
         ennemiSprite.translateYProperty().bind(this.ennemiYProperty);
         this.animatedEnnemiSprite.start();
     }
-}
+
+    public void animerEnnemi(AnimatedEnnemiSprite animationTimer, Direction direction){
+        if (direction == Direction.OUEST) {
+            animationTimer.updateFrames(framesGauche);                        }
+        else if (direction == Direction.EST) {
+            animationTimer.updateFrames(framesDroite);                        }
+        else if (direction == Direction.NORD) {
+            animationTimer.updateFrames(framesHaut);                        }
+        else if (direction == Direction.SUD) {
+            animationTimer.updateFrames(framesBas);                        }
+    }
+    }
+

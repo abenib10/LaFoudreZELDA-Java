@@ -56,7 +56,7 @@ public class Ennemi extends Acteur {
                 int nouvelleX = noeudCourant.x * 50;
                 int nouvelleY = noeudCourant.y * 50;
 
-                if (environnement.verifierCollisions(nouvelleX, nouvelleY)) {
+                if (environnement.getMap().verifierCollisions(nouvelleX, nouvelleY)) {
                     int deltaX = (nouvelleX - this.getX()) / 3;
                     int deltaY = (nouvelleY - this.getY()) / 3;
                     this.setX(this.getX() + deltaX);

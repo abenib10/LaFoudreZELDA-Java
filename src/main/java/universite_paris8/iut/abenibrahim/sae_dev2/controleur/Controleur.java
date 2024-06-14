@@ -8,9 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.Main;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
@@ -19,10 +17,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.io.*;
 
 
@@ -120,7 +115,6 @@ public class Controleur implements Initializable {
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
         this.animationTimer.start();
 
-
         pvVue.getPvStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
 
@@ -133,8 +127,8 @@ public class Controleur implements Initializable {
 
         gameOverVue = new GameOverVue(this.paneMap);
         gameOverVue.getImageView().setVisible(false);
-        //gameOverVue.getGameOverStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-350));
-        //gameOverVue.getGameOverStackPane().layoutYProperty().bind(environnement.getGuts().YProprety());
+
+
     }
 
     private void initAnimation() {
@@ -152,20 +146,12 @@ public class Controleur implements Initializable {
                         System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
-                        Direction direction = this.environnement.getEnnemi().getDirection();
-
-                        if (direction == Direction.OUEST) {
-                            this.animationTimer.updateFrames(EnnemiVue.framesGauche);                        }
-                        else if (direction == Direction.EST) {
-                            this.animationTimer.updateFrames(EnnemiVue.framesDroite);                        }
-                        else if (direction == Direction.NORD) {
-                            this.animationTimer.updateFrames(EnnemiVue.framesHaut);                        }
-                        else if (direction == Direction.SUD) {
-                            this.animationTimer.updateFrames(EnnemiVue.framesBas);                        }
+                        this.ennemiVue.animerEnnemi(this.animationTimer, this.environnement.getEnnemi().getDirection());
 
                         if (environnement.getGuts().estMort()) {
                             gameLoop.stop();
                             paneMap.getChildren().remove(gutsSprite);
+                            gameOverVue.updatePosition(environnement.getGuts().getX(), environnement.getGuts().getY());
                             gameOverVue.getImageView().setVisible(true);
                             }
 
