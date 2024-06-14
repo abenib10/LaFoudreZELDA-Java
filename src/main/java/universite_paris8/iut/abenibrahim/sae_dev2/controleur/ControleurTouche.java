@@ -17,7 +17,8 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
     private InventaireVue inventaireVue;
     private Joueur joueur;
     private soinvue soinVue;
-    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue) {
+    private MapVue mapVue;
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue,soinvue soinVue,dialogueVue dialogueVue,MapVue mapVue) {
         this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);
@@ -25,6 +26,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
         this.dialogueVue = dialogueVue;
         this.soinVue = soinVue;
         this.joueur = joueur;
+        this.mapVue=mapVue;
     }
 
     @Override
@@ -96,6 +98,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
             if (!inventaireVue.inventairePane.isVisible()){
                 this.joueur.seDeplace(direction);
                 ct.ajusterCameraSuiviJoueur();
+                mapVue.updatePlayerPosition(joueur.getX(), joueur.getY());
             }
     }
     public void Actualiser(Controleur c){

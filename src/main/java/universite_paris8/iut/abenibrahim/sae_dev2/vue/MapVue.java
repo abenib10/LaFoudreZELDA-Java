@@ -9,19 +9,26 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 public class MapVue {
 
     private int[][] tab;
+    private int joueurX;
+    private int joueurY;
     private int[][] tab2;
+    private int[][] tab3;
     @FXML
     private TilePane tilePaneMap;
     @FXML
     private TilePane premierPlanMap;
+    @FXML
+    private TilePane tilePaneMap2;
 
     @FXML
     private TilePane murMap;
 
-    public MapVue(int[][] tab, int[][] tab2, TilePane tilePaneMap, TilePane premierPlanMap){
+    public MapVue(int[][] tab, int[][] tab2,int[][] tab3, TilePane tilePaneMap, TilePane premierPlanMap,TilePane tilePaneMap2){
         this.tab = tab;
+        this.tab3= tab3;
         this.tab2 = tab2;
         this.tilePaneMap = tilePaneMap;
+        this.tilePaneMap2 = tilePaneMap2;
         this.premierPlanMap = premierPlanMap;
     }
 
@@ -61,6 +68,35 @@ public class MapVue {
                 }
                 this.premierPlanMap.getChildren().add(imageView);
             }
+        }
+    }
+
+    public void remplirMap2(){
+        Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
+        for (int i = 0; i < this.tab3.length; i++) {
+            for (int j = 0; j < this.tab3[i].length; j++) {
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight(50);
+                imageView.setFitWidth(50);
+                switch (this.tab3[i][j]){
+                    case 1 -> imageView.setImage(herbeImage);
+                }
+                this.tilePaneMap2.getChildren().add(imageView);
+            }
+        }
+    }
+    public void updatePlayerPosition(int x, int y) {
+        this.joueurX = x;
+        this.joueurY = y;
+        checkPlayerPosition();
+    }
+
+    private void checkPlayerPosition() {
+        if (joueurX == 1440 && joueurY == 0){
+            tilePaneMap.setVisible(false);
+            premierPlanMap.setVisible(false);
+            tilePaneMap2.setVisible(true);
+            remplirMap2();
         }
     }
 
