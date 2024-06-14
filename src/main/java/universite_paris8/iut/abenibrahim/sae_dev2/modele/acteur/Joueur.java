@@ -1,15 +1,18 @@
-package universite_paris8.iut.abenibrahim.sae_dev2.modele;
+package universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-public class Joueur extends Acteur{
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
+public class Joueur extends Acteur {
     private ObservableList<InventaireObjets> listeArme;
     private Arme armeEquipee;
     private IntegerProperty nbSoin;
-    public Joueur(Environnement e,int x,int y,int v, int pv){
+    public Joueur(Environnement e, int x, int y, int v, int pv){
         super(e,x,y,v,pv);
         this.listeArme= FXCollections.observableArrayList();
         this.armeEquipee = null;
@@ -101,5 +104,22 @@ public class Joueur extends Acteur{
     }
     public boolean peutSeSoigner(){
         return this.nbSoin.get() > 0;
+    }
+
+    public boolean peutParler(){
+        int joueurX, joueurY, pnjX, pnjY;
+        int distanceMinParler = 50;
+        joueurX = this.getX();
+        joueurY = this.getY();
+
+        for(Pnj pnj : environnement.getPnjList()){
+            pnjX = pnj.getX();
+            pnjY = pnj.getY();
+            int distanceX = Math.abs(joueurX - pnjX);
+            int distanceY = Math.abs(joueurY - pnjY);
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            return distance <= distanceMinParler;
+        }
+        return false;
     }
 }

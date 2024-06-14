@@ -1,5 +1,8 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
+
 import java.io.Serializable;
 
 public class SaveData implements Serializable {

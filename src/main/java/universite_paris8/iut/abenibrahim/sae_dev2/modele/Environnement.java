@@ -1,13 +1,19 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
 import javafx.collections.FXCollections;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Pnj;
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Environnement {
     private ArrayList<Arme> armeMap;
+    private List<Pnj> pnjList;
     private ArrayList<Soin> soinMap;
     private final int largeur = Constants.largeurMax;
     private final int pv = Constants.pv;
@@ -28,6 +34,8 @@ public class Environnement {
         this.ennemi = new Ennemi(this,10,10,vitesse,pv);
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
+        this.pnjList = new ArrayList<>();
+        initialiserPnj();
         acteurs.add(guts);
         acteurs.add(ennemi);
     }
@@ -40,6 +48,21 @@ public class Environnement {
     public ObservableList<Acteur> getActeurs() {
         return acteurs;
     }
+
+    public List<Pnj> getPnjList() {
+        return pnjList;
+    }
+
+    public void initialiserPnj(){
+        Pnj pnj = new Pnj();
+        Pnj pnj1 = new Pnj();
+        pnj1.setX(150);
+        pnj1.setY(500);
+        pnj1.setDialogue("Bonjour aventurier !! ");
+        getPnjList().add(pnj);
+        getPnjList().add(pnj1);
+    }
+
     public Map getMap() {
         return map;
     }

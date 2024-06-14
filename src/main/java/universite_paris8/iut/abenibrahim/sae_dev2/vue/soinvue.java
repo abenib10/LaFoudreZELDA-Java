@@ -7,9 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Soin;
+import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,8 @@ public class soinvue {
         this.nbsoinStackPane = new StackPane();
         Image soinImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/items.png").toString());
         pvImageView = new ImageView(soinImage);
+        pvImageView.setFitWidth(52);
+        pvImageView.setFitHeight(50);
         soinStackPane.getChildren().add(pvImageView);
         nbsoinStackPane.getChildren().add(nbSoin);
         paneMap.getChildren().add(soinStackPane);
@@ -55,7 +56,7 @@ public class soinvue {
     public void ajouterSoinMap() {
         for (Soin soin : this.environnement.getSoinMap()) {
             Image image = soin.getImage(); // Obtenir l'image de l'arme
-            ImageView imageView = new ImageView(image); // Créer l'ImageView avec l'image
+            ImageView imageView = new ImageView(image);// Créer l'ImageView avec l'image
             paneMap.getChildren().add(imageView); // Ajouter l'ImageView au PaneMap
             imageView.setTranslateX(soin.getX()); // Ajuster la position X
             imageView.setTranslateY(soin.getY()); // Ajuster la position Y
