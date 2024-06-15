@@ -76,6 +76,13 @@ public class Environnement {
         return ennemi;
     }
 
+    public Pnj getPnj(){
+        for (Pnj pnj : getPnjList()) {
+            return pnj;
+        }
+        return null;
+    }
+
 
     public void ajouter(Acteur a) {
         acteurs.add(a);

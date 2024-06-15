@@ -62,7 +62,7 @@ public class Controleur implements Initializable {
     private GameOverVue gameOverVue;
     private List<Circle> projectilesSprites = new ArrayList<>();
     private ProjectileVue projectileVue;
-
+    private PnjVue pnjVue;
     public void saveGame() {
         try {
             SaveData saveData = new SaveData(environnement);
@@ -146,8 +146,9 @@ public class Controleur implements Initializable {
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
         this.ennemiVue.initialiserEnnemi(ennemiSprite, paneMap);
-
-
+        this.pnjVue = new PnjVue(paneMap,environnement.getPnj().getXproperty(),environnement.getPnj().getYproperty());
+        pnjVue.creerSpritePnj();
+        pnjVue.initialiserPnj(pnjVue.getPnjSpriteView(),paneMap);
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
         this.animationTimer.start();
 
