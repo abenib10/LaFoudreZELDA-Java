@@ -90,6 +90,7 @@ public class Controleur implements Initializable {
     private AnimatedEnnemiSprite animationTimer;
     private SoinVue soinvue;
     private DialogueVue dialogueVue;
+    private objetDefVue objetDefVue;
     @FXML
     private Label dialogueBox;
     @FXML
@@ -138,7 +139,9 @@ public class Controleur implements Initializable {
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
         this.dialogueVue = new DialogueVue(dialogueBox,environnement,dialogueBox2);
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue);
+        this.objetDefVue = new objetDefVue(environnement,paneMap);
+        this.objetDefVue.afficherSoinMap();
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue);
 
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
         joueurVue.creerSpriteJoueur(this);
@@ -170,6 +173,7 @@ public class Controleur implements Initializable {
 
         this.inventaireVue.afficherArmes();
         this.soinvue.ajouterSoinMap();
+        this.objetDefVue.ajouterObjetDefenseDansMap();
 
     }
 

@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
@@ -18,7 +19,8 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
     private Joueur joueur;
     private SoinVue soinVue;
     private MapVue mapVue;
-    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue) {
+    private objetDefVue objetDefVue;
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue,objetDefVue objetDefVue) {
         this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);
@@ -27,6 +29,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
         this.soinVue = soinVue;
         this.joueur = joueur;
         this.mapVue=mapVue;
+        this.objetDefVue=objetDefVue;
     }
 
     @Override
@@ -63,11 +66,15 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
             case R -> {
                 Arme ramassee = this.joueur.ramasserarme();
                 Soin soin = this.joueur.ramasserSoin();
+                objetDefense objetDefense = this.joueur.ramasserObjetDefense();
                 if (ramassee != null && ct != null) {
                     inventaireVue.supprimerArmeDeLaCarte(ramassee);
                 }
                 if (soin != null && ct != null) {
                     soinVue.supprimerSoinDeLaCarte(soin);
+                }
+                if (objetDefense != null && ct != null) {
+                    objetDefVue.supprimerObjetDefDeLaCarte(objetDefense);
                 }
             }
             case P -> {

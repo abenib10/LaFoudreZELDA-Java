@@ -8,6 +8,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 public class Joueur extends Acteur {
@@ -17,6 +18,7 @@ public class Joueur extends Acteur {
     private IntegerProperty nbSoin;
     private ObservableList<Projectile> projectiles;
     private Direction lastDirection;
+    private int pointDef;
 
     public Joueur(Environnement e, int x, int y, int v, int pv){
         super(e,x,y,v,pv);
@@ -25,6 +27,7 @@ public class Joueur extends Acteur {
         this.armeEquipee = null;
         this.nbSoin= new SimpleIntegerProperty(20);
         this.lastDirection = Direction.EST;
+        this.pointDef = 0;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class Joueur extends Acteur {
         int distanceY = Math.abs( enemyY - playerY);
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
         if (distance <= distanceAttaque) {
-            environnement.getEnnemi().recoisDegat(this.armeEquipee.getPointAttaque());
+            environnement.getEnnemi(). recoisDegat(this.armeEquipee.getPointAttaque());
         }
     }
 
@@ -96,12 +99,37 @@ public class Joueur extends Acteur {
         }
         return null;
     }
+    public objetDefense ramasserObjetDefense(){
+        int postionJoueurX, positionJoueurY, positionObjetDefenseX;
+        int distanceRamassage = 40;
+        postionJoueurX = getX();
+        positionJoueurY = getY();
+        for (objetDefense objetDefense : environnement.getObjetDefenseList()){
+            positionObjetDefenseX = objetDefense.getX();
+            positionJoueurY = objetDefense.getY();
+            int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
+            int distanceY = Math.abs(positionJoueurY - objetDefense.getY());
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            if (distance <= distanceRamassage) {
+                this.setPointDef(objetDefense.getDefDonner());
+                environnement.getObjetDefenseList().remove(objetDefense);
+                return objetDefense;
+            }
+        }
+        return null;
+    }
+
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
     }
     public void recoisDegat(int degat) {
-        int newPv = getPv() - degat;
-        setPv(newPv);
+       if (environnement.getEnnemi().getEpée().getPointAttaque() <= pointDef){
+           setPv(getPv());
+       } else {
+           int nvDegat = Math.abs(pointDef - degat);
+           int newPv = this.getPv() - nvDegat;
+           setPv(newPv);
+       }
     }
     public void seSoigner(){
         this.setPv(this.getPv() + 25);
@@ -145,6 +173,9 @@ public class Joueur extends Acteur {
         }
     }
 
+    public void setPointDef(int pointDef) {
+        this.pointDef = pointDef;
+    }
 
     public ObservableList<Projectile> getProjectiles() {
         return projectiles;

@@ -3,6 +3,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Pnj;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 import javafx.collections.FXCollections;
@@ -21,12 +22,11 @@ public class Environnement {
     private final int x=Constants.positionX;
     private final int y =Constants.positionY;
     private final int vitesse = Constants.vitesse;
-
     private Map map;
     private ObservableList<Acteur> acteurs;
-
     private Joueur guts;
     private Ennemi ennemi;
+    private List<objetDefense> objetDefenseList;
 
     public Environnement() {
         this.map = new Map();
@@ -36,6 +36,7 @@ public class Environnement {
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();
+        this.objetDefenseList = new ArrayList<>();
         initialiserPnj();
         acteurs.add(guts);
         acteurs.add(ennemi);
@@ -47,6 +48,9 @@ public class Environnement {
 
     public ArrayList<Soin> getSoinMap() {
         return soinMap;
+    }
+    public List<objetDefense> getObjetDefenseList() {
+        return objetDefenseList;
     }
 
     public ObservableList<Acteur> getActeurs() {
