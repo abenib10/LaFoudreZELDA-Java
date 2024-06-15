@@ -62,6 +62,7 @@ public class Controleur implements Initializable {
     private GameOverVue gameOverVue;
     private List<Circle> projectilesSprites = new ArrayList<>();
     private ProjectileVue projectileVue;
+    private PRojectileVueEnnemie pRojectileVueEnnemie;
     private PnjVue pnjVue;
     public void saveGame() {
         try {
@@ -126,6 +127,7 @@ public class Controleur implements Initializable {
         ennemiSprite = new ImageView(e);
 
         this.projectileVue = new ProjectileVue();
+        this.pRojectileVueEnnemie = new PRojectileVueEnnemie();
         this.pvVueEnnemi = new PvVueEnnemi(this.paneMap);
         environnement.getEnnemi().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi.updatePvEnnemieImage(this.environnement.getEnnemi().getPv()));
         this.soinvue = new SoinVue(this.paneMap,this.nbSoin,this.environnement);
@@ -189,8 +191,11 @@ public class Controleur implements Initializable {
                     } else {
                         this.environnement.unTour();
                         this.projectileVue.updateProjectiles(environnement.getGuts().getProjectiles(), environnement.getEnnemi(), projectilesSprites, this.paneMap);
+                        this.pRojectileVueEnnemie.updateProjectiles(environnement.getEnnemiProjectile().getProjectileList(),environnement.getGuts(), projectilesSprites, this.paneMap);
+                        this.environnement.getEnnemiProjectile().attaquer();
                         System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
-                        System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());                        this.environnement.getEnnemi().attaquer();
+                        System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
+                        this.environnement.getEnnemi().attaquer();
                         temps++;
                         this.ennemiVue.animerEnnemi(this.animationTimer, this.environnement.getEnnemi().getDirection());
                         if (environnement.getGuts().estMort()) {

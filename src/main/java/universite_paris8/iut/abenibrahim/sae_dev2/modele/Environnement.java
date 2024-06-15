@@ -1,8 +1,5 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Pnj;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 public class Environnement {
     private ArrayList<Arme> armeMap;
     private List<Pnj> pnjList;
+    private List<EnnemiProjectile> ennemiProjectileList;
     private ArrayList<Soin> soinMap;
     private final int longueur = Constants.longueurMax;
     private final int largeur = Constants.largeurMax;
@@ -36,8 +34,10 @@ public class Environnement {
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();
+        this.ennemiProjectileList = new ArrayList<>();
         this.objetDefenseList = new ArrayList<>();
         initialiserPnj();
+        initialiserEnnemieProjectile();
         acteurs.add(guts);
         acteurs.add(ennemi);
     }
@@ -60,6 +60,9 @@ public class Environnement {
     public List<Pnj> getPnjList() {
         return pnjList;
     }
+    public List<EnnemiProjectile> getEnnemiProjectileList() {
+        return ennemiProjectileList;
+    }
 
     public void initialiserPnj(){
         Pnj pnj = new Pnj();
@@ -69,6 +72,10 @@ public class Environnement {
         pnj1.setDialogue("Bonjour aventurier !! ");
         getPnjList().add(pnj);
         getPnjList().add(pnj1);
+    }
+    public void initialiserEnnemieProjectile(){
+        EnnemiProjectile ennemiProjectile = new EnnemiProjectile(this,1000,400,vitesse,pv);
+        getEnnemiProjectileList().add(ennemiProjectile);
     }
 
 
@@ -86,8 +93,12 @@ public class Environnement {
         }
         return null;
     }
-
-
+    public EnnemiProjectile getEnnemiProjectile(){
+        for (EnnemiProjectile ennemiProjectile : getEnnemiProjectileList()) {
+            return  ennemiProjectile;
+        }
+        return null;
+    }
     public void ajouter(Acteur a) {
         acteurs.add(a);
     }

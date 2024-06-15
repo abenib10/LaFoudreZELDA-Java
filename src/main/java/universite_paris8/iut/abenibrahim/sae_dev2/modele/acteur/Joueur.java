@@ -161,7 +161,6 @@ public class Joueur extends Acteur {
 
     public void lancerProjectile() {
         if (armeEquipee != null) {
-            System.out.println("aaaaa");
             int projectileX = getX();
             int projectileY = getY();
             int vitesseProjectile = 10; // Ajustez selon vos besoins
@@ -185,5 +184,9 @@ public class Joueur extends Acteur {
     public void seDeplace(Direction direction) {
         super.seDeplace(direction);
         this.lastDirection = direction;
+    }
+
+    public Direction getLastDirection() {
+        return lastDirection;
     }
 }
