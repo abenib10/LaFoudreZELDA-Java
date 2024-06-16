@@ -24,13 +24,20 @@ public class DialogueVue {
     public void afficherDialoguePnj(){
         List<Pnj> pnjs = environnement.getPnjList();
         if (!pnjs.isEmpty()) {
-            dialogueBox.setText(pnjs.get(0).getDialogue());
+            Pnj pnj = pnjs.get(0);
+            if(environnement.getGuts().getPointDef()==100){
+                dialogueBox.setText("je vois que vous avez l'objet mais faites attention il met des obstacles que lui seul peut voir.");
+            }else{
+                dialogueBox.setText(pnj.getDialogue());
+            }
             dialogueBox.setVisible(true);
+            dialogueBox.setWrapText(true);
+            mettreAJourPositionDialogue(pnj);
         }
-        if (pnjs.size() > 1) {
-            dialogueBox2.setText(pnjs.get(1).getDialogue());
-            dialogueBox2.setVisible(true);
-        }
+    }
+    private void mettreAJourPositionDialogue(Pnj pnj) {
+        dialogueBox.setLayoutX(pnj.getX());
+        dialogueBox.setLayoutY(pnj.getY() - dialogueBox.getHeight());
     }
 
     public void masquerDialogue() {

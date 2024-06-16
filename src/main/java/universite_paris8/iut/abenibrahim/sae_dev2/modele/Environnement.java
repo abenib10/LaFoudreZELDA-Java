@@ -68,12 +68,7 @@ public class Environnement {
 
     public void initialiserPnj(){
         Pnj pnj = new Pnj();
-        Pnj pnj1 = new Pnj();
-        pnj1.setX(150);
-        pnj1.setY(500);
-        pnj1.setDialogue("Bonjour aventurier !! ");
         getPnjList().add(pnj);
-        getPnjList().add(pnj1);
     }
     public void initialiserEnnemieProjectile(){
         EnnemiProjectile ennemiProjectile = new EnnemiProjectile(this,1000,400,vitesse,pv);

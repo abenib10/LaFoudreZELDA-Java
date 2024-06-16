@@ -87,8 +87,7 @@ public class Ennemi extends Acteur {
     public Direction getDirection() {
         return direction;
     }
-
     public Arme getEpée() {
-        return epée;
+        return this.epée;
     }
 }

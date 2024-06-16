@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Hache;
@@ -47,6 +48,7 @@ public class InventaireVue{
 
     private Epée epée;
     private Hache hache;
+    private ArmeDistance armeDistance;
 
     public InventaireVue(Pane paneMap, TilePane tilePaneMap, Environnement environnement, TilePane inventaireP, HBox slot1, HBox slot2, Label titre, Label armeChoisie, Label phrase, List<HBox> slots, ImageView g, ImageView eSprite,TilePane premierPlanMap){
         this.paneMap = paneMap;
@@ -63,6 +65,7 @@ public class InventaireVue{
         this.ennemiSprite = eSprite;
         this.epée = new Epée();
         this.hache = new Hache();
+        this.armeDistance = new ArmeDistance();
         this.premierPlanMap = premierPlanMap;
     }
 
@@ -189,10 +192,10 @@ public class InventaireVue{
 
     public void armeMap(){
         this.ajouterArme(this.epée);
-        hache.setX(400);
-        hache.setY(400);
-        Image image = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/hache.png").toString());
-        hache.setImage(image);
-        this.ajouterArme(hache);
+        armeDistance.setX(760);
+        armeDistance.setY(1110);
+        Image pistolet = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/5450168-pixel-art-pistolet-noir-.png").toString());
+        armeDistance.setImage(pistolet);
+        this.ajouterArme(armeDistance);
     }
 }

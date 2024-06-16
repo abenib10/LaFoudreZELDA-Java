@@ -8,6 +8,8 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 public class Joueur extends Acteur {
@@ -19,7 +21,6 @@ public class Joueur extends Acteur {
     private Direction lastDirection;
     private int pointDef;
 
-
     public Joueur(Environnement e, int x, int y, int v, int pv){
         super(e,x,y,v,pv);
         this.listeArme= FXCollections.observableArrayList();
@@ -28,7 +29,6 @@ public class Joueur extends Acteur {
         this.nbSoin= new SimpleIntegerProperty(20);
         this.lastDirection = Direction.EST;
         this.pointDef = 0;
-
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Joueur extends Acteur {
         int distanceY = Math.abs( enemyY - playerY);
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
         if (distance <= distanceAttaque) {
-            environnement.getEnnemi().recoisDegat(this.armeEquipee.getPointAttaque());
+            environnement.getEnnemi(). recoisDegat(this.armeEquipee.getPointAttaque());
         }
     }
 
@@ -100,9 +100,6 @@ public class Joueur extends Acteur {
         }
         return null;
     }
-    public ObservableList<InventaireObjets> getListeArme() {
-        return listeArme;
-    }
     public objetDefense ramasserObjetDefense(){
         int postionJoueurX, positionJoueurY, positionObjetDefenseX;
         int distanceRamassage = 40;
@@ -123,9 +120,17 @@ public class Joueur extends Acteur {
         return null;
     }
 
+    public ObservableList<InventaireObjets> getListeArme() {
+        return listeArme;
+    }
     public void recoisDegat(int degat) {
-        int newPv = getPv() - degat;
-        setPv(newPv);
+       if (environnement.getEnnemi().getEpée().getPointAttaque() <= pointDef){
+           setPv(getPv());
+       } else {
+           int nvDegat = Math.abs(pointDef - degat);
+           int newPv = this.getPv() - nvDegat;
+           setPv(newPv);
+       }
     }
     public void seSoigner(){
         this.setPv(this.getPv() + 25);
@@ -157,15 +162,17 @@ public class Joueur extends Acteur {
 
     public void lancerProjectile() {
         if (armeEquipee != null) {
-            System.out.println("aaaaa");
-            int projectileX = getX();
-            int projectileY = getY();
-            int vitesseProjectile = 10; // Ajustez selon vos besoins
-            int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
+            if(armeEquipee instanceof ArmeDistance){
+                int projectileX = getX();
+                int projectileY = getY();
+                int vitesseProjectile = 10; // Ajustez selon vos besoins
+                int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
 
-            Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
-            projectiles.add(projectile);
-            System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+                Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
+                projectiles.add(projectile);
+                System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+            }
+
         }
     }
 
@@ -185,5 +192,9 @@ public class Joueur extends Acteur {
 
     public Direction getLastDirection() {
         return lastDirection;
+    }
+
+    public int getPointDef() {
+        return this.pointDef;
     }
 }

@@ -5,19 +5,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Ennemi;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class ProjectileVue {
-    public ProjectileVue(){
+    public ProjectileVue() {
 
     }
 
     public void updateProjectiles(ObservableList<Projectile> projectiles, Ennemi ennemi, List<Circle> projectilesSprites, Pane paneMap) {
-
         // Supprimez les cercles de projectiles dépassés
         for (int i = projectilesSprites.size() - 1; i >= projectiles.size(); i--) {
             paneMap.getChildren().remove(projectilesSprites.get(i));
@@ -47,17 +45,16 @@ public class ProjectileVue {
             if (i < projectilesSprites.size()) {
                 projectileCircle = projectilesSprites.get(i);
             } else {
-                projectileCircle = new Circle(5, Color.RED); // Taille et couleur du projectile
+                projectileCircle = new Circle(5, Color.BLUE); // Taille et couleur du projectile
                 projectilesSprites.add(projectileCircle);
                 paneMap.getChildren().add(projectileCircle);
             }
             projectileCircle.setCenterX(projectile.getX());
             projectileCircle.setCenterY(projectile.getY());
         }
-
     }
 
-    private boolean checkCollision(Projectile projectile, Acteur ennemi) {
+    private boolean checkCollision(Projectile projectile, Ennemi ennemi) {
         int projectileX = projectile.getX();
         int projectileY = projectile.getY();
         int ennemiX = ennemi.getX();

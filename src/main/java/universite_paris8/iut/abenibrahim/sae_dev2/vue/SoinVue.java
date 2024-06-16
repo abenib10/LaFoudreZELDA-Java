@@ -55,7 +55,9 @@ public class SoinVue {
     public void ajouterSoinMap() {
         for (Soin soin : this.environnement.getSoinMap()) {
             Image image = soin.getImage(); // Obtenir l'image de l'arme
-            ImageView imageView = new ImageView(image);// Créer l'ImageView avec l'image
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);// Créer l'ImageView avec l'image
             paneMap.getChildren().add(imageView); // Ajouter l'ImageView au PaneMap
             imageView.setTranslateX(soin.getX()); // Ajuster la position X
             imageView.setTranslateY(soin.getY()); // Ajuster la position Y
