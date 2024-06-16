@@ -35,7 +35,7 @@ public class Joueur extends Acteur {
 
     @Override
     public void attaquer(){
-        int playerX, playerY, enemyX, enemyY;
+        int playerX, playerY, enemyX, enemyY,enemyProjectilsX,enemyProjectilsY;
 
         int distanceAttaque = 50;
 
@@ -43,12 +43,20 @@ public class Joueur extends Acteur {
         playerY = environnement.getGuts().getY();
         enemyX = environnement.getEnnemi().getX();
         enemyY = environnement.getEnnemi().getY();
+        enemyProjectilsX=environnement.getEnnemiProjectile().getX();
+        enemyProjectilsY=environnement.getEnnemiProjectile().getY();
 
         int distanceX = Math.abs( enemyX - playerX);
+        int distance1x = Math.abs( enemyProjectilsX - playerX);
         int distanceY = Math.abs( enemyY - playerY);
+        int distance1Y =  Math.abs( enemyProjectilsY - playerY);
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        double distance1 = Math.sqrt(distance1x * distance1x + distance1Y * distance1Y);
         if (distance <= distanceAttaque) {
             environnement.getEnnemi(). recoisDegat(this.armeEquipee.getPointAttaque());
+        }
+        if(distance1 <= distanceAttaque){
+            environnement.getEnnemiProjectile().recoisDegat(this.armeEquipee.getPointAttaque());
         }
     }
 
@@ -126,13 +134,10 @@ public class Joueur extends Acteur {
         return listeArme;
     }
     public void recoisDegat(int degat) {
-       if (environnement.getEnnemi().getEpée().getPointAttaque() <= pointDef){
-           setPv(getPv());
-       } else {
-           int nvDegat = Math.abs(pointDef - degat);
-           int newPv = this.getPv() - nvDegat;
-           setPv(newPv);
-       }
+        int pointDefJoueur = getPointDef();
+        int degatRestant = Math.max(0, degat - pointDefJoueur);
+        int newPv = getPv() - degatRestant;
+        setPv(newPv);
     }
     public void seSoigner(){
         this.setPv(this.getPv() + 25);

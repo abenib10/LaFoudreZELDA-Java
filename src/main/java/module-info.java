@@ -5,6 +5,7 @@ module universite_paris8.iut.abenibrahim.sae_dev2 {
     requires java.desktop;
     requires javafx.media;
     requires org.junit.jupiter.api;
+    requires org.junit.platform.commons;
     opens universite_paris8.iut.abenibrahim.sae_dev2 to javafx.fxml;
     exports universite_paris8.iut.abenibrahim.sae_dev2.modele;
     exports universite_paris8.iut.abenibrahim.sae_dev2.controleur;

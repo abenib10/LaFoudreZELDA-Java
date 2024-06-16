@@ -52,7 +52,6 @@ public class EnnemiProjectile extends Acteur{
         }
 
     }
-
     @Override
     public void recoisDegat(int degat) {
         int newPv = getPv() - degat;

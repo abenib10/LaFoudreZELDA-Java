@@ -87,6 +87,7 @@ public class Controleur implements Initializable {
     private EnnemiVue ennemiVue;
     private InventaireVue inventaireVue;
     private PvVueEnnemi pvVueEnnemi;
+    private PvVueEnnemi2 pvVueEnnemi2;
     private List<ImageView> armeImages = new ArrayList<>();
     private List<HBox> slots;
     private ImageView ennemiSprite;
@@ -132,7 +133,9 @@ public class Controleur implements Initializable {
         this.projectileVue = new ProjectileVue();
         this.pRojectileVueEnnemie = new PRojectileVueEnnemie();
         this.pvVueEnnemi = new PvVueEnnemi(this.paneMap);
+        this.pvVueEnnemi2 = new PvVueEnnemi2(this.paneMap);
         environnement.getEnnemi().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi.updatePvEnnemieImage(this.environnement.getEnnemi().getPv()));
+        environnement.getEnnemiProjectile().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi2.updatePvEnnemieImage(this.environnement.getEnnemiProjectile().getPv()));
         this.soinvue = new SoinVue(this.paneMap,this.nbSoin,this.environnement);
         this.soinvue.afficherSoinMap();
         soinvue.getsoinStackPane().layoutXProperty().bind(environnement.getGuts().XProprety().add(-400));
@@ -168,7 +171,8 @@ public class Controleur implements Initializable {
         pvVue.getPvStackPane().layoutYProperty().bind(environnement.getGuts().YProprety().add(-200));
         pvVueEnnemi.getPvStackPane().layoutXProperty().bind(environnement.getEnnemi().XProprety().add(-10));
         pvVueEnnemi.getPvStackPane().layoutYProperty().bind(environnement.getEnnemi().YProprety().add(-50));
-
+        pvVueEnnemi2.getPvStackPane().layoutXProperty().bind(environnement.getEnnemiProjectile().XProprety().add(-10));
+        pvVueEnnemi2.getPvStackPane().layoutYProperty().bind(environnement.getEnnemiProjectile().YProprety().add(-50));
 
         initAnimation();
         gameLoop.play();
@@ -199,9 +203,12 @@ public class Controleur implements Initializable {
                         this.environnement.unTour();
                         this.projectileVue.updateProjectiles(environnement.getGuts().getProjectiles(), environnement.getEnnemi(), projectilesSprites, this.paneMap);
                         this.pRojectileVueEnnemie.updateProjectiles(environnement.getEnnemiProjectile().getProjectileList(),environnement.getGuts(),enemyProjectilesSprites , this.paneMap);
-                        this.environnement.getEnnemiProjectile().attaquer();
+                        if(!this.environnement.getEnnemiProjectile().estMort()){
+                            this.environnement.getEnnemiProjectile().attaquer();
+                        }
                         System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
                         System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
+                        System.out.println("pv Ennemi2 : " + environnement.getEnnemiProjectile().getPv());
                         this.environnement.getEnnemi().attaquer();
                         temps++;
                         this.ennemiVue.animerEnnemi(this.animationTimer, this.environnement.getEnnemi().getDirection());
@@ -214,7 +221,9 @@ public class Controleur implements Initializable {
 
                         if (environnement.getEnnemi().estMort()){
                             paneMap.getChildren().remove(ennemiSprite);
-
+                        }
+                        if(environnement.getEnnemiProjectile().estMort()){
+                            paneMap.getChildren().remove(ennemieProjectilesVue.getEnnemieSpriteView());
                         }
 
                     }

@@ -1,13 +1,11 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.vue;
-
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-
-public class PvVueEnnemi {
+public class PvVueEnnemi2 {
     private Pane paneMap;
 
     private StackPane pvStackPane;
@@ -18,7 +16,7 @@ public class PvVueEnnemi {
     private Image vie1Image;
     private Image vie0Image;
     private ImageView pvImageView;
-    public PvVueEnnemi(Pane paneMap) {
+    public PvVueEnnemi2(Pane paneMap) {
         this.paneMap = paneMap;
         pvStackPane = new StackPane();
         pvImageView = new ImageView();
@@ -50,13 +48,10 @@ public class PvVueEnnemi {
         } else {
             pvImageView.setImage(vie5Image);
             paneMap.getChildren().remove(pvStackPane);
-
         }
-
     }
 
     public Node getPvStackPane() {
         return this.pvStackPane;
     }
 }
-
