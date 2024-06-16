@@ -32,7 +32,7 @@ public class Environnement {
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
         this.guts = new Joueur(this,x, y, vitesse, pvJoueur);
-        this.ennemi = new Ennemi(this,10,10,vitesse,pvEnnemi);
+        this.ennemi = new Ennemi(this,20,30,vitesse,pvEnnemi);
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();
@@ -43,6 +43,7 @@ public class Environnement {
         acteurs.add(guts);
         acteurs.add(ennemi);
     }
+
 
     public ArrayList<Arme> getArmeMap() {
         return armeMap;
