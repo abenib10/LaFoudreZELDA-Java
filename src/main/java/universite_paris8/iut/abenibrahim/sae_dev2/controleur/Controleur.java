@@ -62,7 +62,8 @@ public class Controleur implements Initializable {
     private GameOverVue gameOverVue;
     private List<Circle> projectilesSprites = new ArrayList<>();
     private ProjectileVue projectileVue;
-
+    private PRojectileVueEnnemie pRojectileVueEnnemie;
+    private PnjVue pnjVue;
     public void saveGame() {
         try {
             SaveData saveData = new SaveData(environnement);
@@ -90,6 +91,7 @@ public class Controleur implements Initializable {
     private AnimatedEnnemiSprite animationTimer;
     private SoinVue soinvue;
     private DialogueVue dialogueVue;
+    private objetDefVue objetDefVue;
     @FXML
     private Label dialogueBox;
     @FXML
@@ -125,6 +127,7 @@ public class Controleur implements Initializable {
         ennemiSprite = new ImageView(e);
 
         this.projectileVue = new ProjectileVue();
+        this.pRojectileVueEnnemie = new PRojectileVueEnnemie();
         this.pvVueEnnemi = new PvVueEnnemi(this.paneMap);
         environnement.getEnnemi().pvProperty().addListener((obs, oldValue, newValue) -> pvVueEnnemi.updatePvEnnemieImage(this.environnement.getEnnemi().getPv()));
         this.soinvue = new SoinVue(this.paneMap,this.nbSoin,this.environnement);
@@ -138,7 +141,9 @@ public class Controleur implements Initializable {
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.inventaireVue.armeMap();
         this.dialogueVue = new DialogueVue(dialogueBox,environnement,dialogueBox2);
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue);
+        this.objetDefVue = new objetDefVue(environnement,paneMap);
+        this.objetDefVue.afficherSoinMap();
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue);
 
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
         joueurVue.creerSpriteJoueur(this);
@@ -146,8 +151,9 @@ public class Controleur implements Initializable {
         this.ennemiVue = new EnnemiVue(environnement.getEnnemi().XProprety(), environnement.getEnnemi().YProprety(), this.paneMap, ennemiSprite);
         this.ennemiVue.creerSpriteEnnemi();
         this.ennemiVue.initialiserEnnemi(ennemiSprite, paneMap);
-
-
+        this.pnjVue = new PnjVue(paneMap,environnement.getPnj().getXproperty(),environnement.getPnj().getYproperty());
+        pnjVue.creerSpritePnj();
+        pnjVue.initialiserPnj(pnjVue.getPnjSpriteView(),paneMap);
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
         this.animationTimer.start();
 
@@ -169,6 +175,7 @@ public class Controleur implements Initializable {
 
         this.inventaireVue.afficherArmes();
         this.soinvue.ajouterSoinMap();
+        this.objetDefVue.ajouterObjetDefenseDansMap();
 
     }
 
@@ -184,8 +191,11 @@ public class Controleur implements Initializable {
                     } else {
                         this.environnement.unTour();
                         this.projectileVue.updateProjectiles(environnement.getGuts().getProjectiles(), environnement.getEnnemi(), projectilesSprites, this.paneMap);
+                        this.pRojectileVueEnnemie.updateProjectiles(environnement.getEnnemiProjectile().getProjectileList(),environnement.getGuts(), projectilesSprites, this.paneMap);
+                        this.environnement.getEnnemiProjectile().attaquer();
                         System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
-                        System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());                        this.environnement.getEnnemi().attaquer();
+                        System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());
+                        this.environnement.getEnnemi().attaquer();
                         temps++;
                         this.ennemiVue.animerEnnemi(this.animationTimer, this.environnement.getEnnemi().getDirection());
                         if (environnement.getGuts().estMort()) {

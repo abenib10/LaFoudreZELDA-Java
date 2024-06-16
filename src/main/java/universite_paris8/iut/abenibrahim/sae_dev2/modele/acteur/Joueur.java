@@ -17,6 +17,8 @@ public class Joueur extends Acteur {
     private IntegerProperty nbSoin;
     private ObservableList<Projectile> projectiles;
     private Direction lastDirection;
+    private int pointDef;
+
 
     public Joueur(Environnement e, int x, int y, int v, int pv){
         super(e,x,y,v,pv);
@@ -25,13 +27,15 @@ public class Joueur extends Acteur {
         this.armeEquipee = null;
         this.nbSoin= new SimpleIntegerProperty(20);
         this.lastDirection = Direction.EST;
+        this.pointDef = 0;
+
     }
 
     @Override
     public void attaquer(){
         int playerX, playerY, enemyX, enemyY;
 
-        int distanceAttaque = 100;
+        int distanceAttaque = 50;
 
         playerX = environnement.getGuts().getX();
         playerY = environnement.getGuts().getY();
@@ -96,16 +100,33 @@ public class Joueur extends Acteur {
         }
         return null;
     }
-
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
+    }
+    public objetDefense ramasserObjetDefense(){
+        int postionJoueurX, positionJoueurY, positionObjetDefenseX;
+        int distanceRamassage = 40;
+        postionJoueurX = getX();
+        positionJoueurY = getY();
+        for (objetDefense objetDefense : environnement.getObjetDefenseList()){
+            positionObjetDefenseX = objetDefense.getX();
+            positionJoueurY = objetDefense.getY();
+            int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
+            int distanceY = Math.abs(positionJoueurY - objetDefense.getY());
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            if (distance <= distanceRamassage) {
+                this.setPointDef(objetDefense.getDefDonner());
+                environnement.getObjetDefenseList().remove(objetDefense);
+                return objetDefense;
+            }
+        }
+        return null;
     }
 
     public void recoisDegat(int degat) {
         int newPv = getPv() - degat;
         setPv(newPv);
     }
-
     public void seSoigner(){
         this.setPv(this.getPv() + 25);
         this.nbSoin.set(this.nbSoin.getValue()-1);
@@ -139,7 +160,7 @@ public class Joueur extends Acteur {
             System.out.println("aaaaa");
             int projectileX = getX();
             int projectileY = getY();
-            int vitesseProjectile = 15; // Ajustez selon vos besoins
+            int vitesseProjectile = 10; // Ajustez selon vos besoins
             int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
 
             Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
@@ -148,6 +169,9 @@ public class Joueur extends Acteur {
         }
     }
 
+    public void setPointDef(int pointDef) {
+        this.pointDef = pointDef;
+    }
 
     public ObservableList<Projectile> getProjectiles() {
         return projectiles;
@@ -157,5 +181,9 @@ public class Joueur extends Acteur {
     public void seDeplace(Direction direction) {
         super.seDeplace(direction);
         this.lastDirection = direction;
+    }
+
+    public Direction getLastDirection() {
+        return lastDirection;
     }
 }

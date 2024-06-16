@@ -10,15 +10,14 @@ import javafx.scene.layout.StackPane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoinVue {
     private Pane paneMap;
-
     private StackPane soinStackPane;
     private StackPane nbsoinStackPane;
-    private Image soinImage;
     private ImageView pvImageView;
     private Environnement environnement;
     private List<Soin> soins = new ArrayList<>();

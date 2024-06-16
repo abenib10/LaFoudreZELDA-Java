@@ -1,31 +1,31 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
-public class Ennemi extends Acteur {
-    private Arme epée;
+
+public class Boss extends Acteur{
+    private ObservableList<Projectile> projectiles;
     private Direction direction;
-    private static int DISTANCE_DETECTION = 100;
+    private static int DISTANCE_DETECTION = 150;
+    private int pointDefense;
+    private int pointAttaque;
 
-    public Ennemi(Environnement e, int x, int y, int v, int pv) {
+    public Boss(Environnement e, int x, int y, int v, int pv) {
         super(e, x, y, v, pv);
-        this.epée = new Epée();
+        this.projectiles = FXCollections.observableArrayList();
         this.direction = Direction.EST;
+        this.pointDefense = 100;
+        this.pointAttaque = 200;
+    }
+    public boolean detecterJoueur(){
+        Joueur joueur = environnement.getGuts();
+        int distanceX = Math.abs(joueur.getX() - this.getX());
+        int distanceY = Math.abs(joueur.getY() - this.getY());
+        double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        return distance <= DISTANCE_DETECTION;
     }
 
-    public boolean detecterJoueur(){
-            Joueur joueur = environnement.getGuts();
-            int distanceX = Math.abs(joueur.getX() - this.getX());
-            int distanceY = Math.abs(joueur.getY() - this.getY());
-            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            return distance <= DISTANCE_DETECTION;
-    }
-    public void setDistanceDetection(int distanceDetection){
-        DISTANCE_DETECTION = distanceDetection;
-    }
 
     @Override
     public void attaquer() {
@@ -36,13 +36,13 @@ public class Ennemi extends Acteur {
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance <= distanceAttaque) {
-            joueur.recoisDegat(this.epée.getPointAttaque());
+            joueur.recoisDegat(this.pointAttaque);
         }
     }
 
     @Override
     public void recoisDegat(int degat) {
-        int newPv = getPv() - degat;
+        int newPv = (getPv() + pointDefense) - degat;
         setPv(newPv);
     }
 
@@ -62,8 +62,8 @@ public class Ennemi extends Acteur {
                 int nouvelleY = noeudCourant.y * 50;
 
                 if (environnement.getMap().verifierCollisions(nouvelleX, nouvelleY)) {
-                    int deltaX = (nouvelleX - this.getX()) / 5;
-                    int deltaY = (nouvelleY - this.getY()) / 5;
+                    int deltaX = (nouvelleX - this.getX()) / 3;
+                    int deltaY = (nouvelleY - this.getY()) / 3;
                     this.setX(this.getX() + deltaX);
                     this.setY(this.getY() + deltaY);
                     if (deltaX > 0) {
@@ -82,13 +82,5 @@ public class Ennemi extends Acteur {
                 noeudCourant = noeudCourant.parent;
             }
         }
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public Arme getEpée() {
-        return epée;
     }
 }
