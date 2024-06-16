@@ -9,7 +9,10 @@ public class Constants {
 
     public static final int positionY=350;
 
-    public static final int pv=500;
+    public static final int pvJoueur=1000;
 
-    public static final int vitesse=10;
+    public static final int pvEnnemi=500;
+
+
+    public static final int vitesse=30;
 }

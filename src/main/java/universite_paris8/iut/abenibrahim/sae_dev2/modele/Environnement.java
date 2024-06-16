@@ -17,7 +17,9 @@ public class Environnement {
     private ArrayList<Soin> soinMap;
     private final int longueur = Constants.longueurMax;
     private final int largeur = Constants.largeurMax;
-    private final int pv = Constants.pv;
+    private final int pvJoueur = Constants.pvJoueur;
+    private final int pvEnnemi = Constants.pvEnnemi;
+
     private final int x=Constants.positionX;
     private final int y =Constants.positionY;
     private final int vitesse = Constants.vitesse;
@@ -31,8 +33,8 @@ public class Environnement {
     public Environnement() {
         this.map = new Map();
         this.acteurs = FXCollections.observableArrayList();
-        this.guts = new Joueur(this,x, y, vitesse, pv);
-        this.ennemi = new Ennemi(this,10,10,vitesse,pv);
+        this.guts = new Joueur(this,x, y, vitesse, pvJoueur);
+        this.ennemi = new Ennemi(this,10,10,vitesse,pvEnnemi);
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();

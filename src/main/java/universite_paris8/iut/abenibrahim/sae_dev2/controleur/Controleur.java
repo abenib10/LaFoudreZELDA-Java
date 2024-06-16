@@ -197,6 +197,7 @@ public class Controleur implements Initializable {
 
                         if (environnement.getEnnemi().estMort()){
                             paneMap.getChildren().remove(ennemiSprite);
+
                         }
 
                     }

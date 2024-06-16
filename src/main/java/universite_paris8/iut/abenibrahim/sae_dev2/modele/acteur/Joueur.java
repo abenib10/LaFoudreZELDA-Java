@@ -31,7 +31,7 @@ public class Joueur extends Acteur {
     public void attaquer(){
         int playerX, playerY, enemyX, enemyY;
 
-        int distanceAttaque = 50;
+        int distanceAttaque = 100;
 
         playerX = environnement.getGuts().getX();
         playerY = environnement.getGuts().getY();
@@ -96,13 +96,16 @@ public class Joueur extends Acteur {
         }
         return null;
     }
+
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
     }
+
     public void recoisDegat(int degat) {
         int newPv = getPv() - degat;
         setPv(newPv);
     }
+
     public void seSoigner(){
         this.setPv(this.getPv() + 25);
         this.nbSoin.set(this.nbSoin.getValue()-1);
@@ -136,7 +139,7 @@ public class Joueur extends Acteur {
             System.out.println("aaaaa");
             int projectileX = getX();
             int projectileY = getY();
-            int vitesseProjectile = 10; // Ajustez selon vos besoins
+            int vitesseProjectile = 15; // Ajustez selon vos besoins
             int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
 
             Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
