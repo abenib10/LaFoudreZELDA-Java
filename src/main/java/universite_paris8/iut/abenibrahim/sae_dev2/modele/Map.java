@@ -1,5 +1,7 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 
+import javafx.geometry.Rectangle2D;
+
 public class Map {
 
     private int[][] tab2;
@@ -101,7 +103,7 @@ public class Map {
                         {8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7}
                 };
     }
-
+/*
     public boolean verifierCollisions(int x, int y) {
         for (int i = x; i <= x + 30; i += 5) {
             for (int j = y; j <= y + 30; j += 5) {
@@ -114,6 +116,53 @@ public class Map {
         }
         return true;
     }
+    */
+public boolean verifierCollisions(int x, int y) {
+    for (int i = x; i <= x + Constants.longueurJ+30; i += 5) {
+        //System.out.println("");
+        for (int j = y; j <= y + Constants.largeurJ+30; j += 5) {
+            switch (tab[j / 100][i / 100]){
+/*
+                   case 1:{
+                       for (int a = x; a <= x + Constants.longueurJ+50; a += 1) {
+                           for (int b = y; b <= y + Constants.largeurJ+50; b += 1) {
+                           }
+                       }
+                    }*/
+                //->
+                case  2 ->{
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+    public boolean verifierCollisions(int x, int y,int longueur,int largeur) {
+        //parcourir le contour de l'objet
+        for (int i =x; i <= x + largeur; i +=1) {
+            for (int j = y; j <= y + longueur; j +=1) {
+                System.out.println(tab[j / 100][i / 100]);
+                switch (tab[j / 100][i / 100]){
+                    case  2 -> {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public boolean verifierCollisions2Acteur(int x, int y,int longueur,int largeur,int x2, int y2, int longueur2,int largeur2) {
+        Rectangle2D rect1 = new Rectangle2D(x, y, longueur, largeur);
+        Rectangle2D rect2 = new Rectangle2D(x2, y2, longueur2, largeur2);
+
+        return rect1.intersects(rect2);
+    }
+
+
+
+
 
     public int[][] getTab() {
         return tab;

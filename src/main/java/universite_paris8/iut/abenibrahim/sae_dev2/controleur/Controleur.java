@@ -66,6 +66,7 @@ public class Controleur implements Initializable {
     private ProjectileVue projectileVue;
     private PRojectileVueEnnemie pRojectileVueEnnemie;
     private PnjVue pnjVue;
+    private ObjetPousserVue objPousserVue;
     public void saveGame() {
         try {
             SaveData saveData = new SaveData(environnement);
@@ -169,6 +170,8 @@ public class Controleur implements Initializable {
         pvVueEnnemi.getPvStackPane().layoutXProperty().bind(environnement.getEnnemi().XProprety().add(-10));
         pvVueEnnemi.getPvStackPane().layoutYProperty().bind(environnement.getEnnemi().YProprety().add(-50));
 
+        this.objPousserVue = new ObjetPousserVue(this.environnement.getObj().XProprety(),this.environnement.getObj().YProprety(),this.paneMap);
+        this.objPousserVue.CreerObjetPousserVue();
 
         initAnimation();
         gameLoop.play();

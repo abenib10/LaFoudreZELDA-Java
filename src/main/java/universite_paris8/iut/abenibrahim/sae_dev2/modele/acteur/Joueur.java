@@ -4,10 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
@@ -23,18 +20,18 @@ public class Joueur extends Acteur {
     private Direction lastDirection;
     private int pointDef;
 
-    public Joueur(Environnement e, int x, int y, int v, int pv){
-        super(e,x,y,v,pv);
-        this.listeArme= FXCollections.observableArrayList();
+    public Joueur(Environnement e, int x, int y, int v, int pv) {
+        super(e, x, y, v, pv);
+        this.listeArme = FXCollections.observableArrayList();
         this.projectiles = FXCollections.observableArrayList();
         this.armeEquipee = null;
-        this.nbSoin= new SimpleIntegerProperty(20);
+        this.nbSoin = new SimpleIntegerProperty(20);
         this.lastDirection = Direction.EST;
         this.pointDef = 0;
     }
 
     @Override
-    public void attaquer(){
+    public void attaquer() {
         int playerX, playerY, enemyX, enemyY;
 
         int distanceAttaque = 50;
@@ -44,22 +41,23 @@ public class Joueur extends Acteur {
         enemyX = environnement.getEnnemi().getX();
         enemyY = environnement.getEnnemi().getY();
 
-        int distanceX = Math.abs( enemyX - playerX);
-        int distanceY = Math.abs( enemyY - playerY);
+        int distanceX = Math.abs(enemyX - playerX);
+        int distanceY = Math.abs(enemyY - playerY);
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
         if (distance <= distanceAttaque) {
-            environnement.getEnnemi(). recoisDegat(this.armeEquipee.getPointAttaque());
+            environnement.getEnnemi().recoisDegat(this.armeEquipee.getPointAttaque());
         }
     }
 
-    public void equiperArme(Arme arme){
+    public void equiperArme(Arme arme) {
         this.armeEquipee = arme;
     }
+
     public void ajouterArme(InventaireObjets arme) {
         this.listeArme.add(arme);
     }
 
-    public Arme ramasserarme(){
+    public Arme ramasserarme() {
         int postionJoueurX, positionJoueurY, positionArmeX, positionArmeY;
 
         int distanceRamassage = 40;
@@ -82,7 +80,7 @@ public class Joueur extends Acteur {
         return null;
     }
 
-    public Soin ramasserSoin(){
+    public Soin ramasserSoin() {
         int postionJoueurX, positionJoueurY, positionSoinX, positionSoinY;
         int distanceRamassage = 40;
         postionJoueurX = getX();
@@ -102,12 +100,13 @@ public class Joueur extends Acteur {
         }
         return null;
     }
-    public objetDefense ramasserObjetDefense(){
+
+    public objetDefense ramasserObjetDefense() {
         int postionJoueurX, positionJoueurY, positionObjetDefenseX;
         int distanceRamassage = 40;
         postionJoueurX = getX();
         positionJoueurY = getY();
-        for (objetDefense objetDefense : environnement.getObjetDefenseList()){
+        for (objetDefense objetDefense : environnement.getObjetDefenseList()) {
             positionObjetDefenseX = objetDefense.getX();
             positionJoueurY = objetDefense.getY();
             int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
@@ -125,33 +124,37 @@ public class Joueur extends Acteur {
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
     }
+
     public void recoisDegat(int degat) {
-       if (environnement.getEnnemi().getEpée().getPointAttaque() <= pointDef){
-           setPv(getPv());
-       } else {
-           int nvDegat = Math.abs(pointDef - degat);
-           int newPv = this.getPv() - nvDegat;
-           setPv(newPv);
-       }
+        if (environnement.getEnnemi().getEpée().getPointAttaque() <= pointDef) {
+            setPv(getPv());
+        } else {
+            int nvDegat = Math.abs(pointDef - degat);
+            int newPv = this.getPv() - nvDegat;
+            setPv(newPv);
+        }
     }
-    public void seSoigner(){
+
+    public void seSoigner() {
         this.setPv(this.getPv() + 25);
-        this.nbSoin.set(this.nbSoin.getValue()-1);
+        this.nbSoin.set(this.nbSoin.getValue() - 1);
     }
+
     public IntegerProperty nbSoinProperty() {
         return nbSoin;
     }
-    public boolean peutSeSoigner(){
+
+    public boolean peutSeSoigner() {
         return this.nbSoin.get() > 0;
     }
 
-    public boolean peutParler(){
+    public boolean peutParler() {
         int joueurX, joueurY, pnjX, pnjY;
         int distanceMinParler = 50;
         joueurX = this.getX();
         joueurY = this.getY();
 
-        for(Pnj pnj : environnement.getPnjList()){
+        for (Pnj pnj : environnement.getPnjList()) {
             pnjX = pnj.getX();
             pnjY = pnj.getY();
             int distanceX = Math.abs(joueurX - pnjX);
@@ -164,7 +167,7 @@ public class Joueur extends Acteur {
 
     public void lancerProjectile() {
         if (armeEquipee != null) {
-            if(armeEquipee instanceof ArmeDistance){
+            if (armeEquipee instanceof ArmeDistance) {
                 int projectileX = getX();
                 int projectileY = getY();
                 int vitesseProjectile = 10; // Ajustez selon vos besoins
@@ -188,8 +191,62 @@ public class Joueur extends Acteur {
 
     @Override
     public void seDeplace(Direction direction) {
-        super.seDeplace(direction);
-        this.lastDirection = direction;
+        // super.seDeplace(direction);
+        //this.lastDirection = direction;
+        int xTmp = getX() + direction.getX() * Constants.vitesse;
+        int yTmp = getY() + direction.getY() * Constants.vitesse;
+        ObjetPousser obj = environnement.getObj();
+        if (this.environnement.dansTerrain(xTmp, yTmp)) {
+            //si ya pas de collision
+            //&& this.environnement.verifierCollisions(xTmp,yTmp )
+            // || this.environnement.verifierCollisions2Acteur(xTmp,yTmp,Constants.longueurJ,Constants.largeurJ,obj.getX(),obj.getY(),Constants.longueurObj,Constants.largeurObj)
+            if (this.environnement.getMap().verifierCollisions2Acteur(xTmp, yTmp, Constants.longueurJ, Constants.largeurJ, obj.getX(), obj.getY(), Constants.longueurObj, Constants.largeurObj)) {
+                //est ce que il y a un block a pousser
+                System.out.println("rentre ds la boucle");
+                if (pousserObjet(direction)) {
+                    System.out.println("sa pousse");
+                    //est ce qu'on peux le pousser?
+                    setX(getX() + direction.getX() * Constants.vitesse);
+                    setY(getY() + direction.getY() * Constants.vitesse);
+                }
+            } else {
+                setX(getX() + direction.getX() * Constants.vitesse);
+                setY(getY() + direction.getY() * Constants.vitesse);
+            }
+        }
+        System.out.println("coordonnee Joueur:" + environnement.getGuts().getX() + "," + environnement.getGuts().getY());
+        System.out.println("coordonnee objet:" + environnement.getObj().getX() + "," + environnement.getObj().getY());
+    }
+    public boolean pousserObjet(Direction d) {
+        ObjetPousser obj = environnement.getObj();
+        int newX = obj.getX() ;
+        int newY = obj.getY();
+        int[][] tab = environnement.getMap().getTab2();
+        switch (d) {
+            case NORD:
+                newY-=Constants.vitesse+10;
+                break;
+            case SUD:
+                newY+=Constants.vitesse+10;
+                break;
+            case OUEST:
+                newX-=Constants.vitesse+10;
+                break;
+            case EST:
+                newX+= Constants.vitesse+10;
+                break;
+        }
+
+        if (this.environnement.dansTerrain(newX,newY)) {
+            System.out.println("premier");
+            if (this.environnement.getMap().verifierCollisions(newX,newY,Constants.longueurObj,Constants.largeurObj)) {
+                System.out.println("deuxieme");
+                obj.setX(newX);
+                obj.setY(newY);
+                return true;
+            }
+        }
+        return false;
     }
 
     public Direction getLastDirection() {

@@ -27,6 +27,8 @@ public class Environnement {
     private Joueur guts;
     private Ennemi ennemi;
     private List<objetDefense> objetDefenseList;
+    private ObjetPousser obj ;
+
 
     public Environnement() {
         this.map = new Map();
@@ -42,6 +44,8 @@ public class Environnement {
         initialiserEnnemieProjectile();
         acteurs.add(guts);
         acteurs.add(ennemi);
+        this.obj = new ObjetPousser(null,250,240);
+
     }
 
     public ArrayList<Arme> getArmeMap() {
@@ -142,5 +146,7 @@ public class Environnement {
 
     }
 
-
+    public ObjetPousser getObj() {
+        return obj;
+    }
 }
