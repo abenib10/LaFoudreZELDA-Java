@@ -1,6 +1,8 @@
-package universite_paris8.iut.abenibrahim.sae_dev2.modele;
+package universite_paris8.iut.abenibrahim.sae_dev2.test;
 
 import org.junit.jupiter.api.Test;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.BFS;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.Noeud;
 
 import static org.junit.jupiter.api.Assertions.*;
 

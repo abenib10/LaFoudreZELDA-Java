@@ -13,6 +13,10 @@ module universite_paris8.iut.abenibrahim.sae_dev2 {
     exports universite_paris8.iut.abenibrahim.sae_dev2;
     exports universite_paris8.iut.abenibrahim.sae_dev2.vue;
     opens universite_paris8.iut.abenibrahim.sae_dev2.vue to javafx.fxml;
+    opens universite_paris8.iut.abenibrahim.sae_dev2.test to junit;
+
     exports universite_paris8.iut.abenibrahim.sae_dev2.modele.objet;
     exports universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur;
+
+
 }

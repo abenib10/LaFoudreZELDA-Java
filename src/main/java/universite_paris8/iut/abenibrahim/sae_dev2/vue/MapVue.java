@@ -32,22 +32,21 @@ public class MapVue {
         this.premierPlanMap = premierPlanMap;
     }
 
+    Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
+    Image sol2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/solv2-removebg-preview.png").toString());
+    Image Mur = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mu_r.png").toString());
+    Image Mur2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mur2.png").toString());
+    Image arbre = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/arbre1.png").toString());
+    Image arbre2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/arbre2.png").toString());
+    Image murD = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/murDroite.png").toString());
+    Image murG = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mur_gauche.png").toString());
+    Image lum = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lum-removebg-preview.png").toString());
+    Image porte = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/porte.png").toString());
+    Image statut = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/décor1.png").toString());
+    Image statut2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/décor2.png").toString());
+    // Image décor3 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/porte.png").toString());
+
     public void remplirMap() {
-        Image herbeImage = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/Sol.png").toString());
-        Image sol2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/solv2-removebg-preview.png").toString());
-        Image Mur = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mu_r.png").toString());
-        Image Mur2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mur2.png").toString());
-        Image arbre = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/arbre1.png").toString());
-        Image arbre2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/arbre2.png").toString());
-        Image murD = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/murDroite.png").toString());
-        Image murG = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/mur_gauche.png").toString());
-        Image lum = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/lum-removebg-preview.png").toString());
-        Image porte = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/porte.png").toString());
-        Image statut = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/décor1.png").toString());
-        Image statut2 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/décor2.png").toString());
-       // Image décor3 = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/porte.png").toString());
-
-
         for (int i = 0; i < this.tab.length; i++) {
             for (int j = 0; j < this.tab[i].length; j++) {
                 ImageView imageView = new ImageView();
@@ -92,7 +91,15 @@ public class MapVue {
                 imageView.setFitHeight(50);
                 imageView.setFitWidth(50);
                 switch (this.tab3[i][j]){
-                    case 1 -> imageView.setImage(herbeImage);
+                    case 0 -> imageView.setImage(herbeImage);
+                    case 1 -> imageView.setImage(Mur);
+                    case 2 -> imageView.setImage(Mur2);
+                    case 3 -> imageView.setImage(arbre);
+                    case 4 -> imageView.setImage(sol2);
+                    case 7 -> imageView.setImage(murD);
+                    case 8 -> imageView.setImage(murG);
+                    case 9 -> imageView.setImage(porte);
+
                 }
                 this.tilePaneMap2.getChildren().add(imageView);
             }
