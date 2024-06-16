@@ -9,8 +9,8 @@ public class objetDefense {
     private int defDonner;
 
     public objetDefense() {
-        this.x = 375;
-        this.y =375 ;
+        this.x = 770;
+        this.y =1180 ;
         this.image = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/pointDEf.png").toString());
         this.defDonner = 100;
     }
