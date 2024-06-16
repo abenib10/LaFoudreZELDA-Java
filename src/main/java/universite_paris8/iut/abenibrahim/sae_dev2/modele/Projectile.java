@@ -62,4 +62,8 @@ public class Projectile {
             case EST -> setX(getX() + vitesse);
         }
     }
+
+    public void setDirection(Direction direction) {
+        this.direction=direction;
+    }
 }
