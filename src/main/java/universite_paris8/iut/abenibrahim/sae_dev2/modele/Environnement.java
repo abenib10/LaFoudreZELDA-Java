@@ -71,7 +71,7 @@ public class Environnement {
         getPnjList().add(pnj);
     }
     public void initialiserEnnemieProjectile(){
-        EnnemiProjectile ennemiProjectile = new EnnemiProjectile(this,1000,400,vitesse,pv);
+        EnnemiProjectile ennemiProjectile = new EnnemiProjectile(this,1000,400,vitesse,pvEnnemi);
         getEnnemiProjectileList().add(ennemiProjectile);
     }
 
