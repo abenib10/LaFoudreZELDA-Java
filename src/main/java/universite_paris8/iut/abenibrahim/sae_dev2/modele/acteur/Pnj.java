@@ -12,9 +12,9 @@ public class Pnj {
     private StringProperty Dialogue;
 
     public Pnj(){
-        this.x = new SimpleIntegerProperty(350);
-        this.y = new SimpleIntegerProperty(350);
-        this.Dialogue = new SimpleStringProperty("Salut Aventurier !");
+        this.x = new SimpleIntegerProperty(1410);
+        this.y = new SimpleIntegerProperty(100);
+        this.Dialogue = new SimpleStringProperty("Je vois que vous voulez tuer le Cleric beast. Mais malheureusement il vous faut un objet qui augmente vos points de défense. ");
     }
     public int getX() {
         return x.getValue();

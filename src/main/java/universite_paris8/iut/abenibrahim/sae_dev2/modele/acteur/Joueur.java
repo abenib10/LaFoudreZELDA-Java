@@ -8,6 +8,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Direction;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
@@ -161,14 +162,17 @@ public class Joueur extends Acteur {
 
     public void lancerProjectile() {
         if (armeEquipee != null) {
-            int projectileX = getX();
-            int projectileY = getY();
-            int vitesseProjectile = 10; // Ajustez selon vos besoins
-            int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
+            if(armeEquipee instanceof ArmeDistance){
+                int projectileX = getX();
+                int projectileY = getY();
+                int vitesseProjectile = 10; // Ajustez selon vos besoins
+                int degatProjectile = armeEquipee.getPointAttaque(); // Dégâts égaux à ceux de l'arme équipée
 
-            Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
-            projectiles.add(projectile);
-            System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+                Projectile projectile = new Projectile(projectileX, projectileY, lastDirection, vitesseProjectile, degatProjectile);
+                projectiles.add(projectile);
+                System.out.println("Projectile lancé à : " + projectileX + ", " + projectileY + " en direction " + lastDirection);
+            }
+
         }
     }
 
@@ -188,5 +192,9 @@ public class Joueur extends Acteur {
 
     public Direction getLastDirection() {
         return lastDirection;
+    }
+
+    public int getPointDef() {
+        return this.pointDef;
     }
 }

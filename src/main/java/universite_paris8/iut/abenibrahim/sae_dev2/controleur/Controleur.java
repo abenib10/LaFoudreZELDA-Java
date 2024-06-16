@@ -17,6 +17,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.EnnemiProjectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
@@ -61,6 +62,7 @@ public class Controleur implements Initializable {
     private Label nbSoin;
     private GameOverVue gameOverVue;
     private List<Circle> projectilesSprites = new ArrayList<>();
+    private List<Circle>enemyProjectilesSprites  = new ArrayList<>();
     private ProjectileVue projectileVue;
     private PRojectileVueEnnemie pRojectileVueEnnemie;
     private PnjVue pnjVue;
@@ -92,6 +94,7 @@ public class Controleur implements Initializable {
     private SoinVue soinvue;
     private DialogueVue dialogueVue;
     private objetDefVue objetDefVue;
+    private EnnemieProjectilesVue ennemieProjectilesVue;
     @FXML
     private Label dialogueBox;
     @FXML
@@ -152,6 +155,9 @@ public class Controleur implements Initializable {
         this.ennemiVue.creerSpriteEnnemi();
         this.ennemiVue.initialiserEnnemi(ennemiSprite, paneMap);
         this.pnjVue = new PnjVue(paneMap,environnement.getPnj().getXproperty(),environnement.getPnj().getYproperty());
+        this.ennemieProjectilesVue = new EnnemieProjectilesVue(paneMap,environnement.getEnnemiProjectile().XProprety(),environnement.getEnnemiProjectile().YProprety());
+        ennemieProjectilesVue.creerSpritePnj();
+        ennemieProjectilesVue.initialiserEnnemieProjectiles(ennemieProjectilesVue.getEnnemieSpriteView(),paneMap);
         pnjVue.creerSpritePnj();
         pnjVue.initialiserPnj(pnjVue.getPnjSpriteView(),paneMap);
         this.animationTimer = new AnimatedEnnemiSprite(EnnemiVue.framesDroite, ennemiSprite);
@@ -171,6 +177,7 @@ public class Controleur implements Initializable {
         gameOverVue.getImageView().setVisible(false);
 
         this.projectilesSprites = new ArrayList<>();
+        this.enemyProjectilesSprites = new ArrayList<>();
 
 
         this.inventaireVue.afficherArmes();
@@ -191,7 +198,7 @@ public class Controleur implements Initializable {
                     } else {
                         this.environnement.unTour();
                         this.projectileVue.updateProjectiles(environnement.getGuts().getProjectiles(), environnement.getEnnemi(), projectilesSprites, this.paneMap);
-                        this.pRojectileVueEnnemie.updateProjectiles(environnement.getEnnemiProjectile().getProjectileList(),environnement.getGuts(), projectilesSprites, this.paneMap);
+                        this.pRojectileVueEnnemie.updateProjectiles(environnement.getEnnemiProjectile().getProjectileList(),environnement.getGuts(),enemyProjectilesSprites , this.paneMap);
                         this.environnement.getEnnemiProjectile().attaquer();
                         System.out.println("PV JOUEUR : " + environnement.getGuts().getPv());
                         System.out.println("PV ENNEMI : " + environnement.getEnnemi().getPv());

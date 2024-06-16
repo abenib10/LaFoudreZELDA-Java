@@ -1,5 +1,6 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.controleur;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,6 +34,8 @@ public class ControleurMenu {
 
     @FXML
     private Button continuerButton;
+    @FXML
+    private Button toucheButton;
 
     private ControleurToucheMenu controleurToucheMenu;
 
@@ -158,5 +161,14 @@ public class ControleurMenu {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void handleAideButton(ActionEvent actionEvent)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/touche.fxml"));
+        Parent root = loader.load();
+        Stage aideStage = new Stage();
+        aideStage.setTitle("Aide");
+        aideStage.setScene(new Scene(root));
+        aideStage.show();
     }
 }

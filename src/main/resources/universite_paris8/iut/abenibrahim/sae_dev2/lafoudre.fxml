@@ -34,7 +34,7 @@
             <Font name="Ani" size="30.0" />
         </font>
     </Label>
-    <Label fx:id="dialogueBox" layoutX="200" layoutY="200" prefHeight="100" prefWidth="300" visible="false" style="-fx-background-color: white; -fx-border-color: black;">
+    <Label fx:id="dialogueBox" layoutX="200" layoutY="200" prefHeight="100" prefWidth="300" visible="false" style="-fx-background-color: white; -fx-border-color: black;"  wrapText="true">
         <font>
             <Font size="14.0" />
         </font>

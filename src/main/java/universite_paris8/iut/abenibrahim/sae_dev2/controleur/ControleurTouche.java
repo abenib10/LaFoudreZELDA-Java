@@ -109,6 +109,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                 this.joueur.seDeplace(direction);
                 ct.ajusterCameraSuiviJoueur();
                 mapVue.updatePlayerPosition(joueur.getX(), joueur.getY());
+                System.out.println(joueur.getX() + " " + joueur.getY());
             }
     }
     public void Actualiser(Controleur c){
