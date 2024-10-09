@@ -5,11 +5,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Joueur;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 
 public class ControleurTouche implements EventHandler<KeyEvent> {
     private final AnimatedSprite animatedSprite;
@@ -66,7 +66,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
             case R -> {
                 Arme ramassee = this.joueur.ramasserarme();
                 Soin soin = this.joueur.ramasserSoin();
-                objetDefense objetDefense = this.joueur.ramasserObjetDefense();
+                ObjetDefense objetDefense = this.joueur.ramasserObjetDefense();
                 if (ramassee != null && ct != null) {
                     inventaireVue.supprimerArmeDeLaCarte(ramassee);
                 }

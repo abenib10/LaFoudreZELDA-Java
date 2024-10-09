@@ -3,7 +3,7 @@ package universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
 public class Ennemi extends Acteur {
     private Arme epée;

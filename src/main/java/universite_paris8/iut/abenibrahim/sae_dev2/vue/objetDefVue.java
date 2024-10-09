@@ -4,27 +4,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class objetDefVue {
-    private List<objetDefense> objetDefenses;
+    private List<ObjetDefense> objetDefenses;
     private List<ImageView> defenseImage;
     private Pane paneMap;
     private Environnement environnement;
-    private objetDefense objetDefense;
+    private ObjetDefense objetDefense;
     public objetDefVue(Environnement environnement, Pane paneMap) {
         this.environnement = environnement;
         this.paneMap = paneMap;
         this.objetDefenses = new ArrayList<>();
         this.defenseImage = new ArrayList<>();
-        this.objetDefense = new objetDefense();
+        this.objetDefense = new ObjetDefense();
 
     }
     public void ajouterObjetDefenseDansMap() {
-        for(objetDefense objetDefense : environnement.getObjetDefenseList()) {
+        for(ObjetDefense objetDefense : environnement.getObjetDefenseList()) {
             Image image = objetDefense.getImage();
             ImageView imageView = new ImageView(image);
             paneMap.getChildren().add(imageView);
@@ -34,7 +34,7 @@ public class objetDefVue {
             defenseImage.add(imageView);
         }
     }
-    public void supprimerObjetDefDeLaCarte(objetDefense objetDefense) {
+    public void supprimerObjetDefDeLaCarte(ObjetDefense objetDefense) {
         int index = objetDefenses.indexOf(objetDefense);
         if (index >= 0) {
             ImageView imageView = defenseImage.get(index);
@@ -44,7 +44,7 @@ public class objetDefVue {
         }
     }
 
-    public void ajouterObjetDefenseEnv(objetDefense objetDefense) {
+    public void ajouterObjetDefenseEnv(ObjetDefense objetDefense) {
         this.environnement.getObjetDefenseList().add(objetDefense);
     }
     public void afficherSoinMap(){

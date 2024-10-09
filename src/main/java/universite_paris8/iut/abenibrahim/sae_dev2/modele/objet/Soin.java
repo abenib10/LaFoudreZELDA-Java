@@ -1,6 +1,7 @@
-package universite_paris8.iut.abenibrahim.sae_dev2.objet;
+package universite_paris8.iut.abenibrahim.sae_dev2.modele.objet;
 
 import javafx.scene.image.Image;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.ImageObjet;
 
 public class Soin {
     private int x;
@@ -8,10 +9,10 @@ public class Soin {
     private int pointPvDonner;
     private Image image;
     public Soin() {
-        this.x = 150;
-        this.y = 150;
-        this.image = new Image(getClass().getResource("/universite_paris8/iut/abenibrahim/sae_dev2/items.png").toString());
-        this.pointPvDonner = 25;
+        this.x = Constante.POSITION_X_SOIN;
+        this.y = Constante.POSITION_Y_SOIN;
+        this.image = ImageObjet.IMAGE_SOIN;
+        this.pointPvDonner = Constante.PV_DONNER_AVEC_SOIN;
     }
     public int getX() {
         return x;

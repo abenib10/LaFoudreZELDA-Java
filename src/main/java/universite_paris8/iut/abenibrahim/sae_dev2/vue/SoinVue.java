@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 
 
 import java.util.ArrayList;

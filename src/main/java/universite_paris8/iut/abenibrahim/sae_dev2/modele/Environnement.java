@@ -1,11 +1,11 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.modele;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.*;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class Environnement {
     private ObservableList<Acteur> acteurs;
     private Joueur guts;
     private Ennemi ennemi;
-    private List<objetDefense> objetDefenseList;
+    private List<ObjetDefense> objetDefenseList;
 
     public Environnement() {
         this.map = new Map();
@@ -51,7 +51,7 @@ public class Environnement {
     public ArrayList<Soin> getSoinMap() {
         return soinMap;
     }
-    public List<objetDefense> getObjetDefenseList() {
+    public List<ObjetDefense> getObjetDefenseList() {
         return objetDefenseList;
     }
 

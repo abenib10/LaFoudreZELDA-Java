@@ -184,7 +184,7 @@ public class Controleur implements Initializable {
         this.enemyProjectilesSprites = new ArrayList<>();
 
 
-        this.inventaireVue.afficherArmes();
+         /////
         this.soinvue.ajouterSoinMap();
         this.objetDefVue.ajouterObjetDefenseDansMap();
 

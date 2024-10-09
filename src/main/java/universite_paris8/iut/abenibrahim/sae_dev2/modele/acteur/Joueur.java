@@ -9,10 +9,9 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.InventaireObjets;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Arme;
-import universite_paris8.iut.abenibrahim.sae_dev2.objet.Soin;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.objetDefense;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 
 public class Joueur extends Acteur {
 
@@ -110,12 +109,12 @@ public class Joueur extends Acteur {
         }
         return null;
     }
-    public objetDefense ramasserObjetDefense(){
+    public ObjetDefense ramasserObjetDefense(){
         int postionJoueurX, positionJoueurY, positionObjetDefenseX;
         int distanceRamassage = 40;
         postionJoueurX = getX();
         positionJoueurY = getY();
-        for (objetDefense objetDefense : environnement.getObjetDefenseList()){
+        for (ObjetDefense objetDefense : environnement.getObjetDefenseList()){
             positionObjetDefenseX = objetDefense.getX();
             positionJoueurY = objetDefense.getY();
             int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
