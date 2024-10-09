@@ -73,20 +73,6 @@ public class InventaireVue{
         this.environnement.getArmeMap().add(arme);
     }
 
-    public void afficherArmes() {
-        for (Arme arme : this.environnement.getArmeMap()) {
-            Image image = arme.getImage(); // Obtenir l'image de l'arme
-            ImageView imageView = new ImageView(image); // Créer l'ImageView avec l'image
-            paneMap.getChildren().add(imageView); // Ajouter l'ImageView au PaneMap
-            imageView.setTranslateX(arme.getX()); // Ajuster la position X
-            imageView.setTranslateY(arme.getY()); // Ajuster la position Y
-            armes.add(arme);
-            armeImages.add(imageView);
-        }
-    }
-
-
-
     public void  afficherInventaire() {
 
         inventairePane.setVisible(true);

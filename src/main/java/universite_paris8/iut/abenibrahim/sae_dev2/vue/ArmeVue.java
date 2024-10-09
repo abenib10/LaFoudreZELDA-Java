@@ -13,6 +13,8 @@ import java.util.List;
 public class ArmeVue {
     private final Arme arme;
     private final ImageView imageView;
+    private List<Arme> armes = new ArrayList<>();
+    private List<ImageView> armeImages = new ArrayList<>();
 
     public ArmeVue(Pane paneMap,Arme arme) {
         this.arme = arme;
@@ -25,6 +27,13 @@ public class ArmeVue {
         // Mettez à jour la position de l'image ici en fonction de la position de l'arme
         imageView.setTranslateX(Constante.POSITION_X_ARME); // Ajustez cela si vous ajoutez une méthode getX() dans Arme
         imageView.setTranslateY(Constante.POSITION_Y_ARME); // Ajustez cela si vous ajoutez une méthode getY() dans Arme
+    }
+
+    public void supprimerArme() {
+        // Supprime l'ImageView de la carte
+        if (imageView.getParent() != null) {
+            ((Pane) imageView.getParent()).getChildren().remove(imageView);
+        }
     }
 
     public ImageView getImageView() {
