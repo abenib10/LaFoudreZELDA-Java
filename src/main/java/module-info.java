@@ -1,4 +1,4 @@
-module universite_paris8.iut.abenibrahim.sae_dev2 {
+module universite_paris.iut.abenibrahim.sae_dev {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.controlsfx.controls;

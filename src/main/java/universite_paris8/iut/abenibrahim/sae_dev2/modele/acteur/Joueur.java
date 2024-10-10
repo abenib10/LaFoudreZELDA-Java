@@ -70,12 +70,15 @@ public class Joueur extends Acteur {
         this.listeArme.add(arme);
     }
 
-    public Arme ramasserarme(){
+    public Arme ramasserarme() {
         int positionJoueurX = getX();
         int positionJoueurY = getY();
         int distanceRamassage = 40;
 
         List<ArmeVue> armeVues = new ArrayList<>(environnement.getArmeVues()); // Supposons que cette méthode existe
+
+        // Débogage : afficher la position du joueur
+        System.out.println("Position du joueur: (" + positionJoueurX + ", " + positionJoueurY + ")");
 
         for (ArmeVue armeVue : armeVues) {
             int positionArmeX = (int) armeVue.getImageView().getTranslateX();
@@ -85,15 +88,23 @@ public class Joueur extends Acteur {
             int distanceY = Math.abs(positionJoueurY - positionArmeY);
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
+            // Débogage : afficher la distance entre le joueur et l'arme
+            System.out.println("Distance à l'arme: " + distance + " (X: " + positionArmeX + ", Y: " + positionArmeY + ")");
+
             if (distance <= distanceRamassage) {
                 Arme arme = armeVue.getArme();
                 ajouterArme(new InventaireObjets(armeVue.getImageView(), arme));
-                environnement.supprimerArmeVue(armeVue); // Supposons que cette méthode existe
+                environnement.supprimerArmeVue(armeVue);
+                // Débogage : afficher l'arme ramassée
+                System.out.println("Arme ramassée: " + arme.getNom());
                 return arme;
             }
         }
+        // Débogage : aucun arme ramassée
+        System.out.println("Aucune arme à ramasser.");
         return null;
     }
+
 
     public Soin ramasserSoin(){
         int postionJoueurX, positionJoueurY, positionSoinX, positionSoinY;

@@ -19,6 +19,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.EnnemiProjectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
@@ -97,6 +98,7 @@ public class Controleur implements Initializable {
     private DialogueVue dialogueVue;
     private objetDefVue objetDefVue;
     private EnnemieProjectilesVue ennemieProjectilesVue;
+    private ArmeVue armeVue;
     @FXML
     private Label dialogueBox;
     @FXML
@@ -146,11 +148,12 @@ public class Controleur implements Initializable {
 
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
-        this.inventaireVue.afficherArmes();
         this.dialogueVue = new DialogueVue(dialogueBox,environnement,dialogueBox2);
         this.objetDefVue = new objetDefVue(environnement,paneMap);
         this.objetDefVue.afficherSoinMap();
-        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue);
+        this.armeVue = new ArmeVue(paneMap,new Epée());
+        environnement.getArmeVues().add(armeVue);
+        this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue,armeVue);
 
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
         joueurVue.creerSpriteJoueur(this);
@@ -183,11 +186,6 @@ public class Controleur implements Initializable {
 
         this.projectilesSprites = new ArrayList<>();
         this.enemyProjectilesSprites = new ArrayList<>();
-
-        for (Arme arme : environnement.getArmeMap()) {
-            ArmeVue armeVue = new ArmeVue(paneMap,arme);
-        }
-
         this.soinvue.ajouterSoinMap();
         this.objetDefVue.ajouterObjetDefenseDansMap();
 

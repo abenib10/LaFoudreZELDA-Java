@@ -46,8 +46,8 @@ public class ControleurMenu {
     public void initialize() {
 
         controleurToucheMenu = new ControleurToucheMenu(this);
-        String audioFile = "src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/son.mp3";
-        String audio = "src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/son2.mp3";// Chemin relatif vers le fichier audio
+        String audioFile = "/universite_paris8/iut/abenibrahim/sae_dev2/son.mp3";
+        String audio = "/universite_paris8/iut/abenibrahim/sae_dev2/son2.mp3";// Chemin relatif vers le fichier audio
         String absolutePath = Paths.get(audioFile).toAbsolutePath().toUri().toString();
         String absolutePath2 = Paths.get(audio).toAbsolutePath().toUri().toString();
         Media media = new Media(absolutePath);
@@ -67,9 +67,7 @@ public class ControleurMenu {
             mediaPlayer.stop();
         }
         vbox.setVisible(false);
-
-
-        String videoFile = "src/main/resources/universite_paris8/iut/abenibrahim/sae_dev2/video1.mp4";
+        String videoFile = "/universite_paris8/iut/abenibrahim/sae_dev2/video1.mp4";
         String videoPath = Paths.get(videoFile).toAbsolutePath().toUri().toString();
         Media videoMedia = new Media(videoPath);
         videoMediaPlayer = new MediaPlayer(videoMedia);

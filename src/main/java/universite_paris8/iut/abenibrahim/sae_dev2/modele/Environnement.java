@@ -40,6 +40,7 @@ public class Environnement {
         this.armeMap = new ArrayList<>();
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();
+        this.armeVues = new ArrayList<>();
         this.ennemiProjectileList = new ArrayList<>();
         this.objetDefenseList = new ArrayList<>();
         initialiserPnj();

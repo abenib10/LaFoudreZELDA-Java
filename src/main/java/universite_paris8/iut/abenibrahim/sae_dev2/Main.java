@@ -19,8 +19,8 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),750,750);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("lafoudre.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1500,1500);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Pane root = (Pane) scene.getRoot();
         root.requestFocus();
