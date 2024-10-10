@@ -12,6 +12,10 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.ArmeVue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Joueur extends Acteur {
 
@@ -67,22 +71,24 @@ public class Joueur extends Acteur {
     }
 
     public Arme ramasserarme(){
-        int postionJoueurX, positionJoueurY, positionArmeX, positionArmeY;
-
+        int positionJoueurX = getX();
+        int positionJoueurY = getY();
         int distanceRamassage = 40;
-        postionJoueurX = getX();
-        positionJoueurY = getY();
-        for (Arme arme : environnement.getArmeMap()) {
-            positionArmeX = arme.getX();
-            positionArmeY = arme.getY();
 
-            int distanceX = Math.abs(postionJoueurX - positionArmeX);
+        List<ArmeVue> armeVues = new ArrayList<>(environnement.getArmeVues()); // Supposons que cette méthode existe
+
+        for (ArmeVue armeVue : armeVues) {
+            int positionArmeX = (int) armeVue.getImageView().getTranslateX();
+            int positionArmeY = (int) armeVue.getImageView().getTranslateY();
+
+            int distanceX = Math.abs(positionJoueurX - positionArmeX);
             int distanceY = Math.abs(positionJoueurY - positionArmeY);
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
             if (distance <= distanceRamassage) {
-                ajouterArme(new InventaireObjets(arme.getImage(), arme));
-                environnement.getArmeMap().remove(arme);
+                Arme arme = armeVue.getArme();
+                ajouterArme(new InventaireObjets(armeVue.getImageView(), arme));
+                environnement.supprimerArmeVue(armeVue); // Supposons que cette méthode existe
                 return arme;
             }
         }
