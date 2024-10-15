@@ -75,7 +75,8 @@ public class Joueur extends Acteur {
         int positionJoueurY = getY();
         int distanceRamassage = 40;
 
-        List<ArmeVue> armeVues = new ArrayList<>(environnement.getArmeVues()); // Supposons que cette méthode existe
+        List<ArmeVue> armeVues = this.environnement.getArmeVues();
+        System.out.println("taille de la liste " + armeVues.size());
 
         // Débogage : afficher la position du joueur
         System.out.println("Position du joueur: (" + positionJoueurX + ", " + positionJoueurY + ")");

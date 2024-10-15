@@ -120,7 +120,7 @@ public class Controleur implements Initializable {
         } else {
             this.environnement = env;
         }
-
+        initialiserArmes();
         this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(),environnement.getMap().getTab3(), tilePaneMap, premierPlanMap,tilePaneMap2);
         this.mapVue.remplirMap();
 
@@ -151,8 +151,6 @@ public class Controleur implements Initializable {
         this.dialogueVue = new DialogueVue(dialogueBox,environnement,dialogueBox2);
         this.objetDefVue = new objetDefVue(environnement,paneMap);
         this.objetDefVue.afficherSoinMap();
-        this.armeVue = new ArmeVue(paneMap,new Epée());
-        environnement.getArmeVues().add(armeVue);
         this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue,armeVue);
 
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
@@ -253,5 +251,10 @@ public class Controleur implements Initializable {
     public ImageView getGutsSprite() {
         return gutsSprite;
     }
+    public void initialiserArmes() {
+        ArmeVue armeVue = new ArmeVue(paneMap, new Epée());
+        environnement.getArmeVues().add(armeVue);
+    }
+
 
 }

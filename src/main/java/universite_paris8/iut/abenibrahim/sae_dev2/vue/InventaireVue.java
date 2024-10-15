@@ -1,12 +1,15 @@
 package universite_paris8.iut.abenibrahim.sae_dev2.vue;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.*;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ArmeDistance;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
@@ -76,11 +79,16 @@ public class InventaireVue{
         this.environnement.getArmeMap().add(arme);
     }
 
-    public void  afficherInventaire() {
-
+    public void afficherInventaire() {
         inventairePane.setVisible(true);
         inventairePane.setLayoutX(this.environnement.getGuts().getX());
         inventairePane.setLayoutY(this.environnement.getGuts().getY());
+
+        slot1.setAlignment(Pos.CENTER); // Center items in slot1
+        slot1.setPadding(new Insets(10)); // Optional: adjust padding as needed
+        slot2.setAlignment(Pos.CENTER); // Center items in slot2
+        slot2.setPadding(new Insets(10)); // Optional: adjust padding as needed
+
         slot1.setLayoutX(this.environnement.getGuts().getX() + 50);
         slot1.setLayoutY(this.environnement.getGuts().getY() + 75);
         slot2.setLayoutY(this.environnement.getGuts().getY() + 75);
@@ -91,33 +99,30 @@ public class InventaireVue{
         phrase.setLayoutY(this.environnement.getGuts().getY() + 150);
         this.armeChoisie.setLayoutX(this.environnement.getGuts().getX() + 200);
         this.armeChoisie.setLayoutY(this.environnement.getGuts().getY() + 150);
-        clearSlots();
-        System.out.println("Taille de l'inventaire: " + environnement.getGuts().getListeArme().size());
-        // Boucle à travers la liste des armes dans l'inventaire du joueur
-        int indexSlot = 0;
-        for (InventaireObjets item : environnement.getGuts().getListeArme()) {
-            System.out.println("image");
-            ImageView imageView = item.getImage();
-            System.out.println(imageView.getImage().getUrl());// Crée une ImageView avec l'image de l'arme
-            imageView.setFitWidth(50); // Définit la largeur de l'ImageView à 50 pixels
-            imageView.setFitHeight(50); // Définit la hauteur de l'ImageView à 50 pixels
 
-            // Add click event handler
+        clearSlots();
+        int indexSlot = 0;
+
+        for (InventaireObjets item : environnement.getGuts().getListeArme()) {
+            ImageView imageView = item.getImage();
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+
+            // Center the ImageView within the slot
+            imageView.setPreserveRatio(true); // Keeps aspect ratio for better centering
+
+            // Click event handler for selecting an item
             imageView.setOnMouseClicked(event -> handleArmeSelection(item.getArme(), imageView));
 
-            if(indexSlot <= slots.size()){
+            if (indexSlot < slots.size()) {
                 slots.get(indexSlot).getChildren().add(imageView);
                 slots.get(indexSlot).setVisible(true);
                 indexSlot++;
             }
-
         }
 
-        for (ImageView imageView : armeImages){
-            imageView.setVisible(false);
-        }
-
-        paneMap.setVisible(true); // Masque le Pane contenant la carte du jeu
+        // Visibility settings for other UI components
+        paneMap.setVisible(true);
         gSprite.setVisible(false);
         tilePaneMap.setVisible(true);
         slot1.setVisible(true);
@@ -127,9 +132,8 @@ public class InventaireVue{
         phrase.setVisible(true);
         ennemiSprite.setVisible(false);
         premierPlanMap.setVisible(false);
-
-
     }
+
 
     private void handleArmeSelection(Arme arme, ImageView imageView) {
         if (selectedImageView != null) {

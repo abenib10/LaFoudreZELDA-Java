@@ -147,7 +147,7 @@ public class Environnement {
 
     }
     public List<ArmeVue> getArmeVues() {
-        return new ArrayList<>(armeVues); // Retourne une copie pour éviter la modification directe
+        return this.armeVues; // Retourne une copie pour éviter la modification directe
     }
     public void supprimerArmeVue(ArmeVue armeVue) {
         armeVues.remove(armeVue);

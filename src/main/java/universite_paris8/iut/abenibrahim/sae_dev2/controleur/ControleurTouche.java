@@ -69,7 +69,7 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                 Arme ramassee = this.joueur.ramasserarme();
                 Soin soin = this.joueur.ramasserSoin();
                 ObjetDefense objetDefense = this.joueur.ramasserObjetDefense();
-                if (ramassee != null && ct != null) {
+                if (ramassee != null && ct != null && armeVue != null) {
                     System.out.println("ramasseee");
                     this.armeVue.supprimerArmeDeLaCarte();
                 }
