@@ -105,28 +105,39 @@ public class Joueur extends Acteur {
         System.out.println("Aucune arme à ramasser.");
         return null;
     }
-    public ObjetDefense ramasserObjetDefense(){
-        int postionJoueurX, positionJoueurY, positionObjetDefenseX,positionObjetDefenseY;
-        int distanceRamassage = 40;
-        postionJoueurX = getX();
-        positionJoueurY = getY();
-        List<ObjetDefVue> objetDefVues = this.environnement.getObjetDefVues();
-        for (ObjetDefVue objetDefVue : objetDefVues){
-            positionObjetDefenseX = (int) objetDefVue.getImageView().getTranslateX();
-            positionObjetDefenseY = (int) objetDefVue.getImageView().getTranslateY();
+    public ObjetDefense ramasserObjetDefense() {
+        // Ajout d'un message pour confirmer l'appel
+        System.out.println("Appel de ramasserObjetDefense");
 
-            int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
+        int positionJoueurX = getX();
+        int positionJoueurY = getY();
+        List<ObjetDefVue> objetDefVues = this.environnement.getObjetDefVues();
+
+        for (ObjetDefVue objetDefVue : objetDefVues) {
+            int positionObjetDefenseX = objetDefVue.getObjetDef().getX();
+            int positionObjetDefenseY = objetDefVue.getObjetDef().getY();
+
+            int distanceX = Math.abs(positionJoueurX - positionObjetDefenseX);
             int distanceY = Math.abs(positionJoueurY - positionObjetDefenseY);
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            if (distance <= distanceRamassage) {
+
+            if (distance <= 40) {
                 int pointsDeDefense = objetDefVue.getObjetDef().getDefDonner();
-                this.setPointDef(pointsDeDefense);
-                ObjetDefense objetDefense = objetDefVue.getObjetDef();
+                System.out.println("Points de défense de l'objet : " + pointsDeDefense);
+
+                // Appel de setPointDef pour vérifier qu'il est bien invoqué
+                setPointDef(pointsDeDefense);
+                System.out.println("Points de défense après ramassage : " + this.getDefensePoints());
+
                 environnement.supprimerObjetDefVue(objetDefVue);
-                return objetDefense;
+                return objetDefVue.getObjetDef();
             }
         }
         return null;
+    }
+
+    private int getDefensePoints() {
+        return this.pointDef;
     }
 
 
