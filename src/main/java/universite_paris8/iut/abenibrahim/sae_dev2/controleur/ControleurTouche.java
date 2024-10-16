@@ -19,9 +19,9 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
     private Joueur joueur;
     private SoinVue soinVue;
     private MapVue mapVue;
-    private objetDefVue objetDefVue;
+    private ObjetDefVue objetDefVue;
     private ArmeVue armeVue;
-    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue,objetDefVue objetDefVue,ArmeVue armeVue) {
+    public ControleurTouche(Joueur joueur, ImageView v, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue, ObjetDefVue objetDefVue, ArmeVue armeVue) {
         this.animatedSprite = new AnimatedSprite(joueur.getX(), joueur.getY(), JoueurVue.framesDroite, 0);
         this.animatedSprite.setImageView(v);
         this.animatedSprite.setFrameActuel(0);
@@ -76,8 +76,8 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                 if (soin != null && ct != null) {
                     soinVue.supprimerSoinDeLaCarte(soin);
                 }
-                if (objetDefense != null && ct != null) {
-                    objetDefVue.supprimerObjetDefDeLaCarte(objetDefense);
+                if (objetDefense != null && ct != null && objetDefVue != null) {
+                    objetDefVue.supprimerObjetDefVue();
                 }
             }
             case P -> {

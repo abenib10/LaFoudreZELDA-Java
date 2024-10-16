@@ -6,6 +6,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ArmeVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.ObjetDefVue;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Environnement {
     private final int pvJoueur = Constants.pvJoueur;
     private final int pvEnnemi = Constants.pvEnnemi;
     private List<ArmeVue> armeVues;
+    private List<ObjetDefVue> objetDefVues;
 
     private final int x=Constants.positionX;
     private final int y =Constants.positionY;
@@ -41,8 +43,8 @@ public class Environnement {
         this.soinMap = new ArrayList<>();
         this.pnjList = new ArrayList<>();
         this.armeVues = new ArrayList<>();
+        this.objetDefVues = new ArrayList<>();
         this.ennemiProjectileList = new ArrayList<>();
-        this.objetDefenseList = new ArrayList<>();
         initialiserPnj();
         initialiserEnnemieProjectile();
         acteurs.add(guts);
@@ -154,4 +156,14 @@ public class Environnement {
         // Assurez-vous de supprimer également l'affichage graphique si nécessaire
         armeVue.supprimerArmeDeLaCarte();
     }
+
+    public List<ObjetDefVue> getObjetDefVues() {
+        return this.objetDefVues; // Retourne une copie pour éviter la modification directe
+    }
+    public void supprimerObjetDefVue(ObjetDefVue objetDefVue) {
+        objetDefVues.remove(objetDefVue);
+        objetDefVue.supprimerObjetDefVue();
+    }
+
+
 }

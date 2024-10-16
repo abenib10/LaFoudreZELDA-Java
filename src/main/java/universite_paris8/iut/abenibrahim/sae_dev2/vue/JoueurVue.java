@@ -17,7 +17,7 @@ public class JoueurVue {
     private SoinVue soinVue;
     private DialogueVue dialogueVue;
     private MapVue mapVue;
-    private objetDefVue objetDefVue;
+    private ObjetDefVue objetDefVue;
     private ArmeVue armeVue;
 
     public static String[] framesGauche;
@@ -27,7 +27,7 @@ public class JoueurVue {
 
 
 
-    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue,objetDefVue objetDefVue,ArmeVue armeVue) {
+    public JoueurVue(Joueur joueur, Pane paneMap, InventaireVue inventaireVue, SoinVue soinVue, DialogueVue dialogueVue, MapVue mapVue, ObjetDefVue objetDefVue, ArmeVue armeVue) {
         this.joueur = joueur;
         this.mapVue=mapVue;
         this.paneMap = paneMap;

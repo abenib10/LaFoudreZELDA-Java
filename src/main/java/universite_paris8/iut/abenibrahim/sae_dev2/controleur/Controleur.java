@@ -14,12 +14,9 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import universite_paris8.iut.abenibrahim.sae_dev2.Main;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.Environnement;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.Projectile;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.SaveData;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.Acteur;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.acteur.EnnemiProjectile;
-import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Epée;
+import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.*;
 
 import java.net.URL;
@@ -96,7 +93,7 @@ public class Controleur implements Initializable {
     private AnimatedEnnemiSprite animationTimer;
     private SoinVue soinvue;
     private DialogueVue dialogueVue;
-    private objetDefVue objetDefVue;
+    private ObjetDefVue objetDefVue;
     private EnnemieProjectilesVue ennemieProjectilesVue;
     private ArmeVue armeVue;
     @FXML
@@ -121,6 +118,7 @@ public class Controleur implements Initializable {
             this.environnement = env;
         }
         initialiserArmes();
+        initialiserObjetDefVue();
         this.mapVue = new MapVue(this.environnement.getMap().getTab(),this.environnement.getMap().getTab2(),environnement.getMap().getTab3(), tilePaneMap, premierPlanMap,tilePaneMap2);
         this.mapVue.remplirMap();
 
@@ -149,8 +147,6 @@ public class Controleur implements Initializable {
         slots = Arrays.asList(slot1, slot2);
         this.inventaireVue = new InventaireVue(this.paneMap, this.tilePaneMap, this.environnement, inventairePane, slot1, slot2, titre, armeChoisie, phrase, slots, gutsSprite, ennemiSprite,premierPlanMap);
         this.dialogueVue = new DialogueVue(dialogueBox,environnement,dialogueBox2);
-        this.objetDefVue = new objetDefVue(environnement,paneMap);
-        this.objetDefVue.afficherSoinMap();
         this.joueurVue = new JoueurVue(this.environnement.getGuts(), this.paneMap, inventaireVue, soinvue, dialogueVue, mapVue,objetDefVue,armeVue);
 
         this.joueurVue.initialiserGuts(gutsSprite, paneMap);
@@ -185,7 +181,7 @@ public class Controleur implements Initializable {
         this.projectilesSprites = new ArrayList<>();
         this.enemyProjectilesSprites = new ArrayList<>();
         this.soinvue.ajouterSoinMap();
-        this.objetDefVue.ajouterObjetDefenseDansMap();
+
 
     }
 
@@ -254,6 +250,10 @@ public class Controleur implements Initializable {
     public void initialiserArmes() {
         ArmeVue armeVue = new ArmeVue(paneMap, new Epée());
         environnement.getArmeVues().add(armeVue);
+    }
+    public void initialiserObjetDefVue() {
+        ObjetDefVue objetDefVue= new ObjetDefVue(paneMap);
+        environnement.getObjetDefVues().add(objetDefVue);
     }
 
 

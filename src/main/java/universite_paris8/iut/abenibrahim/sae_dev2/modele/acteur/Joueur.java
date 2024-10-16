@@ -13,8 +13,8 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.ObjetDefense;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ArmeVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.ObjetDefVue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Joueur extends Acteur {
@@ -105,6 +105,29 @@ public class Joueur extends Acteur {
         System.out.println("Aucune arme à ramasser.");
         return null;
     }
+    public ObjetDefense ramasserObjetDefense(){
+        int postionJoueurX, positionJoueurY, positionObjetDefenseX,positionObjetDefenseY;
+        int distanceRamassage = 40;
+        postionJoueurX = getX();
+        positionJoueurY = getY();
+        List<ObjetDefVue> objetDefVues = this.environnement.getObjetDefVues();
+        for (ObjetDefVue objetDefVue : objetDefVues){
+            positionObjetDefenseX = (int) objetDefVue.getImageView().getTranslateX();
+            positionObjetDefenseY = (int) objetDefVue.getImageView().getTranslateY();
+
+            int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
+            int distanceY = Math.abs(positionJoueurY - positionObjetDefenseY);
+            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            if (distance <= distanceRamassage) {
+                int pointsDeDefense = objetDefVue.getObjetDef().getDefDonner();
+                this.setPointDef(pointsDeDefense);
+                ObjetDefense objetDefense = objetDefVue.getObjetDef();
+                environnement.supprimerObjetDefVue(objetDefVue);
+                return objetDefense;
+            }
+        }
+        return null;
+    }
 
 
     public Soin ramasserSoin(){
@@ -127,25 +150,7 @@ public class Joueur extends Acteur {
         }
         return null;
     }
-    public ObjetDefense ramasserObjetDefense(){
-        int postionJoueurX, positionJoueurY, positionObjetDefenseX;
-        int distanceRamassage = 40;
-        postionJoueurX = getX();
-        positionJoueurY = getY();
-        for (ObjetDefense objetDefense : environnement.getObjetDefenseList()){
-            positionObjetDefenseX = objetDefense.getX();
-            positionJoueurY = objetDefense.getY();
-            int distanceX = Math.abs(postionJoueurX - positionObjetDefenseX);
-            int distanceY = Math.abs(positionJoueurY - objetDefense.getY());
-            double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            if (distance <= distanceRamassage) {
-                this.setPointDef(objetDefense.getDefDonner());
-                environnement.getObjetDefenseList().remove(objetDefense);
-                return objetDefense;
-            }
-        }
-        return null;
-    }
+
 
     public ObservableList<InventaireObjets> getListeArme() {
         return listeArme;
