@@ -7,11 +7,10 @@ public class Soin {
     private int x;
     private int y;
     private int pointPvDonner;
-    private Image image;
+
     public Soin() {
         this.x = Constante.POSITION_X_SOIN;
         this.y = Constante.POSITION_Y_SOIN;
-        this.image = ImageObjet.IMAGE_SOIN;
         this.pointPvDonner = Constante.PV_DONNER_AVEC_SOIN;
     }
     public int getX() {
@@ -26,18 +25,7 @@ public class Soin {
     public void setY(int y) {
         this.y = y;
     }
-    public int getPointPvDonner() {
-        return pointPvDonner;
-    }
-    public void setPointPvDonner(int pointPvDonner) {
-        this.pointPvDonner = pointPvDonner;
-    }
-    public void setImage(Image image) {
-        this.image = image;
-    }
-    public Image getImage() {
-        return image;
-    }
+
 
 
 }

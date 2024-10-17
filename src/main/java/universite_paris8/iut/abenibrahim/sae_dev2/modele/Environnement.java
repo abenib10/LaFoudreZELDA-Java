@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ArmeVue;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ObjetDefVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.SoinVue;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Environnement {
     private final int pvEnnemi = Constants.pvEnnemi;
     private List<ArmeVue> armeVues;
     private List<ObjetDefVue> objetDefVues;
+    private List<SoinVue> soinVues;
 
     private final int x=Constants.positionX;
     private final int y =Constants.positionY;
@@ -44,6 +46,7 @@ public class Environnement {
         this.pnjList = new ArrayList<>();
         this.armeVues = new ArrayList<>();
         this.objetDefVues = new ArrayList<>();
+        this.soinVues = new ArrayList<>();
         this.ennemiProjectileList = new ArrayList<>();
         initialiserPnj();
         initialiserEnnemieProjectile();
@@ -53,6 +56,10 @@ public class Environnement {
 
     public ArrayList<Arme> getArmeMap() {
         return armeMap;
+    }
+
+    public List<SoinVue> getSoinVues() {
+        return soinVues;
     }
 
     public ArrayList<Soin> getSoinMap() {
@@ -164,6 +171,11 @@ public class Environnement {
         objetDefVues.remove(objetDefVue);
         objetDefVue.supprimerObjetDefVue();
     }
+    public void supprimerSoinVue(SoinVue soinVue) {
+        soinVues.remove(soinVue);
+        soinVue.supprimerSoinVue();
+    }
+
 
 
 }

@@ -14,6 +14,7 @@ import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Arme;
 import universite_paris8.iut.abenibrahim.sae_dev2.modele.objet.Soin;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ArmeVue;
 import universite_paris8.iut.abenibrahim.sae_dev2.vue.ObjetDefVue;
+import universite_paris8.iut.abenibrahim.sae_dev2.vue.SoinVue;
 
 import java.util.List;
 
@@ -146,17 +147,18 @@ public class Joueur extends Acteur {
         int distanceRamassage = 40;
         postionJoueurX = getX();
         positionJoueurY = getY();
-        for (Soin soin : environnement.getSoinMap()) {
-            positionSoinX = soin.getX();
-            positionSoinY = soin.getY();
+        List<SoinVue> soinVues = this.environnement.getSoinVues();
+        for (SoinVue soinVue : soinVues) {
+            positionSoinX = soinVue.getSoin().getX();
+            positionSoinY = soinVue.getSoin().getY();
 
             int distanceX = Math.abs(postionJoueurX - positionSoinX);
             int distanceY = Math.abs(positionJoueurY - positionSoinY);
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             if (distance <= distanceRamassage) {
                 this.nbSoin.setValue(this.nbSoin.getValue() + 1);
-                environnement.getSoinMap().remove(soin);
-                return soin;
+                environnement.supprimerSoinVue(soinVue);
+                return soinVue.getSoin();
             }
         }
         return null;

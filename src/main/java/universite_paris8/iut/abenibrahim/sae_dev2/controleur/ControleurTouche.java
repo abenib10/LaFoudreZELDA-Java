@@ -73,8 +73,8 @@ public class ControleurTouche implements EventHandler<KeyEvent> {
                     System.out.println("ramasseee");
                     this.armeVue.supprimerArmeDeLaCarte();
                 }
-                if (soin != null && ct != null) {
-                    soinVue.supprimerSoinDeLaCarte(soin);
+                if (soin != null && ct != null && soinVue != null) {
+                    soinVue.supprimerSoinVue();
                 }
                 if (objetDefense != null && ct != null && objetDefVue != null) {
                     objetDefVue.supprimerObjetDefVue();
